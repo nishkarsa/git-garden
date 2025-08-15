@@ -1,0 +1,94 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #4CAF50;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+.intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: rgba(255,255,255,0.05);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 300px;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
+/* Glow Effect */
+.glow {
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+}
