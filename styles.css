@@ -5,24 +5,120 @@
     box-sizing: border-box;
 }
 
-body {
+body 
+{
     font-family: Arial, sans-serif;
     background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
     color: white;
 }
 
 /* Navbar */
-.navbar {
+.navbar 
+{
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.nav-container 
+{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 3rem;
-    background-color: rgba(0,0,0,0.8);
 }
 
-.logo {
-    font-size: 1.4rem;
+.logo 
+{
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logo:hover 
+{
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(6, 255, 165, 0.8);
+}
+
+.logo i 
+{
+    color: #06ffa5;
+    font-size: 2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse 
+{
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.nav-menu 
+{
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-menu a 
+{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+}
+
+.nav-menu a:hover 
+{
+    color: #06ffa5;
+    background: rgba(6, 255, 165, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(6, 255, 165, 0.3);
+}
+
+.hamburger 
+{
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger span 
+{
+    width: 25px;
+    height: 3px;
+    background: #06ffa5;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
 }
 
 nav ul {
@@ -67,7 +163,7 @@ nav ul li a:hover {
 }
 
 .card {
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255, 255, 255, 0.05);
     padding: 2rem;
     border-radius: 12px;
     width: 300px;
