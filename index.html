@@ -62,6 +62,40 @@
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(20px);
+                /* Levels Section */
+        .levels {
+            padding: 8rem 0;
+            background: rgba(0, 0, 0, 0.9);
+            position: relative;
+        }
+
+        .levels h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff006e, #06ffa5, #3a86ff);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        .level-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            perspective: 1000px;
+        }
+
+        .level-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             position: relative;
@@ -76,6 +110,18 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(45deg, rgba(255, 0, 110, 0.1), rgba(6, 255, 165, 0.1));
+            transform-style: preserve-3d;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(6, 255, 165, 0.3), transparent 30%);
+            animation: rotate 4s linear infinite;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -115,6 +161,80 @@
             color: rgba(255, 255, 255, 0.7);
             position: relative;
             z-index: 1;
+        .level-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .level-card:hover {
+            transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(6, 255, 165, 0.4);
+        }
+
+        .level-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .level-card:hover .level-icon {
+            transform: scale(1.2) rotateY(360deg);
+        }
+
+        .level-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .level-card p {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .level-button {
+            background: linear-gradient(45deg, #ff006e, #06ffa5);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .level-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .level-button:hover::before {
+            left: 100%;
+        }
+
+        .level-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 0, 110, 0.5);
         }
     </style>
 </head>
@@ -142,22 +262,29 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <p class="intro">
-            Transform the mystical art of version control into an electrifying gaming experience.<br>
-            Whether you're a coding newbie or a seasoned developer, GitGarden's immersive challenges will supercharge your Git mastery with style.
-        </p>
-
-        <div class="cards">
-            <div class="card">
-                <h3>Epic Gamified Quests</h3>
-                <p>Embark on thrilling challenges, unlock achievements, and level up with every command you master.</p>
-            </div>
-
-            <div class="card glow">
-                <h3>Interactive Playground</h3>
-                <p>Practice in our cutting-edge sandbox environment with real-time feedback and instant validation.</p>
+    <!-- Levels Section -->
+    <section class="levels" id="levels">
+        <div class="container">
+            <h2>🎯 Choose Your Path</h2>
+            <div class="level-cards">
+                <div class="level-card">
+                    <div class="level-icon"></div>
+                    <h3>Seedling Explorer</h3>
+                    <p>Begin your legendary journey with foundational commands like init, add, and commit. Perfect for brave beginners ready to grow!</p>
+                    <button class="level-button">Start Adventure</button>
+                </div>
+                <div class="level-card">
+                    <div class="level-icon"></div>
+                    <h3>Branch Guardian</h3>
+                    <p>Master the ancient arts of branching, merging, and collaboration. Spread your influence and command team workflows!</p>
+                    <button class="level-button">Ascend Higher</button>
+                </div>
+                <div class="level-card">
+                    <div class="level-icon"></div>
+                    <h3>Git Wizard</h3>
+                    <p>Unlock ultimate power with advanced workflows, rebasing mastery, and complex scenario domination. Become the legend!</p>
+                    <button class="level-button">Claim Mastery</button>
+                </div>
             </div>
         </div>
     </section>
