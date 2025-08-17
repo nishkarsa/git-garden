@@ -5,6 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Git Garden</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+                /* Introduction Section */
+        .intro {
+            padding: 8rem 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .intro-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro h2 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(6, 255, 165, 0.5); }
+            to { text-shadow: 0 0 30px rgba(6, 255, 165, 0.8), 0 0 40px rgba(6, 255, 165, 0.4); }
+        }
+
+        .intro p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 4rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 0, 110, 0.1), rgba(6, 255, 165, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature:hover::before {
+            opacity: 1;
+        }
+
+        .feature:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(6, 255, 165, 0.3);
+        }
+
+        .feature i {
+            font-size: 4rem;
+            color: #06ffa5;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature:hover i {
+            transform: rotateY(360deg) scale(1.2);
+            color: #ff006e;
+        }
+
+        .feature h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature p {
+            color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
 
@@ -41,7 +153,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Introduction Section -->
     <section class="intro">
         <div class="container">
