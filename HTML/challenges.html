@@ -848,6 +848,96 @@
             elements.commandInput.value = '';
         }
 
+                // Check if command is valid (with some flexibility)
+        function isCommandValid(input, expected) {
+            // Handle git commit with different messages
+            if (expected.includes('git commit -m') && input.startsWith('git commit -m')) {
+                return true;
+            }
+            
+            // Handle git remote add with different URLs
+            if (expected.includes('git remote add origin') && input.startsWith('git remote add origin')) {
+                return true;
+            }
+
+            // Handle git commit -am with different messages
+            if (expected.includes('git commit -am') && input.startsWith('git commit -am')) {
+                return true;
+            }
+
+            // Handle git tag with different versions/messages
+            if (expected.includes('git tag -a') && input.startsWith('git tag -a')) {
+                return true;
+            }
+
+            // Handle git submodule add with different URLs/paths
+            if (expected.includes('git submodule add') && input.startsWith('git submodule add')) {
+                return true;
+            }
+
+            // Handle git worktree add with different paths
+            if (expected.includes('git worktree add') && input.startsWith('git worktree add')) {
+                return true;
+            }
+
+            // Handle git bundle create with different names
+            if (expected.includes('git bundle create') && input.startsWith('git bundle create')) {
+                return true;
+            }
+
+            // Handle git archive with different formats/names
+            if (expected.includes('git archive') && input.startsWith('git archive')) {
+                return true;
+            }
+
+            // Handle git format-patch with different ranges
+            if (expected.includes('git format-patch') && input.startsWith('git format-patch')) {
+                return true;
+            }
+
+            // Handle git apply with different patch files
+            if (expected.includes('git apply') && input.startsWith('git apply')) {
+                return true;
+            }
+
+            // Handle git cherry-pick with different commit hashes
+            if (expected.includes('git cherry-pick') && input.startsWith('git cherry-pick')) {
+                return true;
+            }
+
+            // Handle git reset with different options
+            if (expected.includes('git reset') && input.startsWith('git reset')) {
+                return true;
+            }
+
+            // Handle git rebase with different branches
+            if (expected.includes('git rebase') && input.startsWith('git rebase')) {
+                return true;
+            }
+
+            // Handle git filter-branch (complex command)
+            if (expected.includes('git filter-branch') && input.includes('git filter-branch')) {
+                return true;
+            }
+
+            // Handle git config commands
+            if (expected.includes('git config') && input.startsWith('git config')) {
+                return true;
+            }
+
+            // Handle git subtree commands
+            if (expected.includes('git subtree') && input.startsWith('git subtree')) {
+                return true;
+            }
+
+            // Handle echo commands for hooks
+            if (expected.includes('echo') && input.startsWith('echo')) {
+                return true;
+            }
+            
+            return false;
+        }
+        
         </script>
     </footer>
 </body>
