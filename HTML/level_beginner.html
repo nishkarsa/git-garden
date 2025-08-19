@@ -37,6 +37,65 @@
             position: static;
         }
 
+        /* Level Header */
+        .level-header {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            margin-top: 80px;
+        }
+
+        .level-header-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0f0f23;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px rgba(0, 255, 136, 0.8),
+                0 0 20px rgba(0, 255, 136, 0.6),
+                0 0 30px rgba(0, 255, 136, 0.4),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .level-description {
+            font-size: 1.3rem;
+            color: #e0e0f0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -120,6 +179,42 @@
             </div>
         </div>
     </nav>
+
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Floating Progress Bar -->
+    <div class="floating-progress" id="floatingProgress">
+        <div class="progress-header">
+            <div>
+                <span class="progress-icon" id="progressIcon">🌱</span>
+                <span class="progress-title">Seedling Progress</span>
+            </div>
+            <span class="progress-percentage" id="progressPercentage">0%</span>
+        </div>
+        
+        <div class="floating-progress-bar">
+            <div class="floating-progress-fill" id="floatingProgressFill"></div>
+        </div>
+    </div>
+
+    <!-- Level Header -->
+    <section class="level-header">
+        <div class="level-header-content">
+            <div class="level-badge">Level 01</div>
+            <h1 class="level-title">🌱 Seedling</h1>
+            <p class="level-description">
+                Welcome to your Git journey! Learn the fundamental commands that every developer needs to know.
+                Master the basics and watch your skills grow from seed to tree!
+            </p>
+            <div class="progress-bar" style="display: none;">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText" style="display: none;">Progress: 0/6 commands completed</p>
+        </div>
+    </section>
+    
+    
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
