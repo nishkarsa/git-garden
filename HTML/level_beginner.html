@@ -1346,6 +1346,205 @@
             }
         }
 
+        // Achievement System
+        function showAchievement(achievementId) {
+            if (isShowingAchievement) {
+                achievementQueue.push(achievementId);
+                return;
+            }
+
+            const achievement = achievements[achievementId];
+            if (!achievement) return;
+
+            isShowingAchievement = true;
+            
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementIcon').textContent = achievement.icon;
+            document.getElementById('achievementTitle').textContent = achievement.title;
+            document.getElementById('achievementDesc').textContent = achievement.description;
+            
+            // Show popup with animation
+            popup.classList.add('show');
+            
+            // Auto hide after 4 seconds
+            setTimeout(() => {
+                closeAchievement();
+            }, 4000);
+            
+            // Update achievement in the achievements section
+            unlockAchievement(achievementId);
+        }
+
+        function closeAchievement() {
+            const popup = document.getElementById('achievementPopup');
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            
+            setTimeout(() => {
+                popup.classList.remove('hide');
+                isShowingAchievement = false;
+                
+                // Show next achievement in queue
+                if (achievementQueue.length > 0) {
+                    const nextAchievement = achievementQueue.shift();
+                    setTimeout(() => showAchievement(nextAchievement), 500);
+                }
+            }, 500);
+        }
+
+        function checkStepAchievements(stepIndex) {
+            switch(stepIndex) {
+                case 0: // git init
+                    showAchievement('achievement-first-repo');
+                    break;
+                case 1: // git status
+                    showAchievement('achievement-status-master');
+                    break;
+                case 3: // git commit
+                    showAchievement('achievement-commit-champion');
+                    break;
+            }
+        }
+
+        // Show/hide floating progress on scroll
+        function handleScroll() {
+            const floatingProgress = document.getElementById('floatingProgress');
+            const interactiveSection = document.querySelector('.interactive-section');
+            
+            if (interactiveSection) {
+                const rect = interactiveSection.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    floatingProgress.classList.add('visible');
+                } else {
+                    floatingProgress.classList.remove('visible');
+                }
+            }
+        }
+
+        // Handle Enter key in input
+        document.getElementById('commandInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand();
+            }
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Complete a command (for the old cards section)
+        function completeCommand(button, command) {
+            const card = button.closest('.command-card');
+            
+            if (!completedCommands.has(command)) {
+                completedCommands.add(command);
+                card.classList.add('completed');
+                button.textContent = 'Completed ✓';
+                
+                // Update progress
+                updateProgress();
+                
+                // Check achievements
+                checkAchievements(command);
+                
+                // Add completion animation
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const total = 6;
+            const completed = completedCommands.size;
+            const percentage = (completed / total) * 100;
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed}/${total} commands completed`;
+            
+            if (completed === total) {
+                unlockAchievement('achievement-seedling-complete');
+            }
+        }
+
+        // Check and unlock achievements
+        function checkAchievements(command) {
+            switch(command) {
+                case 'git init':
+                    unlockAchievement('achievement-first-repo');
+                    break;
+                case 'git status':
+                    unlockAchievement('achievement-status-master');
+                    break;
+                case 'git commit -m "Initial commit"':
+                    unlockAchievement('achievement-commit-champion');
+                    break;
+            }
+        }
+
+        // Unlock achievement
+        function unlockAchievement(achievementId) {
+            const achievement = document.getElementById(achievementId);
+            if (achievement) {
+                achievement.classList.add('unlocked');
+                
+                // Add unlock animation
+                achievement.style.transform = 'scale(1.1)';
+                achievement.style.boxShadow = '0 0 30px rgba(0, 255, 136, 0.6)';
+                
+                setTimeout(() => {
+                    achievement.style.transform = '';
+                    achievement.style.boxShadow = '';
+                }, 500);
+            }
+        }
+
+        // Hamburger menu
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            console.log('Mobile menu toggled');
+        });
+
+        // Initialize particles and progress when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateInstruction(); // Initialize first instruction
+            updateFloatingProgress(); // Initialize progress
+            
+            // Add scroll listener for floating progress
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Initial check
+        });
+
+        // Scroll effect for navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+            
+            // Handle floating progress visibility
+            handleScroll();
+        });
+        
     </script>
 
 <script src="/Script/javascript.js"></script>    
