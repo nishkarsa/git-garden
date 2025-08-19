@@ -451,6 +451,53 @@
             <div class="shape"></div>
         </div>
     </div>
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Welcome Back</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Sign in to continue your Git journey</p>
+            </div>
+            <form class="auth-form" id="authForm">
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                    <i class="form-input-icon fas fa-envelope"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" id="passwordInput" placeholder="Password" required>
+                    <i class="form-input-icon fas fa-eye password-toggle" id="passwordToggle"></i>
+                </div>
+                <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                    <input type="password" class="form-input" id="confirmPasswordInput" placeholder="Confirm Password">
+                    <i class="form-input-icon fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
+                </div>
+                <button type="submit" class="form-submit" id="submitBtn">
+                    <span class="loading-spinner"></span>
+                    <span id="submitText">Sign In</span>
+                </button>
+            </form>
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+            <div class="social-auth">
+                <button class="social-btn github">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </button>
+                <button class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+            </div>
+            <div class="auth-switch">
+                <span id="switchText">Don't have an account?</span>
+                <a href="#" id="switchMode">Sign up</a>
+            </div>
+        </div>
+    </div>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -465,6 +512,18 @@
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <!-- Auth Buttons (shown when not logged in) -->
+            <div class="auth-buttons" id="authNavButtons">
+                <button class="auth-btn login-btn" id="loginBtn">Login</button>
+                <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
+            </div>
+
+            <!-- User Icon (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav">
+                <i class="fas fa-user"></i>
+                <span id="userNameDisplay">User</span>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
