@@ -127,6 +127,329 @@
             overflow: hidden;
         }
 
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+
+        .terminal-title {
+            margin-left: 1rem;
+            color: #b8b8d4;
+            font-size: 0.9rem;
+            font-family: 'Monaco', monospace;
+        }
+
+        .terminal-body {
+            padding: 2rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: #0a0a0a;
+            min-height: 400px;
+        }
+
+        .command-visual {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .visual-garden {
+            font-size: 4rem;
+            margin: 1rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .command-input-section {
+            margin-top: 2rem;
+        }
+
+        .command-prompt {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-symbol {
+            color: #00ff88;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Monaco', monospace;
+            font-size: 1rem;
+            flex: 1;
+            outline: none;
+        }
+
+        .command-input::placeholder {
+            color: #666;
+        }
+
+        .execute-button {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0f0f23;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .execute-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .terminal-output {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #00ff88;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .output-line {
+            color: #e0e0e0;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .success { color: #00ff88; }
+        .error { color: #ff6b6b; }
+        .info { color: #00d4ff; }
+
+        .current-step {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.1));
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0f0f23;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .hint-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hint-title {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hint-text {
+            color: #b8b8d4;
+            font-size: 0.9rem;
+        }
+
+        /* Animation classes */
+        .seed-planted {
+            animation: plantSeed 1s ease-in-out;
+        }
+
+        .seed-sprouting {
+            animation: sprout 1.5s ease-in-out;
+        }
+
+        .tree-growing {
+            animation: grow 2s ease-in-out;
+        }
+
+        @keyframes plantSeed {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        @keyframes sprout {
+            0% { transform: translateY(20px); opacity: 0; }
+            50% { transform: translateY(-5px); opacity: 0.8; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes grow {
+            0% { transform: scale(0.5); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Commands Section */
+        .commands-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #b8b8d4;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .command-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .command-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .command-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .command-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .command-syntax {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #00ff88;
+            margin: 1rem 0;
+            border-left: 4px solid #00ff88;
+        }
+
+        .command-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .try-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .try-button:hover {
+            background: #00ff88;
+            color: #0f0f23;
+        }
+
+        .completed {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.3), rgba(0, 212, 255, 0.2));
+            border-color: #00ff88;
+        }
+
+        .completed .try-button {
+            background: #00ff88;
+            color: #0f0f23;
+        }
+
         
     </style>
 </head>
@@ -275,7 +598,140 @@
             </div>
         </div>
         
+        <!-- Command Terminal -->
+        <div class="command-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+                <div class="terminal-title">GitGarden Terminal - Seedling Level</div>
+            </div>
+            
+            <div class="terminal-body">
+                <!-- Visual Garden Display -->
+                <div class="command-visual">
+                    <h4 style="color: #00ff88; margin-bottom: 1rem;">🌱 Your Git Garden</h4>
+                    <div class="visual-garden" id="gardenVisual">
+                        <span id="gardenState">🌍</span>
+                    </div>
+                    <p style="color: #b8b8d4; font-size: 0.9rem;" id="gardenDescription">Empty plot ready for planting</p>
+                </div>
+
+                <!-- Command Input -->
+                <div class="command-input-section">
+                    <div class="command-prompt">
+                        <span class="prompt-symbol">$</span>
+                        <input 
+                            type="text" 
+                            class="command-input" 
+                            id="commandInput" 
+                            placeholder="Type your Git command here..."
+                            autocomplete="off"
+                        >
+                        <button class="execute-button" onclick="executeCommand()">Run</button>
+                    </div>
+                    
+                    <!-- Terminal Output -->
+                    <div class="terminal-output" id="terminalOutput">
+                        <div class="output-line info">Welcome to GitGarden Terminal! 🌱</div>
+                        <div class="output-line">Ready to start your Git journey. Type your first command!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="commands-section">
+        <h2 class="section-title">Essential Git Commands</h2>
+        <p class="section-subtitle">Master these 6 fundamental commands to build your Git foundation</p>
         
+        <div class="commands-grid">
+            <!-- Git Init -->
+            <div class="command-card" data-command="init">
+                <div class="command-header">
+                    <div class="command-icon">🏁</div>
+                    <h3 class="command-name">git init</h3>
+                </div>
+                <div class="command-syntax">git init</div>
+                <p class="command-description">
+                    Initialize a new Git repository in your current directory. This creates a hidden .git folder 
+                    that tracks all your project changes.
+                </p>
+                <button class="try-button" onclick="completeCommand(this, 'init')">Try in Sandbox</button>
+            </div>
+
+            <!-- Git Status -->
+            <div class="command-card" data-command="status">
+                <div class="command-header">
+                    <div class="command-icon">📊</div>
+                    <h3 class="command-name">git status</h3>
+                </div>
+                <div class="command-syntax">git status</div>
+                <p class="command-description">
+                    Check the status of your repository. See which files are modified, staged, or untracked. 
+                    Your go-to command for understanding your repo's current state.
+                </p>
+                <button class="try-button" onclick="completeCommand(this, 'status')">Try in Sandbox</button>
+            </div>
+
+            <!-- Git Add -->
+            <div class="command-card" data-command="add">
+                <div class="command-header">
+                    <div class="command-icon">➕</div>
+                    <h3 class="command-name">git add</h3>
+                </div>
+                <div class="command-syntax">git add filename.txt<br>git add .</div>
+                <p class="command-description">
+                    Stage changes for commit. Use 'git add .' to stage all changes, or specify individual files. 
+                    Think of it as preparing your changes for the next commit.
+                </p>
+                <button class="try-button" onclick="completeCommand(this, 'add')">Try in Sandbox</button>
+            </div>
+
+            <!-- Git Commit -->
+            <div class="command-card" data-command="commit">
+                <div class="command-header">
+                    <div class="command-icon">💾</div>
+                    <h3 class="command-name">git commit</h3>
+                </div>
+                <div class="command-syntax">git commit -m "Your message here"</div>
+                <p class="command-description">
+                    Save your staged changes to the repository with a descriptive message. 
+                    This creates a snapshot of your project at this point in time.
+                </p>
+                <button class="try-button" onclick="completeCommand(this, 'commit')">Try in Sandbox</button>
+            </div>
+
+            <!-- Git Log -->
+            <div class="command-card" data-command="log">
+                <div class="command-header">
+                    <div class="command-icon">📜</div>
+                    <h3 class="command-name">git log</h3>
+                </div>
+                <div class="command-syntax">git log<br>git log --oneline</div>
+                <p class="command-description">
+                    View the commit history of your repository. See who made changes, when, and what they did. 
+                    Use --oneline for a compact view.
+                </p>
+                <button class="try-button" onclick="completeCommand(this, 'log')">Try in Sandbox</button>
+            </div>
+
+            <!-- Git Clone -->
+            <div class="command-card" data-command="clone">
+                <div class="command-header">
+                    <div class="command-icon">🔄</div>
+                    <h3 class="command-name">git clone</h3>
+                </div>
+                <div class="command-syntax">git clone &lt;repository-url&gt;</div>
+                <p class="command-description">
+                    Copy a repository from GitHub or other remote sources to your local machine. 
+                    This downloads the entire project history and files.
+                </p>
+                <button class="try-button" onclick="completeCommand(this, 'clone')">Try in Sandbox</button>
+            </div>
+        </div>
+    </section>
+    
+    
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
