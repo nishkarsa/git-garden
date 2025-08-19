@@ -160,7 +160,7 @@
                     </button>
                 </div>
 
-                                <!-- Hint Box -->
+                <!-- Hint Box -->
                 <div class="mt-4 bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4 hidden" id="hint-box">
                     <div class="flex items-start">
                         <i class="fas fa-shield-alt text-yellow-400 mr-3 mt-1"></i>
@@ -194,6 +194,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Battle Terminal -->
+                <div class="mt-6 bg-gray-900/50 rounded-xl p-4 border border-gray-600">
+                    <div class="flex items-center mb-3">
+                        <h4 class="text-lg font-bold flex items-center">
+                            <i class="fas fa-terminal text-green-400 mr-2"></i> War Terminal
+                        </h4>
+                        <div class="ml-auto flex space-x-2">
+                            <button class="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-full flex items-center transition-colors" id="clear-terminal">
+                                <i class="fas fa-trash mr-1 text-red-400"></i> Clear
+                            </button>
+                            <button class="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-full flex items-center transition-colors" id="help-terminal">
+                                <i class="fas fa-question mr-1 text-yellow-400"></i> Help
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black rounded-lg p-3 h-40 overflow-y-auto font-mono text-sm" id="terminal-output">
+                        <div class="text-red-400 font-bold">GIT WARRIOR TERMINAL </div>
+                        <div class="text-gray-400 mb-4">Ready for battle! Complete missions to become a Git legend.</div>
+                        <div class="text-yellow-400 mb-2">Use 'help' to see available system commands</div>
+                        
+                        <div class="flex items-center text-green-400">
+                            <span>warrior@battlefield:~$ </span>
+                            <input type="text" class="terminal-input bg-transparent flex-grow ml-1" id="terminal-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
     <!-- Footer -->
     <footer class="footer">
