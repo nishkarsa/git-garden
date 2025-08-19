@@ -7,6 +7,147 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/git-garden/CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .navbar{
+            position: static;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .hp-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #ef4444 var(--hp), rgba(239, 68, 68, 0.2) 0);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .xp-bar {
+            height: 6px;
+            background: linear-gradient(90deg, #3b82f6 var(--xp), transparent 0);
+            border-radius: 3px;
+        }
+
+        .mission-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .mission-card.active {
+            border-color: #ef4444;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .mission-card.completed {
+            border-color: #22c55e;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+        }
+
+        .mission-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.6); }
+        }
+
+        .terminal-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+        }
+
+        .damage-animation {
+            animation: damage-shake 0.5s ease-in-out;
+        }
+
+        @keyframes damage-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .level-badge {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            animation: warrior-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes warrior-glow {
+            from { box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+            to { box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .death-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            items:center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        /* Animated background container */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: -1; /* Puts it behind content */
+            /* Background gradient */
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+        }
+
+        /* Particles for background animation */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        
+    </style>
 </head>
 <body class="bg-gray-900 text-gray-100">
         <!-- Background Animation -->
