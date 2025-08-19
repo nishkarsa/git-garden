@@ -1044,7 +1044,7 @@
         }
 
 
-                // Restart Game
+        // Restart Game
         function restartGame() {
             gameState = {
                 level: 1,
@@ -1078,7 +1078,58 @@
             
             attachTerminalListener();
         }
-        
+
+        // Revive with 50 HP
+        function reviveWithHP() {
+            gameState.hp = 50;
+            elements.deathModal.classList.add('hidden');
+            updateUI();
+            addToTerminal('💚 Revived with 50 HP! Fight on, warrior!', 'system');
+        }
+
+                // Level Up
+        function levelUp() {
+            gameState.level++;
+            gameState.xp -= gameState.xpNeeded;
+            gameState.xpNeeded = Math.floor(gameState.xpNeeded * 1.5);
+            gameState.hp = Math.min(gameState.maxHp, gameState.hp + 25);
+            gameState.achievements++;
+            
+            elements.newLevelText.textContent = gameState.level;
+            elements.levelupModal.classList.remove('hidden');
+            
+            updateUI();
+        }
+
+        // Show Success
+        function showSuccess(message) {
+            elements.successText.textContent = message;
+            elements.successBox.classList.remove('hidden');
+            setTimeout(() => {
+                elements.successBox.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Show Error
+        function showError(message) {
+            elements.errorText.textContent = message;
+            elements.errorBox.classList.remove('hidden');
+            setTimeout(() => {
+                elements.errorBox.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Show Achievement
+        function showAchievement(title, description, xp) {
+            document.getElementById('achievement-title').textContent = title;
+            document.getElementById('achievement-description').textContent = description;
+            document.getElementById('achievement-xp').textContent = xp > 0 ? `+${xp} XP` : '';
+            
+            elements.achievementPopup.classList.remove('translate-x-full');
+            setTimeout(() => {
+                elements.achievementPopup.classList.add('translate-x-full');
+            }, 4000);
+        }
         </script>
     </footer>
 </body>
