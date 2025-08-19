@@ -1020,6 +1020,29 @@
             }
         }
 
+        // Take Damage
+        function takeDamage(amount) {
+            gameState.hp = Math.max(0, gameState.hp - amount);
+            gameState.streak = 0;
+            
+            // Add damage animation
+            document.body.classList.add('damage-animation');
+            setTimeout(() => {
+                document.body.classList.remove('damage-animation');
+            }, 500);
+            
+            updateUI();
+            
+            if (gameState.hp === 0) {
+                showDeathModal();
+            }
+        }
+
+        // Show Death Modal
+        function showDeathModal() {
+            elements.deathModal.classList.remove('hidden');
+        }
+
         </script>
     </footer>
 </body>
