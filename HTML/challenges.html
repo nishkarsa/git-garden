@@ -745,6 +745,84 @@
             elements.commandInput.focus();
         }
 
+        // Update Branch Status
+        function updateBranchStatus(missionIndex) {
+            if (missionIndex < 1) {
+                elements.branchStatus.textContent = 'no git repo';
+            } else if (missionIndex < 6) {
+                elements.branchStatus.textContent = 'main';
+            } else if (missionIndex < 8) {
+                elements.branchStatus.textContent = 'feature';
+            } else if (missionIndex < 12) {
+                elements.branchStatus.textContent = 'main';
+            } else if (missionIndex < 15) {
+                elements.branchStatus.textContent = 'development';
+            } else {
+                elements.branchStatus.textContent = 'main *';
+            }
+        }
+
+        // Generate Mission List
+        function generateMissionList() {
+            elements.missionList.innerHTML = '';
+            
+            missions.forEach((mission, index) => {
+                const missionCard = document.createElement('div');
+                missionCard.className = 'mission-card bg-gray-800 rounded-lg p-3 border-2';
+                
+                const isUnlocked = gameState.level >= mission.unlockLevel;
+                const isCompleted = index < gameState.currentMission - 1;
+                const isActive = index === gameState.currentMission - 1;
+                
+                if (isCompleted) {
+                    missionCard.classList.add('completed', 'border-green-500');
+                } else if (isActive && isUnlocked) {
+                    missionCard.classList.add('active', 'border-red-500');
+                } else if (isUnlocked) {
+                    missionCard.classList.add('border-blue-500');
+                } else {
+                    missionCard.classList.add('locked', 'border-gray-600');
+                }
+                
+                let iconClass = 'fas fa-lock text-gray-500';
+                if (isCompleted) {
+                    iconClass = 'fas fa-check-circle text-green-400';
+                } else if (isActive && isUnlocked) {
+                    iconClass = 'fas fa-sword text-red-400';
+                } else if (isUnlocked) {
+                    iconClass = 'fas fa-play text-blue-400';
+                }
+                
+                missionCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex-grow">
+                            <h4 class="font-bold flex items-center text-sm">
+                                <i class="${iconClass} mr-2 text-xs"></i>
+                                ${mission.title}
+                            </h4>
+                            <p class="text-xs mt-1 ${isUnlocked ? 'text-gray-400' : 'text-gray-500'}">${mission.difficulty} • Level ${mission.unlockLevel}</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full text-xs ${isCompleted ? 'bg-green-500/20 text-green-400' : isActive ? 'bg-red-500/20 text-red-400' : isUnlocked ? 'bg-blue-500/20 text-blue-400' : 'bg-gray-500/20 text-gray-400'}">
+                            +${mission.xp}
+                        </span>
+                    </div>
+                `;
+                
+                if (isUnlocked && !isCompleted) {
+                    missionCard.style.cursor = 'pointer';
+                    missionCard.addEventListener('click', () => {
+                        if (index !== gameState.currentMission - 1) {
+                            gameState.currentMission = index + 1;
+                            loadMission(index);
+                            generateMissionList();
+                        }
+                    });
+                }
+                
+                elements.missionList.appendChild(missionCard);
+            });
+        }
+
         </script>
     </footer>
 </body>
