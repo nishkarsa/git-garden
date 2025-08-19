@@ -6,9 +6,12 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
-    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #000;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 /* Navbar */
