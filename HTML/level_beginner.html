@@ -450,6 +450,61 @@
             color: #0f0f23;
         }
 
+        /* Achievement Section */
+        .achievement-section {
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .achievement-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card.unlocked {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .achievement-card.unlocked .achievement-icon {
+            filter: none;
+        }
+
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .achievement-desc {
+            color: #b8b8d4;
+            font-size: 0.9rem;
+        }
         
     </style>
 </head>
@@ -730,6 +785,69 @@
             </div>
         </div>
     </section>
+    
+    <!-- Achievement Section -->
+    <section class="achievement-section">
+        <div class="achievement-container">
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">Unlock badges as you master each command</p>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card" id="achievement-first-repo">
+                    <span class="achievement-icon">🏆</span>
+                    <h4 class="achievement-name">First Repository</h4>
+                    <p class="achievement-desc">Initialize your first Git repository</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-status-master">
+                    <span class="achievement-icon">👁️</span>
+                    <h4 class="achievement-name">Status Master</h4>
+                    <p class="achievement-desc">Check repository status like a pro</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-commit-champion">
+                    <span class="achievement-icon">💎</span>
+                    <h4 class="achievement-name">Commit Champion</h4>
+                    <p class="achievement-desc">Make your first meaningful commit</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-seedling-complete">
+                    <span class="achievement-icon">🌟</span>
+                    <h4 class="achievement-name">Seedling Complete</h4>
+                    <p class="achievement-desc">Master all basic Git commands</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <button class="achievement-close" onclick="closeAchievement()">&times;</button>
+        <div class="achievement-popup-header">🏆 Achievement Unlocked!</div>
+        <div class="achievement-popup-content">
+            <div class="achievement-popup-icon" id="achievementIcon">🌱</div>
+            <div class="achievement-popup-text">
+                <div class="achievement-popup-title" id="achievementTitle">First Repository</div>
+                <div class="achievement-popup-desc" id="achievementDesc">You've successfully initialized your first Git repository!</div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🌱 GitGarden</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Levels</a>
+                <a href="#" class="nav-link">Sandbox</a>
+                <a href="#" class="back-button">← Back to Levels</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
     
     
     <!-- Footer -->
