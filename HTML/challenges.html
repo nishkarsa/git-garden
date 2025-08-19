@@ -331,6 +331,7 @@
             </div>
         </div>
     </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -365,5 +366,71 @@
                 <p>&copy; 2025 GitGarden. Crafted with 💚 for the epic developer community.</p>
             </div>
         </div>
+    </footer>
+
+        <script>
+        // Navbar scroll behavior
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                navbar.classList.add('hidden');
+            } else {
+                // Scrolling up
+                navbar.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+
+        // Game State
+        let gameState = {
+            level: 1,
+            hp: 100,
+            maxHp: 100,
+            xp: 0,
+            xpNeeded: 1000,
+            achievements: 0,
+            streak: 0,
+            currentMission: 1,
+            completedMissions: 0,
+            totalMissions: 50
+        };
+        </script>
     </footer>
 </body>
