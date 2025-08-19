@@ -1087,7 +1087,7 @@
             addToTerminal('💚 Revived with 50 HP! Fight on, warrior!', 'system');
         }
 
-                // Level Up
+        // Level Up
         function levelUp() {
             gameState.level++;
             gameState.xp -= gameState.xpNeeded;
@@ -1130,6 +1130,70 @@
                 elements.achievementPopup.classList.add('translate-x-full');
             }, 4000);
         }
+
+        // Add to Terminal
+        function addToTerminal(text, type = 'output') {
+            const terminal = elements.terminalOutput;
+            const div = document.createElement('div');
+            
+            div.className = `mb-1 ${type === 'input' ? 'text-yellow-400' : 
+                                   type === 'success' ? 'text-green-400' : 
+                                   type === 'error' ? 'text-red-400' :
+                                   type === 'system' ? 'text-blue-400' : 'text-gray-300'}`;
+            
+            if (type === 'input') {
+                div.innerHTML = text;
+            } else {
+                div.textContent = text;
+            }
+            
+            terminal.insertBefore(div, terminal.lastElementChild);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // Attach Terminal Listener
+        function attachTerminalListener() {
+            const terminalInput = document.getElementById('terminal-input');
+            if (terminalInput) {
+                terminalInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const command = e.target.value.trim();
+                        if (command) {
+                            if (command === 'help') {
+                                addToTerminal('warrior@battlefield:~$ help', 'input');
+                                addToTerminal('System commands: help, clear, status, missions, hp, level', 'system');
+                                addToTerminal('Note: This terminal shows system info only. Use the main input for Git battles!', 'system');
+                            } else if (command === 'clear') {
+                                elements.terminalOutput.innerHTML = `
+                                    <div class="flex items-center text-green-400">
+                                        <span>warrior@battlefield:~$ </span>
+                                        <input type="text" class="terminal-input bg-transparent flex-grow ml-1" id="terminal-input">
+                                    </div>
+                                `;
+                                attachTerminalListener();
+                            } else if (command === 'status') {
+                                addToTerminal('warrior@battlefield:~$ status', 'input');
+                                addToTerminal(`Level: ${gameState.level} | HP: ${gameState.hp}/${gameState.maxHp} | XP: ${gameState.xp}/${gameState.xpNeeded}`, 'system');
+                            } else if (command === 'missions') {
+                                addToTerminal('warrior@battlefield:~$ missions', 'input');
+                                addToTerminal(`Progress: ${gameState.completedMissions}/${gameState.totalMissions} missions completed`, 'system');
+                            } else if (command === 'hp') {
+                                addToTerminal('warrior@battlefield:~$ hp', 'input');
+                                addToTerminal(`Health: ${gameState.hp}/${gameState.maxHp} HP`, 'system');
+                            } else if (command === 'level') {
+                                addToTerminal('warrior@battlefield:~$ level', 'input');
+                                addToTerminal(`Current Level: ${gameState.level} | XP Progress: ${gameState.xp}/${gameState.xpNeeded}`, 'system');
+                            } else {
+                                addToTerminal('warrior@battlefield:~$ ' + command, 'input');
+                                addToTerminal('Unknown system command. Use main input above for Git battles!', 'error');
+                            }
+                            e.target.value = '';
+                        }
+                    }
+                });
+            }
+        }
+
         </script>
     </footer>
 </body>
