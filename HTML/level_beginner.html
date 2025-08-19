@@ -680,7 +680,198 @@
             100% { transform: scale(1) rotate(360deg); }
         }
 
+        /* Achievement Popup System */
+        .achievement-popup {
+            position: fixed;
+            top: 120px;
+            right: 2rem;
+            width: 350px;
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.95), rgba(0, 212, 255, 0.9));
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
+            z-index: 1000;
+            transform: translateX(400px) scale(0.8);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
 
+        .achievement-popup.show {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+
+        .achievement-popup.hide {
+            transform: translateX(400px) scale(0.8);
+            opacity: 0;
+        }
+
+        .achievement-popup-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .achievement-popup-icon {
+            font-size: 3rem;
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        .achievement-popup-text {
+            flex: 1;
+        }
+
+        .achievement-popup-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f0f23;
+            margin-bottom: 0.3rem;
+        }
+
+        .achievement-popup-desc {
+            font-size: 0.9rem;
+            color: rgba(15, 15, 35, 0.8);
+            line-height: 1.4;
+        }
+
+        .achievement-popup-header {
+            text-align: center;
+            color: #0f0f23;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: rgba(15, 15, 35, 0.6);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .achievement-close:hover {
+            background: rgba(15, 15, 35, 0.1);
+            color: #0f0f23;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
+            font-size: 0.8rem;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.completed .step-dot {
+            background: #00ff88;
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+        }
+
+        .progress-step.current .step-dot {
+            background: #00d4ff;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        .progress-step.completed .step-text {
+            color: #00ff88;
+            text-decoration: line-through;
+        }
+
+        .progress-step.current .step-text {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .step-text {
+            color: #b8b8d4;
+            flex: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .floating-progress {
+                width: 250px;
+                right: 1rem;
+            }
+
+            .achievement-popup {
+                width: 300px;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-progress {
+                position: relative;
+                top: 0;
+                right: 0;
+                transform: none !important;
+                width: 100%;
+                margin: 1rem 0;
+                order: -1;
+            }
+
+            .achievement-popup {
+                width: calc(100% - 2rem);
+                right: 1rem;
+                left: 1rem;
+                width: auto;
+            }
+
+            .interactive-section {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .instruction-panel {
+                position: static;
+                height: auto;
+                max-height: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -887,7 +1078,6 @@
                     Initialize a new Git repository in your current directory. This creates a hidden .git folder 
                     that tracks all your project changes.
                 </p>
-                <button class="try-button" onclick="completeCommand(this, 'init')">Try in Sandbox</button>
             </div>
 
             <!-- Git Status -->
@@ -901,7 +1091,6 @@
                     Check the status of your repository. See which files are modified, staged, or untracked. 
                     Your go-to command for understanding your repo's current state.
                 </p>
-                <button class="try-button" onclick="completeCommand(this, 'status')">Try in Sandbox</button>
             </div>
 
             <!-- Git Add -->
@@ -915,7 +1104,6 @@
                     Stage changes for commit. Use 'git add .' to stage all changes, or specify individual files. 
                     Think of it as preparing your changes for the next commit.
                 </p>
-                <button class="try-button" onclick="completeCommand(this, 'add')">Try in Sandbox</button>
             </div>
 
             <!-- Git Commit -->
@@ -929,7 +1117,6 @@
                     Save your staged changes to the repository with a descriptive message. 
                     This creates a snapshot of your project at this point in time.
                 </p>
-                <button class="try-button" onclick="completeCommand(this, 'commit')">Try in Sandbox</button>
             </div>
 
             <!-- Git Log -->
@@ -943,7 +1130,6 @@
                     View the commit history of your repository. See who made changes, when, and what they did. 
                     Use --oneline for a compact view.
                 </p>
-                <button class="try-button" onclick="completeCommand(this, 'log')">Try in Sandbox</button>
             </div>
 
             <!-- Git Clone -->
@@ -957,7 +1143,6 @@
                     Copy a repository from GitHub or other remote sources to your local machine. 
                     This downloads the entire project history and files.
                 </p>
-                <button class="try-button" onclick="completeCommand(this, 'clone')">Try in Sandbox</button>
             </div>
         </div>
     </section>
