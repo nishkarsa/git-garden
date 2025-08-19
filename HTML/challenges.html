@@ -900,11 +900,6 @@
                 return true;
             }
 
-            // Handle git cherry-pick with different commit hashes
-            if (expected.includes('git cherry-pick') && input.startsWith('git cherry-pick')) {
-                return true;
-            }
-
             // Handle git reset with different options
             if (expected.includes('git reset') && input.startsWith('git reset')) {
                 return true;
@@ -915,18 +910,8 @@
                 return true;
             }
 
-            // Handle git filter-branch (complex command)
-            if (expected.includes('git filter-branch') && input.includes('git filter-branch')) {
-                return true;
-            }
-
             // Handle git config commands
             if (expected.includes('git config') && input.startsWith('git config')) {
-                return true;
-            }
-
-            // Handle git subtree commands
-            if (expected.includes('git subtree') && input.startsWith('git subtree')) {
                 return true;
             }
 
