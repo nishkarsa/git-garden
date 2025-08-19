@@ -505,7 +505,182 @@
             color: #b8b8d4;
             font-size: 0.9rem;
         }
-        
+
+        /* Terminal section styles */
+        .terminal-section {
+            margin-top: 50px;
+            padding: 20px;
+            /* Added ID selector for JS targeting */
+            #gitgarden-terminal {
+                scroll-margin-top: 100px; /* Creates space when scrolling to section */
+            }
+        }
+
+        .floating-progress {
+            position: fixed;
+            top: 80px;
+            right: 2rem;
+            width: 280px;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            transform: translateX(300px);
+        }
+
+        .floating-progress.visible {
+            transform: translateX(0);
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .progress-percentage {
+            color: #00ff88;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .floating-progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .floating-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            width: 0%;
+            transition: width 1s ease;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShimmer 2s infinite;
+        }
+
+        .floating-progress-fill.animated {
+            animation: progressPulse 0.6s ease;
+        }
+
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(1.2); box-shadow: 0 0 20px rgba(0, 255, 136, 0.8); }
+            100% { transform: scaleY(1); }
+        }
+
+        .progress-icon {
+            font-size: 1.5rem;
+            transition: all 0.5s ease;
+        }
+
+        /* Command-specific animations */
+        .progress-icon.init-animation {
+            animation: seedPlant 1s ease;
+        }
+
+        .progress-icon.status-animation {
+            animation: statusCheck 1s ease;
+        }
+
+        .progress-icon.add-animation {
+            animation: seedGather 1s ease;
+        }
+
+        .progress-icon.commit-animation {
+            animation: seedSprout 1.5s ease;
+        }
+
+        .progress-icon.log-animation {
+            animation: treeGrow 1.5s ease;
+        }
+
+        .progress-icon.clone-animation {
+            animation: gardenSpread 2s ease;
+        }
+
+        @keyframes seedPlant {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.3) rotate(90deg); }
+            50% { transform: scale(0.8) rotate(180deg); }
+            75% { transform: scale(1.2) rotate(270deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        @keyframes statusCheck {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); filter: brightness(1.5); }
+            50% { transform: scale(0.9); filter: brightness(0.8); }
+            75% { transform: scale(1.1); filter: brightness(1.3); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        @keyframes seedGather {
+            0% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.1) translateY(-5px); }
+            50% { transform: scale(1.3) translateY(-10px); }
+            75% { transform: scale(1.1) translateY(-5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        @keyframes seedSprout {
+            0% { transform: scale(1); }
+            20% { transform: scale(1.2) rotate(10deg); }
+            40% { transform: scale(0.9) rotate(-10deg); }
+            60% { transform: scale(1.3) rotate(5deg); }
+            80% { transform: scale(1.1) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes treeGrow {
+            0% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.1) translateY(-3px); }
+            50% { transform: scale(1.4) translateY(-8px); }
+            75% { transform: scale(1.2) translateY(-5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        @keyframes gardenSpread {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2) rotate(45deg); }
+            50% { transform: scale(0.8) rotate(90deg); }
+            75% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+
     </style>
 </head>
 <body>
@@ -556,6 +731,7 @@
             </div>
         </div>
     </div>
+
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -885,6 +1061,40 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        let currentStep = 0;
+        let completedCommands = new Set();
+        let achievementQueue = [];
+        let isShowingAchievement = false;
+        
+        // Achievement definitions
+        const achievements = {
+            'achievement-first-repo': {
+                icon: '🏆',
+                title: 'Repository Pioneer',
+                description: 'Successfully initialized your first Git repository! Your coding garden is ready to grow.'
+            },
+            'achievement-status-master': {
+                icon: '👁️',
+                title: 'Status Detective',
+                description: 'Mastered the git status command! You can now see your repository\'s health at a glance.'
+            },
+            'achievement-commit-champion': {
+                icon: '💎',
+                title: 'Commit Champion',
+                description: 'Made your first meaningful commit! Your code changes are now safely stored in history.'
+            },
+            'achievement-seedling-complete': {
+                icon: '🌟',
+                title: 'Seedling Master',
+                description: 'Congratulations! You\'ve mastered all fundamental Git commands and completed the Seedling level!'
+            }
+        };
+
+    </script>
+
+
 <script src="/Script/javascript.js"></script>    
 </body>
 </html>
