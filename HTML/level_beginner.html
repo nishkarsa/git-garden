@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Garden</title>
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .navbar {
+            position: static;
+        }
+
+        /* Level Header */
+        .level-header {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            margin-top: 80px;
+        }
+
+        .level-header-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0f0f23;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px rgba(0, 255, 136, 0.8),
+                0 0 20px rgba(0, 255, 136, 0.6),
+                0 0 30px rgba(0, 255, 136, 0.4),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .level-description {
+            font-size: 1.3rem;
+            color: #e0e0f0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Interactive Learning Section */
+        .interactive-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        .instruction-panel {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .command-terminal {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+
+        .terminal-title {
+            margin-left: 1rem;
+            color: #b8b8d4;
+            font-size: 0.9rem;
+            font-family: 'Monaco', monospace;
+        }
+
+        .terminal-body {
+            padding: 2rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: #0a0a0a;
+            min-height: 400px;
+        }
+
+        .command-visual {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .visual-garden {
+            font-size: 4rem;
+            margin: 1rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .command-input-section {
+            margin-top: 2rem;
+        }
+
+        .command-prompt {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-symbol {
+            color: #00ff88;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Monaco', monospace;
+            font-size: 1rem;
+            flex: 1;
+            outline: none;
+        }
+
+        .command-input::placeholder {
+            color: #666;
+        }
+
+        .execute-button {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0f0f23;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .execute-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .terminal-output {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #00ff88;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .output-line {
+            color: #e0e0e0;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .success { color: #00ff88; }
+        .error { color: #ff6b6b; }
+        .info { color: #00d4ff; }
+
+        .current-step {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.1));
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0f0f23;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .hint-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hint-title {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hint-text {
+            color: #b8b8d4;
+            font-size: 0.9rem;
+        }
+
+        /* Animation classes */
+        .seed-planted {
+            animation: plantSeed 1s ease-in-out;
+        }
+
+        .seed-sprouting {
+            animation: sprout 1.5s ease-in-out;
+        }
+
+        .tree-growing {
+            animation: grow 2s ease-in-out;
+        }
+
+        @keyframes plantSeed {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        @keyframes sprout {
+            0% { transform: translateY(20px); opacity: 0; }
+            50% { transform: translateY(-5px); opacity: 0.8; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes grow {
+            0% { transform: scale(0.5); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Commands Section */
+        .commands-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #b8b8d4;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .command-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .command-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .command-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .command-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .command-syntax {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #00ff88;
+            margin: 1rem 0;
+            border-left: 4px solid #00ff88;
+        }
+
+        .command-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .try-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .try-button:hover {
+            background: #00ff88;
+            color: #0f0f23;
+        }
+
+        .completed {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.3), rgba(0, 212, 255, 0.2));
+            border-color: #00ff88;
+        }
+
+        .completed .try-button {
+            background: #00ff88;
+            color: #0f0f23;
+        }
+
+        /* Achievement Section */
+        .achievement-section {
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .achievement-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card.unlocked {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .achievement-card.unlocked .achievement-icon {
+            filter: none;
+        }
+
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .achievement-desc {
+            color: #b8b8d4;
+            font-size: 0.9rem;
+        }
+
+        /* Terminal section styles */
+        .terminal-section {
+            margin-top: 50px;
+            padding: 20px;
+            /* Added ID selector for JS targeting */
+            #gitgarden-terminal {
+                scroll-margin-top: 100px; /* Creates space when scrolling to section */
+            }
+        }
+
+        .floating-progress {
+            position: fixed;
+            top: 80px;
+            right: 2rem;
+            width: 280px;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            transform: translateX(300px);
+        }
+
+        .floating-progress.visible {
+            transform: translateX(0);
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .progress-percentage {
+            color: #00ff88;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .floating-progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .floating-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            width: 0%;
+            transition: width 1s ease;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShimmer 2s infinite;
+        }
+
+        .floating-progress-fill.animated {
+            animation: progressPulse 0.6s ease;
+        }
+
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(1.2); box-shadow: 0 0 20px rgba(0, 255, 136, 0.8); }
+            100% { transform: scaleY(1); }
+        }
+
+        .progress-icon {
+            font-size: 1.5rem;
+            transition: all 0.5s ease;
+        }
+
+        /* Command-specific animations */
+        .progress-icon.init-animation {
+            animation: seedPlant 1s ease;
+        }
+
+        .progress-icon.status-animation {
+            animation: statusCheck 1s ease;
+        }
+
+        .progress-icon.add-animation {
+            animation: seedGather 1s ease;
+        }
+
+        .progress-icon.commit-animation {
+            animation: seedSprout 1.5s ease;
+        }
+
+        .progress-icon.log-animation {
+            animation: treeGrow 1.5s ease;
+        }
+
+        .progress-icon.clone-animation {
+            animation: gardenSpread 2s ease;
+        }
+
+        @keyframes seedPlant {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.3) rotate(90deg); }
+            50% { transform: scale(0.8) rotate(180deg); }
+            75% { transform: scale(1.2) rotate(270deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        @keyframes statusCheck {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); filter: brightness(1.5); }
+            50% { transform: scale(0.9); filter: brightness(0.8); }
+            75% { transform: scale(1.1); filter: brightness(1.3); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        @keyframes seedGather {
+            0% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.1) translateY(-5px); }
+            50% { transform: scale(1.3) translateY(-10px); }
+            75% { transform: scale(1.1) translateY(-5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        @keyframes seedSprout {
+            0% { transform: scale(1); }
+            20% { transform: scale(1.2) rotate(10deg); }
+            40% { transform: scale(0.9) rotate(-10deg); }
+            60% { transform: scale(1.3) rotate(5deg); }
+            80% { transform: scale(1.1) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes treeGrow {
+            0% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.1) translateY(-3px); }
+            50% { transform: scale(1.4) translateY(-8px); }
+            75% { transform: scale(1.2) translateY(-5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        @keyframes gardenSpread {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2) rotate(45deg); }
+            50% { transform: scale(0.8) rotate(90deg); }
+            75% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        /* Achievement Popup System */
+        .achievement-popup {
+            position: fixed;
+            top: 120px;
+            right: 2rem;
+            width: 350px;
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.95), rgba(0, 212, 255, 0.9));
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
+            z-index: 1000;
+            transform: translateX(400px) scale(0.8);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .achievement-popup.show {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+
+        .achievement-popup.hide {
+            transform: translateX(400px) scale(0.8);
+            opacity: 0;
+        }
+
+        .achievement-popup-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .achievement-popup-icon {
+            font-size: 3rem;
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        .achievement-popup-text {
+            flex: 1;
+        }
+
+        .achievement-popup-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f0f23;
+            margin-bottom: 0.3rem;
+        }
+
+        .achievement-popup-desc {
+            font-size: 0.9rem;
+            color: rgba(15, 15, 35, 0.8);
+            line-height: 1.4;
+        }
+
+        .achievement-popup-header {
+            text-align: center;
+            color: #0f0f23;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: rgba(15, 15, 35, 0.6);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .achievement-close:hover {
+            background: rgba(15, 15, 35, 0.1);
+            color: #0f0f23;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
+            font-size: 0.8rem;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.completed .step-dot {
+            background: #00ff88;
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+        }
+
+        .progress-step.current .step-dot {
+            background: #00d4ff;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        .progress-step.completed .step-text {
+            color: #00ff88;
+            text-decoration: line-through;
+        }
+
+        .progress-step.current .step-text {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .step-text {
+            color: #b8b8d4;
+            flex: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .floating-progress {
+                width: 250px;
+                right: 1rem;
+            }
+
+            .achievement-popup {
+                width: 300px;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-progress {
+                position: relative;
+                top: 0;
+                right: 0;
+                transform: none !important;
+                width: 100%;
+                margin: 1rem 0;
+                order: -1;
+            }
+
+            .achievement-popup {
+                width: calc(100% - 2rem);
+                right: 1rem;
+                left: 1rem;
+                width: auto;
+            }
+
+            .interactive-section {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .instruction-panel {
+                position: static;
+                height: auto;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Welcome Back</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Sign in to continue your Git journey</p>
+            </div>
+            <form class="auth-form" id="authForm">
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                    <i class="form-input-icon fas fa-envelope"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" id="passwordInput" placeholder="Password" required>
+                    <i class="form-input-icon fas fa-eye password-toggle" id="passwordToggle"></i>
+                </div>
+                <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                    <input type="password" class="form-input" id="confirmPasswordInput" placeholder="Confirm Password">
+                    <i class="form-input-icon fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
+                </div>
+                <button type="submit" class="form-submit" id="submitBtn">
+                    <span class="loading-spinner"></span>
+                    <span id="submitText">Sign In</span>
+                </button>
+            </form>
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+            <div class="social-auth">
+                <button class="social-btn github">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </button>
+                <button class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+            </div>
+            <div class="auth-switch">
+                <span id="switchText">Don't have an account?</span>
+                <a href="#" id="switchMode">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fab fa-git-alt"></i>
+                GitGarden
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#levels">Levels</a></li>
+                <li><a href="./HTML/challenges.html">Challenges</a></li>
+                <li><a href="./HTML/about_us.html">About Us</a></li>
+                <li><a href="./HTML/contact_us.html">Contact</a></li>
+            </ul>
+            <!-- Auth Buttons (shown when not logged in) -->
+            <div class="auth-buttons" id="authNavButtons">
+                <button class="auth-btn login-btn" id="loginBtn">Login</button>
+                <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
+            </div>
+
+            <!-- User Icon (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav">
+                <i class="fas fa-user"></i>
+                <span id="userNameDisplay">User</span>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Floating Progress Bar -->
+    <div class="floating-progress" id="floatingProgress">
+        <div class="progress-header">
+            <div>
+                <span class="progress-icon" id="progressIcon">🌱</span>
+                <span class="progress-title">Seedling Progress</span>
+            </div>
+            <span class="progress-percentage" id="progressPercentage">0%</span>
+        </div>
+        
+        <div class="floating-progress-bar">
+            <div class="floating-progress-fill" id="floatingProgressFill"></div>
+        </div>
+    </div>
+
+    <!-- Level Header -->
+    <section class="level-header">
+        <div class="level-header-content">
+            <div class="level-badge">Level 01</div>
+            <h1 class="level-title">🌱 Seedling</h1>
+            <p class="level-description">
+                Welcome to your Git journey! Learn the fundamental commands that every developer needs to know.
+                Master the basics and watch your skills grow from seed to tree!
+            </p>
+            <div class="progress-bar" style="display: none;">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText" style="display: none;">Progress: 0/6 commands completed</p>
+        </div>
+    </section>
+    
+    <!-- Interactive Learning Section -->
+    <section class="interactive-section">
+        <!-- Instruction Panel -->
+        <div class="instruction-panel">
+            <div class="command-card current-step" id="currentInstruction">
+                <div class="command-header">
+                    <span class="step-number" id="stepNumber">1</span>
+                    <div>
+                        <h3 class="step-title" id="stepTitle">Initialize Your Garden</h3>
+                        <div class="command-icon" id="stepIcon" style="font-size: 2rem;">🏁</div>
+                    </div>
+                </div>
+                <p class="step-description" id="stepDescription">
+                    Create your first Git repository! This is like preparing the soil for your coding garden. 
+                    Type the command below to initialize a new repository.
+                </p>
+                <div class="command-syntax" id="expectedCommand">git init</div>
+                
+                <div class="hint-box">
+                    <div class="hint-title">
+                        💡 Hint
+                    </div>
+                    <p class="hint-text" id="hintText">
+                        The 'git init' command creates a hidden .git folder that will track all changes in your project.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Command Terminal -->
+        <div class="command-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+                <div class="terminal-title">GitGarden Terminal - Seedling Level</div>
+            </div>
+            
+            <div class="terminal-body">
+                <!-- Visual Garden Display -->
+                <div class="command-visual">
+                    <h4 style="color: #00ff88; margin-bottom: 1rem;">🌱 Your Git Garden</h4>
+                    <div class="visual-garden" id="gardenVisual">
+                        <span id="gardenState">🌍</span>
+                    </div>
+                    <p style="color: #b8b8d4; font-size: 0.9rem;" id="gardenDescription">Empty plot ready for planting</p>
+                </div>
+
+                <!-- Command Input -->
+                <div class="command-input-section">
+                    <div class="command-prompt">
+                        <span class="prompt-symbol">$</span>
+                        <input 
+                            type="text" 
+                            class="command-input" 
+                            id="commandInput" 
+                            placeholder="Type your Git command here..."
+                            autocomplete="off"
+                        >
+                        <button class="execute-button" onclick="executeCommand()">Run</button>
+                    </div>
+                    
+                    <!-- Terminal Output -->
+                    <div class="terminal-output" id="terminalOutput">
+                        <div class="output-line info">Welcome to GitGarden Terminal! 🌱</div>
+                        <div class="output-line">Ready to start your Git journey. Type your first command!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="commands-section">
+        <h2 class="section-title">Essential Git Commands</h2>
+        <p class="section-subtitle">Master these 6 fundamental commands to build your Git foundation</p>
+        
+        <div class="commands-grid">
+            <!-- Git Init -->
+            <div class="command-card" data-command="init">
+                <div class="command-header">
+                    <div class="command-icon">🏁</div>
+                    <h3 class="command-name">git init</h3>
+                </div>
+                <div class="command-syntax">git init</div>
+                <p class="command-description">
+                    Initialize a new Git repository in your current directory. This creates a hidden .git folder 
+                    that tracks all your project changes.
+                </p>
+            </div>
+
+            <!-- Git Status -->
+            <div class="command-card" data-command="status">
+                <div class="command-header">
+                    <div class="command-icon">📊</div>
+                    <h3 class="command-name">git status</h3>
+                </div>
+                <div class="command-syntax">git status</div>
+                <p class="command-description">
+                    Check the status of your repository. See which files are modified, staged, or untracked. 
+                    Your go-to command for understanding your repo's current state.
+                </p>
+            </div>
+
+            <!-- Git Add -->
+            <div class="command-card" data-command="add">
+                <div class="command-header">
+                    <div class="command-icon">➕</div>
+                    <h3 class="command-name">git add</h3>
+                </div>
+                <div class="command-syntax">git add filename.txt<br>git add .</div>
+                <p class="command-description">
+                    Stage changes for commit. Use 'git add .' to stage all changes, or specify individual files. 
+                    Think of it as preparing your changes for the next commit.
+                </p>
+            </div>
+
+            <!-- Git Commit -->
+            <div class="command-card" data-command="commit">
+                <div class="command-header">
+                    <div class="command-icon">💾</div>
+                    <h3 class="command-name">git commit</h3>
+                </div>
+                <div class="command-syntax">git commit -m "Your message here"</div>
+                <p class="command-description">
+                    Save your staged changes to the repository with a descriptive message. 
+                    This creates a snapshot of your project at this point in time.
+                </p>
+            </div>
+
+            <!-- Git Log -->
+            <div class="command-card" data-command="log">
+                <div class="command-header">
+                    <div class="command-icon">📜</div>
+                    <h3 class="command-name">git log</h3>
+                </div>
+                <div class="command-syntax">git log<br>git log --oneline</div>
+                <p class="command-description">
+                    View the commit history of your repository. See who made changes, when, and what they did. 
+                    Use --oneline for a compact view.
+                </p>
+            </div>
+
+            <!-- Git Clone -->
+            <div class="command-card" data-command="clone">
+                <div class="command-header">
+                    <div class="command-icon">🔄</div>
+                    <h3 class="command-name">git clone</h3>
+                </div>
+                <div class="command-syntax">git clone &lt;repository-url&gt;</div>
+                <p class="command-description">
+                    Copy a repository from GitHub or other remote sources to your local machine. 
+                    This downloads the entire project history and files.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Achievement Section -->
+    <section class="achievement-section">
+        <div class="achievement-container">
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">Unlock badges as you master each command</p>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card" id="achievement-first-repo">
+                    <span class="achievement-icon">🏆</span>
+                    <h4 class="achievement-name">First Repository</h4>
+                    <p class="achievement-desc">Initialize your first Git repository</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-status-master">
+                    <span class="achievement-icon">👁️</span>
+                    <h4 class="achievement-name">Status Master</h4>
+                    <p class="achievement-desc">Check repository status like a pro</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-commit-champion">
+                    <span class="achievement-icon">💎</span>
+                    <h4 class="achievement-name">Commit Champion</h4>
+                    <p class="achievement-desc">Make your first meaningful commit</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-seedling-complete">
+                    <span class="achievement-icon">🌟</span>
+                    <h4 class="achievement-name">Seedling Complete</h4>
+                    <p class="achievement-desc">Master all basic Git commands</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <button class="achievement-close" onclick="closeAchievement()">&times;</button>
+        <div class="achievement-popup-header">🏆 Achievement Unlocked!</div>
+        <div class="achievement-popup-content">
+            <div class="achievement-popup-icon" id="achievementIcon">🌱</div>
+            <div class="achievement-popup-text">
+                <div class="achievement-popup-title" id="achievementTitle">First Repository</div>
+                <div class="achievement-popup-desc" id="achievementDesc">You've successfully initialized your first Git repository!</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GitGarden</h3>
+                    <p>Transforming Git learning into epic adventures, one command at a time. Join thousands of developers leveling up their skills!</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Access</h3>
+                    <a href="#levels">Levels</a>
+                    <a href="./HTML/challeneges.html">Arena</a>
+                    <a href="./HTML/about_us.html">Our Story</a>
+                    <a href="./HTML/contact_us.html">Connect</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F" target="_blank">Git Mastery Guide</a>
+                    <a href="https://github.com/community" target="_blank">Community Hub</a>
+                    <a href="./HTML/contact_us.html" target="_blank">Support Center</a>
+                    <a href="https://github.blog/" target="_blank">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Join Community</h3>
+                    <a href="https://github.com/nishkarsa/git-garden.git" target="_blank">GitHub</a>
+                    <a href="https://discord.gg/AKku6Vts" target="_blank">Discord Server</a>
+                    <a href="x.com" target="_blank">X</a>
+                    <a href="https://www.linkedin.com/company/github/posts/?feedView=all" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GitGarden. Crafted with 💚 for the epic developer community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 0;
+        let completedCommands = new Set();
+        let achievementQueue = [];
+        let isShowingAchievement = false;
+        
+        // Achievement definitions
+        const achievements = {
+            'achievement-first-repo': {
+                icon: '🏆',
+                title: 'Repository Pioneer',
+                description: 'Successfully initialized your first Git repository! Your coding garden is ready to grow.'
+            },
+            'achievement-status-master': {
+                icon: '👁️',
+                title: 'Status Detective',
+                description: 'Mastered the git status command! You can now see your repository\'s health at a glance.'
+            },
+            'achievement-commit-champion': {
+                icon: '💎',
+                title: 'Commit Champion',
+                description: 'Made your first meaningful commit! Your code changes are now safely stored in history.'
+            },
+            'achievement-seedling-complete': {
+                icon: '🌟',
+                title: 'Seedling Master',
+                description: 'Congratulations! You\'ve mastered all fundamental Git commands and completed the Seedling level!'
+            }
+        };
+
+        // Learning steps configuration
+        const steps = [
+            {
+                number: 1,
+                title: "Initialize Your Garden",
+                icon: "🏁",
+                description: "Create your first Git repository! This is like preparing the soil for your coding garden.",
+                expectedCommand: "git init",
+                hint: "The 'git init' command creates a hidden .git folder that will track all changes in your project.",
+                visual: "🌍",
+                visualDesc: "Empty plot ready for planting",
+                successVisual: "🌱",
+                successDesc: "Repository initialized! Your garden is ready for seeds.",
+                successMessage: "Initialized empty Git repository in /your-project/.git/"
+            },
+            {
+                number: 2,
+                title: "Check Your Garden Status",
+                icon: "📊",
+                description: "See what's happening in your repository. This shows you the current state of your garden.",
+                expectedCommand: "git status",
+                hint: "Use 'git status' to see which files are tracked, modified, or ready to be committed.",
+                visual: "🌱",
+                visualDesc: "Repository ready, checking for changes",
+                successVisual: "🌱📋",
+                successDesc: "Status checked! You can see your garden's health.",
+                successMessage: "On branch main\nNothing to commit, working tree clean"
+            },
+            {
+                number: 3,
+                title: "Add Seeds to Your Garden",
+                icon: "➕",
+                description: "Stage your changes for commit. This is like selecting which seeds you want to plant.",
+                expectedCommand: "git add .",
+                hint: "Use 'git add .' to add all files, or 'git add filename' for specific files.",
+                visual: "🌱📋",
+                visualDesc: "Ready to plant seeds",
+                successVisual: "🌱🌰🌰",
+                successDesc: "Seeds added! Changes are staged for planting.",
+                successMessage: "Changes staged for commit:\n  modified: README.md\n  new file: index.html"
+            },
+            {
+                number: 4,
+                title: "Plant Your Seeds",
+                icon: "💾",
+                description: "Commit your changes with a meaningful message. This plants your seeds in the garden!",
+                expectedCommand: 'git commit -m "Initial commit"',
+                hint: "Always write clear commit messages that explain what you've done.",
+                visual: "🌱🌰🌰",
+                visualDesc: "Seeds ready for planting",
+                successVisual: "🌱🌿🌿",
+                successDesc: "Seeds planted! Your first commit is growing.",
+                successMessage: "[main (root-commit) a1b2c3d] Initial commit\n 2 files changed, 10 insertions(+)"
+            },
+            {
+                number: 5,
+                title: "View Your Garden History",
+                icon: "📜",
+                description: "Look at your commit history. See how your garden has grown over time!",
+                expectedCommand: "git log",
+                hint: "Use 'git log --oneline' for a compact view of your commit history.",
+                visual: "🌱🌿🌿",
+                visualDesc: "Growing garden with planted seeds",
+                successVisual: "🌳📚",
+                successDesc: "History revealed! You can see your garden's growth story.",
+                successMessage: "commit a1b2c3d (HEAD -> main)\nAuthor: You <you@example.com>\nDate: Today\n\n    Initial commit"
+            },
+            {
+                number: 6,
+                title: "Clone Another Garden",
+                icon: "🔄",
+                description: "Copy a repository from somewhere else. Like taking a cutting from another garden!",
+                expectedCommand: "git clone <repository-url>",
+                hint: "This creates a complete copy of a remote repository on your local machine.",
+                visual: "🌳📚",
+                visualDesc: "Mature garden ready for sharing",
+                successVisual: "🌳🌳🔄",
+                successDesc: "Garden cloned! You've mastered the seedling level!",
+                successMessage: "Cloning into 'new-repository'...\nremote: Counting objects: 100% (5/5), done.\nReceiving objects: 100% (5/5), done."
+            }
+        ];
+
+        // Execute command function
+        function executeCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+            
+            addToOutput(`$ ${command}`, 'info');
+            
+            const currentStepData = steps[currentStep];
+            const expectedCommands = Array.isArray(currentStepData.expectedCommand) 
+                ? currentStepData.expectedCommand 
+                : [currentStepData.expectedCommand];
+            
+            // Check if command matches expected (flexible matching)
+            const isCorrect = expectedCommands.some(expected => {
+                if (expected.includes('<repository-url>')) {
+                    return command.startsWith('git clone ') && command.length > 'git clone '.length;
+                }
+                if (expected.includes('"') && command.includes('git commit -m')) {
+                    return command.startsWith('git commit -m ') && command.includes('"');
+                }
+                return command === expected || command === expected.replace(' .', '');
+            });
+            
+            if (isCorrect) {
+                handleCorrectCommand(currentStepData);
+            } else {
+                handleIncorrectCommand(command, currentStepData);
+            }
+            
+            input.value = '';
+        }
+        
+        function handleCorrectCommand(stepData) {
+            // Add success message
+            addToOutput(stepData.successMessage, 'success');
+            
+            // Update visual with animation
+            updateGardenVisual(stepData.successVisual, stepData.successDesc, true);
+            
+            // Animate command visual container
+            const commandVisual = document.querySelector('.command-visual');
+            commandVisual.classList.add('success');
+            
+            // Mark command as completed
+            completedCommands.add(stepData.expectedCommand);
+            
+            // Update progress with animation
+            updateFloatingProgress(true);
+            
+            // Check for achievements
+            checkStepAchievements(currentStep);
+            
+            // Move to next step
+            if (currentStep < steps.length - 1) {
+                setTimeout(() => {
+                    currentStep++;
+                    updateInstruction();
+                    updateFloatingProgress();
+                    commandVisual.classList.remove('success');
+                    addToOutput(`\n🎉 Great job! Moving to step ${currentStep + 1}...`, 'success');
+                }, 2000);
+            } else {
+                // Level completed!
+                setTimeout(() => {
+                    addToOutput('\n🌟 Congratulations! You\'ve completed the Seedling level!', 'success');
+                    showAchievement('achievement-seedling-complete');
+                    updateFloatingProgress(true);
+                }, 2000);
+            }
+        }
+        
+        function handleIncorrectCommand(command, stepData) {
+            if (command.startsWith('git ')) {
+                addToOutput(`Command executed, but try: ${stepData.expectedCommand}`, 'error');
+            } else {
+                addToOutput(`'${command}' is not recognized as a git command`, 'error');
+            }
+            addToOutput('💡 Check the instruction panel for help!', 'info');
+        }
+        
+        function addToOutput(text, type = '') {
+            const output = document.getElementById('terminalOutput');
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function updateGardenVisual(visual, description) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            // Add animation
+            gardenState.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                gardenState.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        function updateInstruction() {
+            const step = steps[currentStep];
+            
+            document.getElementById('stepNumber').textContent = step.number;
+            document.getElementById('stepTitle').textContent = step.title;
+            document.getElementById('stepIcon').textContent = step.icon;
+            document.getElementById('stepDescription').textContent = step.description;
+            document.getElementById('expectedCommand').textContent = step.expectedCommand;
+            document.getElementById('hintText').textContent = step.hint;
+            
+            updateGardenVisual(step.visual, step.visualDesc);
+        }
+
+        function updateGardenVisual(visual, description, animated = false) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            // Add animation based on the visual change
+            if (animated) {
+                gardenState.classList.add('garden-animated');
+                setTimeout(() => {
+                    gardenState.classList.remove('garden-animated');
+                }, 2000);
+            }
+        }
+
+        // Floating Progress Bar Functions
+        function updateFloatingProgress(animated = false) {
+            const total = steps.length;
+            const completed = currentStep + (currentStep < steps.length ? 0 : 1);
+            const percentage = Math.round((completed / total) * 100);
+            
+            const progressFill = document.getElementById('floatingProgressFill');
+            const progressIcon = document.getElementById('progressIcon');
+            
+            // Update progress bar
+            progressFill.style.width = percentage + '%';
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            
+            // Add progress animation
+            if (animated) {
+                progressFill.classList.add('animated');
+                setTimeout(() => {
+                    progressFill.classList.remove('animated');
+                }, 600);
+            }
+            
+            // Update progress icon and add command-specific animation
+            const commandAnimations = ['🌍', '🌱', '🌱', '🌰', '🌿', '🌳', '🌳'];
+            const animationClasses = ['', 'init-animation', 'status-animation', 'add-animation', 'commit-animation', 'log-animation', 'clone-animation'];
+            
+            if (completed <= total) {
+                progressIcon.textContent = commandAnimations[completed] || '🌳';
+                
+                // Add command-specific animation
+                if (animated && animationClasses[completed]) {
+                    progressIcon.classList.add(animationClasses[completed]);
+                    setTimeout(() => {
+                        progressIcon.classList.remove(animationClasses[completed]);
+                    }, 2000);
+                }
+            }
+        }
+
+        // Achievement System
+        function showAchievement(achievementId) {
+            if (isShowingAchievement) {
+                achievementQueue.push(achievementId);
+                return;
+            }
+
+            const achievement = achievements[achievementId];
+            if (!achievement) return;
+
+            isShowingAchievement = true;
+            
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementIcon').textContent = achievement.icon;
+            document.getElementById('achievementTitle').textContent = achievement.title;
+            document.getElementById('achievementDesc').textContent = achievement.description;
+            
+            // Show popup with animation
+            popup.classList.add('show');
+            
+            // Auto hide after 4 seconds
+            setTimeout(() => {
+                closeAchievement();
+            }, 4000);
+            
+            // Update achievement in the achievements section
+            unlockAchievement(achievementId);
+        }
+
+        function closeAchievement() {
+            const popup = document.getElementById('achievementPopup');
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            
+            setTimeout(() => {
+                popup.classList.remove('hide');
+                isShowingAchievement = false;
+                
+                // Show next achievement in queue
+                if (achievementQueue.length > 0) {
+                    const nextAchievement = achievementQueue.shift();
+                    setTimeout(() => showAchievement(nextAchievement), 500);
+                }
+            }, 500);
+        }
+
+        function checkStepAchievements(stepIndex) {
+            switch(stepIndex) {
+                case 0: // git init
+                    showAchievement('achievement-first-repo');
+                    break;
+                case 1: // git status
+                    showAchievement('achievement-status-master');
+                    break;
+                case 3: // git commit
+                    showAchievement('achievement-commit-champion');
+                    break;
+            }
+        }
+
+        // Show/hide floating progress on scroll
+        function handleScroll() {
+            const floatingProgress = document.getElementById('floatingProgress');
+            const interactiveSection = document.querySelector('.interactive-section');
+            
+            if (interactiveSection) {
+                const rect = interactiveSection.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    floatingProgress.classList.add('visible');
+                } else {
+                    floatingProgress.classList.remove('visible');
+                }
+            }
+        }
+
+        // Handle Enter key in input
+        document.getElementById('commandInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand();
+            }
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Complete a command (for the old cards section)
+        function completeCommand(button, command) {
+            const card = button.closest('.command-card');
+            
+            if (!completedCommands.has(command)) {
+                completedCommands.add(command);
+                card.classList.add('completed');
+                button.textContent = 'Completed ✓';
+                
+                // Update progress
+                updateProgress();
+                
+                // Check achievements
+                checkAchievements(command);
+                
+                // Add completion animation
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const total = 6;
+            const completed = completedCommands.size;
+            const percentage = (completed / total) * 100;
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed}/${total} commands completed`;
+            
+            if (completed === total) {
+                unlockAchievement('achievement-seedling-complete');
+            }
+        }
+
+        // Check and unlock achievements
+        function checkAchievements(command) {
+            switch(command) {
+                case 'git init':
+                    unlockAchievement('achievement-first-repo');
+                    break;
+                case 'git status':
+                    unlockAchievement('achievement-status-master');
+                    break;
+                case 'git commit -m "Initial commit"':
+                    unlockAchievement('achievement-commit-champion');
+                    break;
+            }
+        }
+
+        // Unlock achievement
+        function unlockAchievement(achievementId) {
+            const achievement = document.getElementById(achievementId);
+            if (achievement) {
+                achievement.classList.add('unlocked');
+                
+                // Add unlock animation
+                achievement.style.transform = 'scale(1.1)';
+                achievement.style.boxShadow = '0 0 30px rgba(0, 255, 136, 0.6)';
+                
+                setTimeout(() => {
+                    achievement.style.transform = '';
+                    achievement.style.boxShadow = '';
+                }, 500);
+            }
+        }
+
+        // Hamburger menu
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            console.log('Mobile menu toggled');
+        });
+
+        // Initialize particles and progress when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateInstruction(); // Initialize first instruction
+            updateFloatingProgress(); // Initialize progress
+            
+            // Add scroll listener for floating progress
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Initial check
+        });
+
+        // Scroll effect for navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+            
+            // Handle floating progress visibility
+            handleScroll();
+        });
+        
+    </script>
+
+<script src="/Script/javascript.js"></script>    
+</body>
+</html>
