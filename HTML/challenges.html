@@ -706,6 +706,44 @@
             }
         }
 
+        // Load Mission
+        function loadMission(index) {
+            if (index >= missions.length) return;
+            
+            const mission = missions[index];
+            elements.missionTitle.textContent = mission.title;
+            elements.missionDescription.innerHTML = mission.description;
+            elements.difficulty.textContent = mission.difficulty;
+            elements.missionXp.textContent = `+${mission.xp} XP`;
+            elements.hintText.textContent = mission.hint;
+            
+            // Update difficulty color
+            elements.difficulty.className = 'px-3 py-1 rounded-full text-sm';
+            if (mission.difficulty === 'Beginner') {
+                elements.difficulty.classList.add('bg-green-500/20', 'text-green-400');
+            } else if (mission.difficulty === 'Intermediate') {
+                elements.difficulty.classList.add('bg-yellow-500/20', 'text-yellow-400');
+            } else if (mission.difficulty === 'Hard') {
+                elements.difficulty.classList.add('bg-orange-500/20', 'text-orange-400');
+            } else if (mission.difficulty === 'Expert') {
+                elements.difficulty.classList.add('bg-red-500/20', 'text-red-400');
+            } else if (mission.difficulty === 'Master') {
+                elements.difficulty.classList.add('bg-purple-500/20', 'text-purple-400');
+            } else {
+                elements.difficulty.classList.add('bg-pink-500/20', 'text-pink-400');
+            }
+            
+            // Update branch status
+            updateBranchStatus(index);
+            
+            // Hide all message boxes
+            elements.hintBox.classList.add('hidden');
+            elements.successBox.classList.add('hidden');
+            elements.errorBox.classList.add('hidden');
+            
+            elements.commandInput.value = '';
+            elements.commandInput.focus();
+        }
 
         </script>
     </footer>
