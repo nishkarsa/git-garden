@@ -1194,6 +1194,83 @@
             }
         }
 
+        // Event Listeners
+        elements.attackButton.addEventListener('click', () => {
+            const command = elements.commandInput.value.trim();
+            if (command) {
+                executeCommand(command);
+            } else {
+                showError('Enter a command first, warrior!');
+            }
+        });
+
+        elements.commandInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                elements.attackButton.click();
+            }
+        });
+
+        elements.hintButton.addEventListener('click', () => {
+            if (gameState.hp >= 25) {
+                takeDamage(25);
+                elements.hintBox.classList.toggle('hidden');
+                addToTerminal('💡 Strategic hint revealed (-25 HP)', 'system');
+            }
+        });
+
+        elements.retreatButton.addEventListener('click', () => {
+            if (gameState.hp >= 50) {
+                if (confirm('Are you sure you want to retreat? You\'ll lose 50 HP and skip this mission!')) {
+                    takeDamage(50);
+                    addToTerminal('🏃 Tactical retreat executed (-50 HP)', 'system');
+                    
+                    if (gameState.currentMission < gameState.totalMissions) {
+                        gameState.currentMission++;
+                        loadMission(gameState.currentMission - 1);
+                        generateMissionList();
+                    }
+                }
+            }
+        });
+
+        elements.continueBtn.addEventListener('click', () => {
+            elements.levelupModal.classList.add('hidden');
+        });
+
+        elements.clearTerminal.addEventListener('click', () => {
+            elements.terminalOutput.innerHTML = `
+                <div class="text-red-400 font-bold">🔥 GIT WARRIOR TERMINAL v1.0 🔥</div>
+                <div class="text-gray-400 mb-4">Terminal cleared. Ready for battle!</div>
+                
+                <div class="flex items-center text-green-400">
+                    <span>warrior@battlefield:~$ </span>
+                    <input type="text" class="terminal-input bg-transparent flex-grow ml-1" id="terminal-input">
+                </div>
+            `;
+            
+            attachTerminalListener();
+        });
+
+        elements.helpTerminal.addEventListener('click', () => {
+            addToTerminal('=== GIT WARRIOR HELP ===', 'system');
+            addToTerminal('System commands: help, clear, status, missions, hp, level', 'system');
+            addToTerminal('Use the main input above for Git battle commands!', 'system');
+            addToTerminal('Get hints (-25 HP) or retreat (-50 HP) if needed', 'system');
+        });
+
+        elements.restartBtn.addEventListener('click', () => {
+            restartGame();
+        });
+
+        elements.reviveBtn.addEventListener('click', () => {
+            reviveWithHP();
+        });
+
+        // Initialize terminal listener
+        attachTerminalListener();
+
+        // Initialize the game
+        initGame();
         </script>
     </footer>
 </body>
