@@ -115,6 +115,50 @@
         </header>
 
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-8">
+                        <!-- Current Battle -->
+            <div class="lg:col-span-2 bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold flex items-center">
+                        <i class="fas fa-sword text-red-400 mr-3"></i>
+                        <span id="mission-title">Initialize Your Arsenal</span>
+                    </h2>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm" id="difficulty">Beginner</span>
+                        <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm" id="mission-xp">+50 XP</span>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-gray-300 mb-4" id="mission-description">
+                        Welcome to the battlefield, warrior! Your first mission is to initialize a Git repository. 
+                        Think about what command creates a new repository from scratch.
+                    </p>
+                    
+                    <div class="bg-black rounded-lg p-4 mb-4">
+                        <div class="flex items-center text-green-400 font-mono text-sm mb-2">
+                            <span class="mr-2">warrior-project/</span>
+                            <span class="text-gray-500" id="branch-status">no git repo</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-green-400 mr-2">$</span>
+                            <input type="text" class="terminal-input bg-transparent w-full text-green-400 font-mono" 
+                                   placeholder="Enter your battle command..." autofocus id="command-input">
+                        </div>
+                        <div class="text-gray-500 text-xs mt-2">Press Enter to execute your command</div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg flex items-center transition-colors" id="attack-button">
+                        <i class="fas fa-sword mr-2"></i> Attack!
+                    </button>
+                    <button class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg flex items-center transition-colors" id="hint-button">
+                        <i class="fas fa-shield-alt mr-2"></i> Hint (-25 HP)
+                    </button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg flex items-center ml-auto transition-colors" id="retreat-button">
+                        <i class="fas fa-flag mr-2"></i> Retreat (-50 HP)
+                    </button>
+                </div>
     </div>
     <!-- Footer -->
     <footer class="footer">
