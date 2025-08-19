@@ -981,6 +981,44 @@
             return outputs[command] || 'Command executed successfully.';
         }
 
+        // Get Error Message
+        function getErrorMessage(input, expected) {
+            if (!input.startsWith('git') && !input.startsWith('echo')) {
+                return 'Error: Most commands should start with "git"';
+            }
+            
+            return 'Error: Command not recognized. Check the mission description for guidance.';
+        }
+
+        // Complete Mission
+        function completeMission(mission) {
+            gameState.completedMissions++;
+            gameState.xp += mission.xp;
+            gameState.streak++;
+            
+            // Check for level up
+            if (gameState.xp >= gameState.xpNeeded) {
+                levelUp();
+            }
+            
+            showSuccess(`Victory! ${mission.title} completed!`);
+            showAchievement('Battle Won!', `${mission.title} completed`, mission.xp);
+            
+            // Move to next mission
+            if (gameState.currentMission < gameState.totalMissions) {
+                setTimeout(() => {
+                    gameState.currentMission++;
+                    loadMission(gameState.currentMission - 1);
+                    generateMissionList();
+                    updateUI();
+                }, 3000);
+            } else {
+                // Game completed!
+                setTimeout(() => {
+                    alert('🎉 Congratulations! You have completed all missions and become a Git Legend! 🎉');
+                }, 2000);
+            }
+        }
 
         </script>
     </footer>
