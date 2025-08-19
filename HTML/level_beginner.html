@@ -95,6 +95,38 @@
             line-height: 1.6;
         }
 
+        /* Interactive Learning Section */
+        .interactive-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        .instruction-panel {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .command-terminal {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            overflow: hidden;
+        }
+
         
     </style>
 </head>
@@ -214,7 +246,36 @@
         </div>
     </section>
     
-    
+    <!-- Interactive Learning Section -->
+    <section class="interactive-section">
+        <!-- Instruction Panel -->
+        <div class="instruction-panel">
+            <div class="command-card current-step" id="currentInstruction">
+                <div class="command-header">
+                    <span class="step-number" id="stepNumber">1</span>
+                    <div>
+                        <h3 class="step-title" id="stepTitle">Initialize Your Garden</h3>
+                        <div class="command-icon" id="stepIcon" style="font-size: 2rem;">🏁</div>
+                    </div>
+                </div>
+                <p class="step-description" id="stepDescription">
+                    Create your first Git repository! This is like preparing the soil for your coding garden. 
+                    Type the command below to initialize a new repository.
+                </p>
+                <div class="command-syntax" id="expectedCommand">git init</div>
+                
+                <div class="hint-box">
+                    <div class="hint-title">
+                        💡 Hint
+                    </div>
+                    <p class="hint-text" id="hintText">
+                        The 'git init' command creates a hidden .git folder that will track all changes in your project.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
