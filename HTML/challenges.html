@@ -431,6 +431,193 @@
             completedMissions: 0,
             totalMissions: 50
         };
+
+                // Mission Data - Complete 50 missions with progressive difficulty
+        const missions = [
+            // Level 1 - Beginner (Missions 1-10)
+            {
+                title: "Initialize Your Arsenal",
+                description: "Welcome to the battlefield, warrior! Your first mission is to initialize a Git repository. Think about what command creates a new repository from scratch.",
+                command: "git init",
+                hint: "You need to create a new Git repository. Think about the command that initializes version control in a directory.",
+                difficulty: "Beginner",
+                xp: 50,
+                unlockLevel: 1
+            },
+            {
+                title: "First Blood",
+                description: "Create a README.md file and add it to the staging area. Think about the command that prepares files for commitment.",
+                command: "git add README.md",
+                hint: "You need to stage a file for the next commit. Consider which command prepares files for version control.",
+                difficulty: "Beginner", 
+                xp: 75,
+                unlockLevel: 1
+            },
+            {
+                title: "Seal the Victory",
+                description: "Commit your staged files with a meaningful message. Remember to include a descriptive message about your changes.",
+                command: "git commit -m \"First victory\"",
+                hint: "You need to save your staged changes permanently. Think about the command that creates a snapshot with a message.",
+                difficulty: "Beginner",
+                xp: 100,
+                unlockLevel: 1
+            },
+            {
+                title: "Battlefield Status",
+                description: "Check your repository's current state. You need to see what files are staged, modified, or untracked.",
+                command: "git status",
+                hint: "You want to see the current state of your working directory and staging area. What command shows this information?",
+                difficulty: "Beginner",
+                xp: 50,
+                unlockLevel: 1
+            },
+            {
+                title: "War History",
+                description: "View your battle history to see all the commits you've made. Think about reviewing your project's timeline.",
+                command: "git log",
+                hint: "You need to see the history of commits in your repository. What command displays the commit timeline?",
+                difficulty: "Beginner",
+                xp: 75,
+                unlockLevel: 1
+            },
+            {
+                title: "Stage All Weapons",
+                description: "Add all modified files to the staging area at once. Think about how to stage multiple files efficiently.",
+                command: "git add .",
+                hint: "You want to stage all changes in your working directory. Consider using a wildcard to add everything.",
+                difficulty: "Beginner",
+                xp: 75,
+                unlockLevel: 1
+            },
+            {
+                title: "Quick Commit Strike",
+                description: "Stage and commit all changes in one swift move. Think about combining staging and committing operations.",
+                command: "git commit -am \"Quick update\"",
+                hint: "You want to stage all modified files and commit them in one command. Look for a flag that combines these actions.",
+                difficulty: "Beginner",
+                xp: 100,
+                unlockLevel: 1
+            },
+            {
+                title: "File Removal",
+                description: "Remove a file from both your working directory and Git tracking. Think about proper file deletion in Git.",
+                command: "git rm unwanted.txt",
+                hint: "You need to remove a file from Git tracking and your filesystem. What command handles Git file deletion?",
+                difficulty: "Beginner",
+                xp: 75,
+                unlockLevel: 1
+            },
+            {
+                title: "Move and Rename",
+                description: "Rename or move a file while keeping Git history intact. Think about preserving file history during moves.",
+                command: "git mv oldfile.txt newfile.txt",
+                hint: "You want to rename or move a file while preserving its Git history. What command handles Git file movements?",
+                difficulty: "Beginner",
+                xp: 100,
+                unlockLevel: 1
+            },
+            {
+                title: "Difference Detective",
+                description: "See what changes you've made to your files before staging. Think about comparing your working directory with the last commit.",
+                command: "git diff",
+                hint: "You want to see the changes you've made to tracked files. What command shows differences between versions?",
+                difficulty: "Beginner",
+                xp: 75,
+                unlockLevel: 1
+            },
+
+            // Level 2 - Intermediate (Missions 11-20)
+            {
+                title: "Branch Creation",
+                description: "Create a new branch for feature development. Think about parallel development workflows.",
+                command: "git branch feature",
+                hint: "You need to create a new line of development. What command creates a new branch without switching to it?",
+                difficulty: "Intermediate",
+                xp: 100,
+                unlockLevel: 2
+            },
+            {
+                title: "Branch Switching",
+                description: "Switch to your newly created branch. Think about changing your working context.",
+                command: "git checkout feature",
+                hint: "You want to switch your working directory to a different branch. What command changes your current branch?",
+                difficulty: "Intermediate",
+                xp: 100,
+                unlockLevel: 2
+            },
+            {
+                title: "Swift Branch Creation",
+                description: "Create and switch to a new branch in one command. Think about efficiency in branch operations.",
+                command: "git checkout -b development",
+                hint: "You want to create a new branch and immediately switch to it. Look for a flag that combines these operations.",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 2
+            },
+            {
+                title: "Branch Reconnaissance",
+                description: "List all branches in your repository. Think about getting an overview of all available branches.",
+                command: "git branch",
+                hint: "You want to see all the branches that exist in your repository. What command lists branch information?",
+                difficulty: "Intermediate",
+                xp: 75,
+                unlockLevel: 2
+            },
+            {
+                title: "The Merge War",
+                description: "Merge your feature branch back to main. Think about combining different lines of development.",
+                command: "git merge feature",
+                hint: "You want to integrate changes from one branch into your current branch. What command combines branches?",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 2
+            },
+            {
+                title: "Remote Conquest",
+                description: "Add a remote repository connection. Think about linking your local repo to a hosting service.",
+                command: "git remote add origin https://github.com/user/repo.git",
+                hint: "You need to connect your local repository to a remote server. What command establishes remote connections?",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 2
+            },
+            {
+                title: "Push to Victory",
+                description: "Upload your local commits to the remote repository. Think about sharing your work with others.",
+                command: "git push origin main",
+                hint: "You want to upload your local changes to a remote repository. What command sends commits to a remote server?",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 2
+            },
+            {
+                title: "Remote Intelligence",
+                description: "Download changes from the remote repository without merging. Think about fetching updates safely.",
+                command: "git fetch origin",
+                hint: "You want to get the latest changes from remote without affecting your working directory. What command downloads remote updates?",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 2
+            },
+            {
+                title: "Pull and Integrate",
+                description: "Download and merge remote changes in one operation. Think about staying synchronized with remote updates.",
+                command: "git pull origin main",
+                hint: "You want to fetch remote changes and merge them into your current branch. What command combines fetch and merge?",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 2
+            },
+            {
+                title: "Clone Mastery",
+                description: "Create a local copy of a remote repository. Think about starting work on an existing project.",
+                command: "git clone https://github.com/user/repo.git",
+                hint: "You want to create a local copy of a remote repository. What command downloads and sets up a complete repository?",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 2
+            },
+        ];
         </script>
     </footer>
 </body>
