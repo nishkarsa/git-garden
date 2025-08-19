@@ -223,6 +223,47 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Right Sidebar -->
+            <div class="space-y-6">
+                <!-- Player Stats -->
+                <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <i class="fas fa-user-ninja text-red-400 mr-2"></i> Warrior Stats
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-900/50 p-3 rounded-lg border border-red-500/30">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-red-400 font-bold">❤️ Health</span>
+                                <span class="text-red-400 font-bold" id="hp">100</span>
+                            </div>
+                            <div class="hp-bar bg-gray-700 rounded-full" style="--hp: 100%" id="hp-bar"></div>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 p-3 rounded-lg border border-blue-500/30">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-blue-400 font-bold">⭐ XP</span>
+                                <span class="text-blue-400 font-bold" id="xp">0</span>
+                            </div>
+                            <div class="xp-bar bg-gray-700 rounded-full" style="--xp: 0%" id="xp-bar"></div>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 p-3 rounded-lg border border-yellow-500/30">
+                            <div class="flex items-center justify-between">
+                                <span class="text-yellow-400 font-bold">🏆 Achievements</span>
+                                <span class="text-yellow-400 font-bold" id="achievements">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 p-3 rounded-lg border border-purple-500/30">
+                            <div class="flex items-center justify-between">
+                                <span class="text-purple-400 font-bold">🔥 Streak</span>
+                                <span class="text-purple-400 font-bold" id="streak">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
     <!-- Footer -->
     <footer class="footer">
