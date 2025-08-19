@@ -1092,8 +1092,261 @@
             }
         };
 
-    </script>
+        // Learning steps configuration
+        const steps = [
+            {
+                number: 1,
+                title: "Initialize Your Garden",
+                icon: "🏁",
+                description: "Create your first Git repository! This is like preparing the soil for your coding garden.",
+                expectedCommand: "git init",
+                hint: "The 'git init' command creates a hidden .git folder that will track all changes in your project.",
+                visual: "🌍",
+                visualDesc: "Empty plot ready for planting",
+                successVisual: "🌱",
+                successDesc: "Repository initialized! Your garden is ready for seeds.",
+                successMessage: "Initialized empty Git repository in /your-project/.git/"
+            },
+            {
+                number: 2,
+                title: "Check Your Garden Status",
+                icon: "📊",
+                description: "See what's happening in your repository. This shows you the current state of your garden.",
+                expectedCommand: "git status",
+                hint: "Use 'git status' to see which files are tracked, modified, or ready to be committed.",
+                visual: "🌱",
+                visualDesc: "Repository ready, checking for changes",
+                successVisual: "🌱📋",
+                successDesc: "Status checked! You can see your garden's health.",
+                successMessage: "On branch main\nNothing to commit, working tree clean"
+            },
+            {
+                number: 3,
+                title: "Add Seeds to Your Garden",
+                icon: "➕",
+                description: "Stage your changes for commit. This is like selecting which seeds you want to plant.",
+                expectedCommand: "git add .",
+                hint: "Use 'git add .' to add all files, or 'git add filename' for specific files.",
+                visual: "🌱📋",
+                visualDesc: "Ready to plant seeds",
+                successVisual: "🌱🌰🌰",
+                successDesc: "Seeds added! Changes are staged for planting.",
+                successMessage: "Changes staged for commit:\n  modified: README.md\n  new file: index.html"
+            },
+            {
+                number: 4,
+                title: "Plant Your Seeds",
+                icon: "💾",
+                description: "Commit your changes with a meaningful message. This plants your seeds in the garden!",
+                expectedCommand: 'git commit -m "Initial commit"',
+                hint: "Always write clear commit messages that explain what you've done.",
+                visual: "🌱🌰🌰",
+                visualDesc: "Seeds ready for planting",
+                successVisual: "🌱🌿🌿",
+                successDesc: "Seeds planted! Your first commit is growing.",
+                successMessage: "[main (root-commit) a1b2c3d] Initial commit\n 2 files changed, 10 insertions(+)"
+            },
+            {
+                number: 5,
+                title: "View Your Garden History",
+                icon: "📜",
+                description: "Look at your commit history. See how your garden has grown over time!",
+                expectedCommand: "git log",
+                hint: "Use 'git log --oneline' for a compact view of your commit history.",
+                visual: "🌱🌿🌿",
+                visualDesc: "Growing garden with planted seeds",
+                successVisual: "🌳📚",
+                successDesc: "History revealed! You can see your garden's growth story.",
+                successMessage: "commit a1b2c3d (HEAD -> main)\nAuthor: You <you@example.com>\nDate: Today\n\n    Initial commit"
+            },
+            {
+                number: 6,
+                title: "Clone Another Garden",
+                icon: "🔄",
+                description: "Copy a repository from somewhere else. Like taking a cutting from another garden!",
+                expectedCommand: "git clone <repository-url>",
+                hint: "This creates a complete copy of a remote repository on your local machine.",
+                visual: "🌳📚",
+                visualDesc: "Mature garden ready for sharing",
+                successVisual: "🌳🌳🔄",
+                successDesc: "Garden cloned! You've mastered the seedling level!",
+                successMessage: "Cloning into 'new-repository'...\nremote: Counting objects: 100% (5/5), done.\nReceiving objects: 100% (5/5), done."
+            }
+        ];
 
+        // Execute command function
+        function executeCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+            
+            addToOutput(`$ ${command}`, 'info');
+            
+            const currentStepData = steps[currentStep];
+            const expectedCommands = Array.isArray(currentStepData.expectedCommand) 
+                ? currentStepData.expectedCommand 
+                : [currentStepData.expectedCommand];
+            
+            // Check if command matches expected (flexible matching)
+            const isCorrect = expectedCommands.some(expected => {
+                if (expected.includes('<repository-url>')) {
+                    return command.startsWith('git clone ') && command.length > 'git clone '.length;
+                }
+                if (expected.includes('"') && command.includes('git commit -m')) {
+                    return command.startsWith('git commit -m ') && command.includes('"');
+                }
+                return command === expected || command === expected.replace(' .', '');
+            });
+            
+            if (isCorrect) {
+                handleCorrectCommand(currentStepData);
+            } else {
+                handleIncorrectCommand(command, currentStepData);
+            }
+            
+            input.value = '';
+        }
+        
+        function handleCorrectCommand(stepData) {
+            // Add success message
+            addToOutput(stepData.successMessage, 'success');
+            
+            // Update visual with animation
+            updateGardenVisual(stepData.successVisual, stepData.successDesc, true);
+            
+            // Animate command visual container
+            const commandVisual = document.querySelector('.command-visual');
+            commandVisual.classList.add('success');
+            
+            // Mark command as completed
+            completedCommands.add(stepData.expectedCommand);
+            
+            // Update progress with animation
+            updateFloatingProgress(true);
+            
+            // Check for achievements
+            checkStepAchievements(currentStep);
+            
+            // Move to next step
+            if (currentStep < steps.length - 1) {
+                setTimeout(() => {
+                    currentStep++;
+                    updateInstruction();
+                    updateFloatingProgress();
+                    commandVisual.classList.remove('success');
+                    addToOutput(`\n🎉 Great job! Moving to step ${currentStep + 1}...`, 'success');
+                }, 2000);
+            } else {
+                // Level completed!
+                setTimeout(() => {
+                    addToOutput('\n🌟 Congratulations! You\'ve completed the Seedling level!', 'success');
+                    showAchievement('achievement-seedling-complete');
+                    updateFloatingProgress(true);
+                }, 2000);
+            }
+        }
+        
+        function handleIncorrectCommand(command, stepData) {
+            if (command.startsWith('git ')) {
+                addToOutput(`Command executed, but try: ${stepData.expectedCommand}`, 'error');
+            } else {
+                addToOutput(`'${command}' is not recognized as a git command`, 'error');
+            }
+            addToOutput('💡 Check the instruction panel for help!', 'info');
+        }
+        
+        function addToOutput(text, type = '') {
+            const output = document.getElementById('terminalOutput');
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function updateGardenVisual(visual, description) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            // Add animation
+            gardenState.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                gardenState.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        function updateInstruction() {
+            const step = steps[currentStep];
+            
+            document.getElementById('stepNumber').textContent = step.number;
+            document.getElementById('stepTitle').textContent = step.title;
+            document.getElementById('stepIcon').textContent = step.icon;
+            document.getElementById('stepDescription').textContent = step.description;
+            document.getElementById('expectedCommand').textContent = step.expectedCommand;
+            document.getElementById('hintText').textContent = step.hint;
+            
+            updateGardenVisual(step.visual, step.visualDesc);
+        }
+
+        function updateGardenVisual(visual, description, animated = false) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            // Add animation based on the visual change
+            if (animated) {
+                gardenState.classList.add('garden-animated');
+                setTimeout(() => {
+                    gardenState.classList.remove('garden-animated');
+                }, 2000);
+            }
+        }
+
+        // Floating Progress Bar Functions
+        function updateFloatingProgress(animated = false) {
+            const total = steps.length;
+            const completed = currentStep + (currentStep < steps.length ? 0 : 1);
+            const percentage = Math.round((completed / total) * 100);
+            
+            const progressFill = document.getElementById('floatingProgressFill');
+            const progressIcon = document.getElementById('progressIcon');
+            
+            // Update progress bar
+            progressFill.style.width = percentage + '%';
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            
+            // Add progress animation
+            if (animated) {
+                progressFill.classList.add('animated');
+                setTimeout(() => {
+                    progressFill.classList.remove('animated');
+                }, 600);
+            }
+            
+            // Update progress icon and add command-specific animation
+            const commandAnimations = ['🌍', '🌱', '🌱', '🌰', '🌿', '🌳', '🌳'];
+            const animationClasses = ['', 'init-animation', 'status-animation', 'add-animation', 'commit-animation', 'log-animation', 'clone-animation'];
+            
+            if (completed <= total) {
+                progressIcon.textContent = commandAnimations[completed] || '🌳';
+                
+                // Add command-specific animation
+                if (animated && animationClasses[completed]) {
+                    progressIcon.classList.add(animationClasses[completed]);
+                    setTimeout(() => {
+                        progressIcon.classList.remove(animationClasses[completed]);
+                    }, 2000);
+                }
+            }
+        }
+
+    </script>
 
 <script src="/Script/javascript.js"></script>    
 </body>
