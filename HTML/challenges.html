@@ -823,6 +823,31 @@
             });
         }
 
+        // Execute Command
+        function executeCommand(command) {
+            const mission = missions[gameState.currentMission - 1];
+            const trimmedCommand = command.trim().toLowerCase();
+            const expectedCommand = mission.command.toLowerCase();
+            
+            addToTerminal(`warrior@battlefield:~$ ${command}`, 'input');
+            
+            // Check command
+            if (trimmedCommand === expectedCommand || isCommandValid(trimmedCommand, expectedCommand)) {
+                // Success!
+                const output = getCommandOutput(mission.command);
+                addToTerminal(output, 'success');
+                completeMission(mission);
+            } else {
+                // Failure
+                takeDamage(10);
+                const errorMsg = getErrorMessage(trimmedCommand, expectedCommand);
+                addToTerminal(errorMsg, 'error');
+                showError("Command failed! Check the mission description for guidance.");
+            }
+            
+            elements.commandInput.value = '';
+        }
+
         </script>
     </footer>
 </body>
