@@ -296,6 +296,41 @@
             </div>
         </div>
     </div>
+
+    <!-- Level Up Modal -->
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden z-50" id="levelup-modal">
+        <div class="bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 border border-red-500/50 text-center">
+            <div class="bg-red-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-level-up-alt text-red-400 text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-red-400 mb-2">⚔️ LEVEL UP! ⚔️</h2>
+            <p class="text-gray-300 mb-4">You've advanced to Level <span id="new-level-text">2</span>!</p>
+            <p class="text-sm text-gray-400 mb-6">+100 HP restored, new missions unlocked!</p>
+            <button class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg transition-colors" id="continue-btn">
+                Continue Battle
+            </button>
+        </div>
+    </div>
+
+    <!-- Death Modal -->
+    <div class="death-modal hidden" id="death-modal">
+        <div class="bg-gray-900 rounded-2xl p-8 max-w-md w-full mx-4 border-4 border-red-500 text-center">
+            <div class="bg-red-500/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-skull text-red-400 text-4xl"></i>
+            </div>
+            <h2 class="text-4xl font-bold text-red-400 mb-4">💀 YOU DIED! 💀</h2>
+            <p class="text-gray-300 mb-2 text-lg">Your HP reached 0!</p>
+            <p class="text-gray-400 mb-6">The battlefield has claimed another warrior...</p>
+            <div class="space-y-3">
+                <button class="w-full bg-red-600 hover:bg-red-700 px-6 py-3 rounded-lg transition-colors" id="restart-btn">
+                    <i class="fas fa-redo mr-2"></i> Rise Again (Restart)
+                </button>
+                <button class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition-colors" id="revive-btn">
+                    <i class="fas fa-heart mr-2"></i> Revive with 50 HP
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
