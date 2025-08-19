@@ -1043,6 +1043,42 @@
             elements.deathModal.classList.remove('hidden');
         }
 
+
+                // Restart Game
+        function restartGame() {
+            gameState = {
+                level: 1,
+                hp: 100,
+                maxHp: 100,
+                xp: 0,
+                xpNeeded: 1000,
+                achievements: 0,
+                streak: 0,
+                currentMission: 1,
+                completedMissions: 0,
+                totalMissions: 50
+            };
+            
+            elements.deathModal.classList.add('hidden');
+            updateUI();
+            loadMission(0);
+            generateMissionList();
+            
+            // Clear terminal
+            elements.terminalOutput.innerHTML = `
+                <div class="text-red-400 font-bold">🔥 GIT WARRIOR TERMINAL v1.0 🔥</div>
+                <div class="text-gray-400 mb-4">Reborn! Ready for battle again!</div>
+                <div class="text-yellow-400 mb-2">Use 'help' for system commands</div>
+                
+                <div class="flex items-center text-green-400">
+                    <span>warrior@battlefield:~$ </span>
+                    <input type="text" class="terminal-input bg-transparent flex-grow ml-1" id="terminal-input">
+                </div>
+            `;
+            
+            attachTerminalListener();
+        }
+        
         </script>
     </footer>
 </body>
