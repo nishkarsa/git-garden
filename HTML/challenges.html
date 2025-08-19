@@ -658,6 +658,55 @@
             restartBtn: document.getElementById('restart-btn'),
             reviveBtn: document.getElementById('revive-btn')
         };
+
+        // Initialize Game
+        function initGame() {
+            updateUI();
+            loadMission(gameState.currentMission - 1);
+            generateMissionList();
+            addToTerminal("Welcome to Git Warrior! Use 'help' for system commands.", 'system');
+        }
+
+        // Update UI Elements
+        function updateUI() {
+            elements.level.textContent = gameState.level;
+            elements.hp.textContent = gameState.hp;
+            elements.xp.textContent = gameState.xp;
+            elements.achievements.textContent = gameState.achievements;
+            elements.streak.textContent = gameState.streak;
+            elements.progress.textContent = `${gameState.completedMissions}/${gameState.totalMissions}`;
+            elements.missionsCompleted.textContent = `${gameState.completedMissions}/${gameState.totalMissions} completed`;
+            
+            // Update HP bar
+            const hpPercent = (gameState.hp / gameState.maxHp) * 100;
+            elements.hpBar.style.setProperty('--hp', `${hpPercent}%`);
+            
+            // Update XP bar
+            const xpPercent = (gameState.xp / gameState.xpNeeded) * 100;
+            elements.xpBar.style.setProperty('--xp', `${xpPercent}%`);
+            
+            // Update button states
+            elements.hintButton.disabled = gameState.hp < 25;
+            elements.retreatButton.disabled = gameState.hp < 50;
+            
+            if (gameState.hp < 25) {
+                elements.hintButton.classList.add('opacity-50', 'cursor-not-allowed');
+                elements.hintButton.innerHTML = '<i class="fas fa-shield-alt mr-2"></i> Hint (Not enough HP)';
+            } else {
+                elements.hintButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                elements.hintButton.innerHTML = '<i class="fas fa-shield-alt mr-2"></i> Hint (-25 HP)';
+            }
+            
+            if (gameState.hp < 50) {
+                elements.retreatButton.classList.add('opacity-50', 'cursor-not-allowed');
+                elements.retreatButton.innerHTML = '<i class="fas fa-flag mr-2"></i> Retreat (Not enough HP)';
+            } else {
+                elements.retreatButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                elements.retreatButton.innerHTML = '<i class="fas fa-flag mr-2"></i> Retreat (-50 HP)';
+            }
+        }
+
+
         </script>
     </footer>
 </body>
