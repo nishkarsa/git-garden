@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Garden</title>
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .navbar {
+            position: static;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Welcome Back</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Sign in to continue your Git journey</p>
+            </div>
+            <form class="auth-form" id="authForm">
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                    <i class="form-input-icon fas fa-envelope"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" id="passwordInput" placeholder="Password" required>
+                    <i class="form-input-icon fas fa-eye password-toggle" id="passwordToggle"></i>
+                </div>
+                <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                    <input type="password" class="form-input" id="confirmPasswordInput" placeholder="Confirm Password">
+                    <i class="form-input-icon fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
+                </div>
+                <button type="submit" class="form-submit" id="submitBtn">
+                    <span class="loading-spinner"></span>
+                    <span id="submitText">Sign In</span>
+                </button>
+            </form>
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+            <div class="social-auth">
+                <button class="social-btn github">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </button>
+                <button class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+            </div>
+            <div class="auth-switch">
+                <span id="switchText">Don't have an account?</span>
+                <a href="#" id="switchMode">Sign up</a>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fab fa-git-alt"></i>
+                GitGarden
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#levels">Levels</a></li>
+                <li><a href="./HTML/challenges.html">Challenges</a></li>
+                <li><a href="./HTML/about_us.html">About Us</a></li>
+                <li><a href="./HTML/contact_us.html">Contact</a></li>
+            </ul>
+            <!-- Auth Buttons (shown when not logged in) -->
+            <div class="auth-buttons" id="authNavButtons">
+                <button class="auth-btn login-btn" id="loginBtn">Login</button>
+                <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
+            </div>
+
+            <!-- User Icon (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav">
+                <i class="fas fa-user"></i>
+                <span id="userNameDisplay">User</span>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GitGarden</h3>
+                    <p>Transforming Git learning into epic adventures, one command at a time. Join thousands of developers leveling up their skills!</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Access</h3>
+                    <a href="#levels">Levels</a>
+                    <a href="./HTML/challeneges.html">Arena</a>
+                    <a href="./HTML/about_us.html">Our Story</a>
+                    <a href="./HTML/contact_us.html">Connect</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F" target="_blank">Git Mastery Guide</a>
+                    <a href="https://github.com/community" target="_blank">Community Hub</a>
+                    <a href="./HTML/contact_us.html" target="_blank">Support Center</a>
+                    <a href="https://github.blog/" target="_blank">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Join Community</h3>
+                    <a href="https://github.com/nishkarsa/git-garden.git" target="_blank">GitHub</a>
+                    <a href="https://discord.gg/AKku6Vts" target="_blank">Discord Server</a>
+                    <a href="x.com" target="_blank">X</a>
+                    <a href="https://www.linkedin.com/company/github/posts/?feedView=all" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GitGarden. Crafted with 💚 for the epic developer community.</p>
+            </div>
+        </div>
+    </footer>
+<script src="/Script/javascript.js"></script>    
+</body>
+</html>
