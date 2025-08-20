@@ -6,6 +6,8 @@
     <title>About Us - GitGarden</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../CSS/styles.css">
+    <!-- Swiper CSS for the team member carousel -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <style>
         * {
             margin: 0;
@@ -549,5 +551,104 @@
         </div>
     </div>
 
+<!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Function to create animated particles in the background
+        function createParticles() {
+            const bgAnimation = document.querySelector('.animated-bg'); // Use .animated-bg as the container for the animated background
+            const particleCount = 30; // number of particles to create
+
+            // loop to create and position particles
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div'); // create a new div for each particles
+                particle.className = 'particle'; // assign the 'particle' class for styling
+                particle.style.left = Math.random() * 100 + '%'; // random horizontal position
+                particle.style.top = Math.random() * 100 + '%'; // random vertical position
+                particle.style.animationDelay = Math.random() * 6 + 's'; // random delay before animation starts
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's'; // random duration for the animation
+                bgAnimation.appendChild(particle); // add the particle to the background
+            }
+        }
+
+        // Event listener for when the DOM content is fully loaded 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Swiper for the team member carousel
+            const swiper = new Swiper('.swiper-container', {
+                effect: 'coverflow', // Cool animation effect
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto', // Auto-adjust based on slide width
+                loop: true, // Loop the slides
+                coverflowEffect: {
+                    rotate: 50, // Slide rotate in degrees
+                    stretch: 0, // Stretch space between slides (in px)
+                    depth: 100, // Depth offset in px
+                    modifier: 1, // Effect multiplier
+                    slideShadows: true, // Enable slide shadows
+                },
+                pagination: {
+                    el: '.swiper-pagination', // selector for pagination element
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 1, // show 1 slide on small screens
+                    },
+                    768: {
+                        slidesPerView: 2, // show 2 slides on medium screens
+                    },
+                    1024: {
+                        slidesPerView: 3, // show 3 slides on large screens
+                    },
+                }
+            });
+
+            // select all team cards and modal close buttons 
+            const teamCards = document.querySelectorAll('.team-card');
+            const closeButtons = document.querySelectorAll('.modal .close-button');
+            const modals = document.querySelectorAll('.modal');
+
+            // add click event listeners to each team card
+            teamCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const memberId = this.dataset.member; // get member ID from the data attribute
+                    const modal = document.getElementById(`${memberId}-modal`); // select the corresponding modal
+                    if (modal) {
+                        modal.classList.add('show'); // show the modal
+                    }
+                });
+            });
+
+            // add click event listeners to each close button
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modal = this.closest('.modal'); // find the closest modal to the button
+                    if (modal) {
+                        modal.classList.remove('show'); // hide the modal
+                    }
+                });
+            });
+
+            // add click event listeners to each modal for closing when clicking outside the content
+            modals.forEach(modal => {
+                modal.addEventListener('click', function(event) {
+                    // Close modal if clicked outside the modal-content
+                    if (event.target === this) {
+                        this.classList.remove('show'); // hide the modal
+                    }
+                });
+            });
+
+            // Call createParticles function to generate particles on page load
+            createParticles();
+        });
+    </script>
+
     <script src="Script/javascript.js"></script>    
 </body>
+</html>
