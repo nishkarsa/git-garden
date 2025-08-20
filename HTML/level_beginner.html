@@ -16,6 +16,7 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
         }
 
         .particle {
@@ -1737,20 +1738,40 @@
         });
 
         // Create floating particles
-        function createParticles() {
+        function createStarParticles() {
             const bgAnimation = document.getElementById('bgAnimation');
-            const particleCount = 30;
+            const particleCount = 50;
+
+            bgAnimation.innerHTML = '';     // Clear existing particles
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+
+                // Randomize particle properties
+                const size = Math.random() * 4 + 2; // 2-6px
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const duration = Math.random() * 4 + 6; // 6-10s
+                const delay = Math.random() * duration;
+                
+                particle.style.cssText = `
+                    left: ${startX}%;
+                    top: ${startY}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-duration: ${duration}s;
+                    animation-delay: ${delay}s;
+                    opacity: ${Math.random() * 0.4 + 0.2};
+                `;
+                
                 bgAnimation.appendChild(particle);
             }
-        }
+            
+            // Regenerate particles periodically to keep animation fresh
+            setTimeout(createStarParticles, 30000); // Every 30 seconds
+        }                
+            
 
         // Complete a command (for the old cards section)
         function completeCommand(button, command) {
@@ -1829,7 +1850,7 @@
 
         // Initialize particles and progress when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
+            createStarParticles();
             updateInstruction(); // Initialize first instruction
             updateFloatingProgress(); // Initialize progress
             
