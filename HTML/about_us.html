@@ -6,6 +6,21 @@
     <title>About Us - GitGarden</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../CSS/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            /* The main background gradient will be applied to .animated-bg */
+            color: #ffffff; /* Text color from seedling.html */
+            overflow-x: hidden; /* Prevents horizontal scroll from seedling.html */
+        }
+    </style>
 </head>
 <body>
 <!-- Auth Modal -->
@@ -88,6 +103,22 @@
             </div>
         </div>
     </nav>
+
+    <!-- Mission Statement Section -->
+    <section class="py-24 content-section-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white animate-[glow_2s_ease-in-out_infinite_alternate] bg-gradient-to-r from-[#ff006e] via-[#06ffa5] to-[#3a86ff] bg-clip-text text-transparent bg-200% animate-[textShimmer_3s_ease-in-out_infinite]">
+                Welcome to the Git adventures
+            </h2>
+            <p class="text-lg md:text-xl text-white text-opacity-80 mt-6 max-w-3xl mx-auto animate-[slideInFromBottom_1s_ease_0.3s_both]">
+                Step into a world where vision control becomes second nature. Navigate through branching forests, resolve merge conflicts in epic battles, and emerge as a Git master ready to tackle any challenges.
+            </p>
+            <a href="#team" class="inline-block mt-8 bg-gradient-to-r from-[#ff006e] to-[#06ffa5] text-white py-3 px-6 rounded-full font-bold text-lg hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(255,0,110,0.6)] transition-all duration-300 animate-[slideInFromBottom_1s_ease_0.6s_both]">
+                Meet Our Team
+            </a>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
