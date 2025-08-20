@@ -20,6 +20,74 @@
             color: #ffffff; /* Text color from seedling.html */
             overflow-x: hidden; /* Prevents horizontal scroll from seedling.html */
         }
+
+        /* Team Section Styles (Adjusted for Swiper) */
+        .team-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%; /* Swiper will manage width */
+            /* Ensure the card itself doesn't have a fixed height that conflicts with coverflow */
+            height: auto; /* Allow content to define height */
+            display: flex; /* For internal content alignment */
+            flex-direction: column;
+            justify-content: flex-end; /* Push content to bottom */
+        }
+
+        /* Adjustments for Swiper's coverflow effect */
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px; /* Example width, adjust as needed for coverflow */
+            height: 400px; /* Example height, adjust as needed for coverflow */
+            display: flex; /* To center content within slide */
+            align-items: center;
+            justify-content: center;
+            /* Add a subtle shadow for depth */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 15px; /* Match card border-radius */
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px; /* slide border-radius */
+        }
+
+        .team-card-content {
+            position: absolute; /* Make content overlay */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            z-index: 20; /* Ensure it's above the image */
+        }
+
+        .team-card:hover .team-card-content {
+            transform: translateY(0);
+        }
+
+        /* Profile Image Styling */
+        .profile-img {
+            border: 3px solid #06ffa5;
+            box-shadow: 0 0 15px rgba(6, 255, 165, 0.5);
+            transition: all 0.3s ease;
+            width: 100%;
+            height: 100%; /* Fill the slide */
+            object-fit: cover;
+            border-radius: 15px; /* slide border-radius */
+        }
+
+        .team-card:hover .profile-img {
+            border-color: #ff006e;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+        }
     </style>
 </head>
 <body>
