@@ -154,6 +154,11 @@ body {
     text-align: center;
     color: rgba(255, 255, 255, 0.5);
 }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
 /* Auth Buttons */
 .auth-buttons {
     display: flex;
