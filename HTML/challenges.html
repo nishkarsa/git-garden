@@ -8,6 +8,35 @@
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Wrap your main game content */
+        .game-content {
+            flex: 1;
+            padding-top: 20px;
+        }
+
+        /* Ensure footer stays at bottom */
+        .footer {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        /* Add container class to footer if missing */
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
@@ -240,8 +269,9 @@
             </div>
         </div>
     </nav>
+    <div class="game-content">
     <!-- Main Game UI -->
-    <div class="max-w-7xl mx-auto px-4 pt-24">
+    <div class="max-w-7xl mx-auto px-4 pt-0">
         <!-- Player Stats Header -->
         <header class="py-6 border-b border-gray-800">
             <div class="flex items-center justify-between mb-4">
@@ -430,6 +460,7 @@
                 </div>
             </div>
         </main>
+    </div>
     </div>
 
     <!-- Achievement Popup -->
