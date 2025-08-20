@@ -1376,6 +1376,7 @@
             input.value = '';
         }
         
+        // Replace the handleCorrectCommand function
         function handleCorrectCommand(stepData) {
             // Add success message
             addToOutput(stepData.successMessage, 'success');
@@ -1390,27 +1391,31 @@
             // Mark command as completed
             completedCommands.add(stepData.expectedCommand);
             
-            // Update progress with animation
-            updateFloatingProgress(true);
-            
-            // Check for achievements
-            checkStepAchievements(currentStep);
-            
-            // Move to next step
+            // Move to next step first, then update progress
             if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateFloatingProgress(true);
+                
+                // Check for achievements
+                checkStepAchievements(currentStep - 1);
+                
                 setTimeout(() => {
-                    currentStep++;
                     updateInstruction();
-                    updateFloatingProgress();
                     commandVisual.classList.remove('success');
                     addToOutput(`\n🎉 Great job! Moving to step ${currentStep + 1}...`, 'success');
                 }, 2000);
             } else {
-                // Level completed!
+                // Level completed - increment currentStep to show 100%
+                currentStep++;
+                updateFloatingProgress(true);
+                
+                // Check for achievements
+                checkStepAchievements(currentStep - 1);
+                
+                // Show completion popup after a delay
                 setTimeout(() => {
-                    addToOutput('\n🌟 Congratulations! You\'ve completed the Seedling level!', 'success');
-                    showAchievement('achievement-seedling-complete');
-                    updateFloatingProgress(true);
+                    showLevelCompletionPopup();
+                    commandVisual.classList.remove('success');
                 }, 2000);
             }
         }
@@ -1479,7 +1484,7 @@
         // Floating Progress Bar Functions
         function updateFloatingProgress(animated = false) {
             const total = steps.length;
-            const completed = currentStep + (currentStep < steps.length ? 0 : 1);
+            const completed = currentStep + (currentStep >= steps.length ? 1 : 0);
             const percentage = Math.round((completed / total) * 100);
             
             const progressFill = document.getElementById('floatingProgressFill');
@@ -1498,7 +1503,7 @@
             }
             
             // Update progress icon and add command-specific animation
-            const commandAnimations = ['🌍', '🌱', '🌱', '🌰', '🌿', '🌳', '🌳'];
+            const commandAnimations = ['🌱', '🌱', '📊', '➕', '💾', '📜', '🌳'];
             const animationClasses = ['', 'init-animation', 'status-animation', 'add-animation', 'commit-animation', 'log-animation', 'clone-animation'];
             
             if (completed <= total) {
