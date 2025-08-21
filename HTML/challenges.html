@@ -1547,6 +1547,34 @@
                 hideHelpSuggestion();
             }
         });
+
+        // Show All Missions Button Event Listener 
+        elements.showMoreBtn = document.getElementById('show-more-btn');
+
+        elements.showMoreBtn.addEventListener('click', () => {
+            const missionList = elements.missionList;
+            const isAtBottom = missionList.scrollTop + missionList.clientHeight >= missionList.scrollHeight - 10;
+            
+            if (!isAtBottom) {
+                // Scroll to bottom
+                missionList.scrollTo({
+                    top: missionList.scrollHeight,
+                    behavior: 'smooth'
+                });
+                
+                // Update button text
+                elements.showMoreBtn.innerHTML = '<i class="fas fa-chevron-up mr-2"></i> Scroll to Top';
+            } else {
+                // Scroll to top
+                missionList.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // Update button text
+                elements.showMoreBtn.innerHTML = '<i class="fas fa-chevron-down mr-2"></i> Show All Missions';
+            }
+        });
         // Initialize terminal listener
         attachTerminalListener();
 
