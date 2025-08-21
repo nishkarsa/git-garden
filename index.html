@@ -6,8 +6,8 @@
     <title>Git Garden</title>
     <link rel="stylesheet" href="CSS/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script>
     // Firebase Configuration (from Firebase Console)
     const firebaseConfig = {
@@ -493,11 +493,11 @@
                 <span>or continue with</span>
             </div>
             <div class="social-auth">
-                <button class="social-btn github" id="googleLoginBtn">
+                <button class="social-btn github" id="githubLoginBtn">
                     <i class="fab fa-github"></i>
                     GitHub
                 </button>
-                <button class="social-btn google" id="githubLoginBtn">
+                <button class="social-btn google" id="googleLoginBtn">
                     <i class="fab fa-google"></i>
                     Google
                 </button>
@@ -636,8 +636,9 @@
             </div>
         </div>
     </footer>
-<script src="./Script/javascript.js"></script>  
 <script src="./Script/firebase-auth.js"></script>
+<script src="./Script/javascript.js"></script>  
+
 
 </body>
 </html>
