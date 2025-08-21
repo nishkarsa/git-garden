@@ -10,20 +10,35 @@ class AuthManager {
         this.setupLogoutHandler();
     }
 
-    updateAuthUI() {
-        const authNavButtons = document.getElementById('authNavButtons');
-        const userIconNav = document.getElementById('userIconNav');
-        
-        if (authNavButtons && userIconNav) {
-            if (this.isLoggedIn) {
-                authNavButtons.style.display = 'none';
-                userIconNav.style.display = 'flex';
-            } else {
-                authNavButtons.style.display = 'flex';
-                userIconNav.style.display = 'none';
+ updateAuthUI() {
+    const authNavButtons = document.getElementById('authNavButtons');
+    const userIconNav = document.getElementById('userIconNav');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const profileImg = document.getElementById('profileImg');
+
+    if (authNavButtons && userIconNav) {
+        if (this.isLoggedIn) {
+            authNavButtons.style.display = 'none';
+            userIconNav.style.display = 'flex';
+
+            // Get user data from localStorage (set this after login)
+            const user = JSON.parse(localStorage.getItem('gitgarden_user'));
+
+            if (userNameDisplay && user) {
+                userNameDisplay.textContent = user.displayName || user.email || "User";
             }
+
+            if (profileImg && user && user.photoURL) {
+                profileImg.src = user.photoURL;
+                profileImg.style.display = "inline-block";
+            }
+        } else {
+            authNavButtons.style.display = 'flex';
+            userIconNav.style.display = 'none';
         }
     }
+}
+
 
     login() {
         this.isLoggedIn = true;
