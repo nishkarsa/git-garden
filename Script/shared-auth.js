@@ -35,6 +35,12 @@ class AuthManager {
         this.isLoggedIn = false;
         localStorage.removeItem('gitgarden_auth');
         this.updateAuthUI();
+        // Redirect only if on challenges or beginner level pages
+        const currentPage = window.location.pathname;
+
+        if (currentPage.includes("challenges.html") || currentPage.includes("level_beginner.html") || currentPage.includes("level_intermediate.html") || currentPage.includes("level_advanced.html")) {
+            window.location.href = "../index.html";
+        }
     }
 
     setupLogoutHandler() {
