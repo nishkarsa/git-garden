@@ -20,21 +20,40 @@ const logoutBtn = document.getElementById('logoutBtn'); // Get the new logout bu
 let isLoginMode = true;
 let isLoggedIn = localStorage.getItem('gitgarden_auth') === 'true';
 
-// Function to update UI based on login status
 function updateAuthUI() {
+    let isLoggedIn = localStorage.getItem("gitgarden_auth") === "true";
+
     if (isLoggedIn) {
-        authNavButtons.style.display = 'none';
-        userIconNav.style.display = 'flex'; // Show user icon and logout button
-        // You might want to set the username here if you have it
-        // userNameDisplay.textContent = "Logged In User"; 
+        authNavButtons.style.display = "none";
+        userIconNav.style.display = "flex"; // Show user icon and logout button
+
+        // Load user info from localStorage
+        const user = JSON.parse(localStorage.getItem("gitgarden_user"));
+
+        if (user) {
+            // Show name if available
+            if (user.displayName && userNameDisplay) {
+                userNameDisplay.textContent = user.displayName;
+            }
+
+            // Show profile picture if available
+            if (user.photoURL) {
+                const profileImg = document.getElementById("profileImg");
+                if (profileImg) {
+                    profileImg.src = user.photoURL;
+                    profileImg.style.display = "block";
+                }
+            }
+        }
     } else {
-        authNavButtons.style.display = 'flex';
-        userIconNav.style.display = 'none'; // Hide user icon and logout button
+        authNavButtons.style.display = "flex";
+        userIconNav.style.display = "none"; // Hide user icon and logout button
     }
 }
 
 // Initial UI update
 updateAuthUI();
+
 
 // Open login modal
 loginBtn.addEventListener('click', () => {
@@ -176,14 +195,6 @@ logoutBtn.addEventListener('click', () => {
     updateAuthUI();
     showNotification('You have been logged out!', 'info');
 });
-
-// Social auth buttons
-//document.querySelectorAll('.social-btn').forEach(btn => {
-    //btn.addEventListener('click', (e) => {
-        //const provider = e.currentTarget.classList.contains('github') ? 'GitHub' : 'Google';
-        //showNotification(`🚀 ${provider} authentication would be implemented here!`, 'info');
-    //});
-//});
 
 function createSuccessEffect() {
     const modal = document.querySelector('.auth-modal');

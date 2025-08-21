@@ -228,11 +228,11 @@
                 <span>or continue with</span>
             </div>
             <div class="social-auth">
-                <button class="social-btn github" id="githubLoginBtn">
+                <button class="social-btn github">
                     <i class="fab fa-github"></i>
                     GitHub
                 </button>
-                <button class="social-btn google" id="googleLoginBtn">
+                <button class="social-btn google">
                     <i class="fab fa-google"></i>
                     Google
                 </button>
@@ -263,12 +263,15 @@
                 <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
             </div>
 
-            <!-- User Icon (shown when logged in, initially hidden) -->
-            <div class="user-icon-container" id="userIconNav">
-                <i class="fas fa-user"></i>
+            <!-- User Info (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav" style="display: none;">
+                <img id="profileImg" 
+                    alt="Profile" 
+                    style="width:32px; height:32px; border-radius:50%; margin-right:8px; display:none;">
                 <span id="userNameDisplay">User</span>
-                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;" onclick="firebaseLogout()">Logout</button>
             </div>
+
             <div class="hamburger">
                 <span></span>
                 <span></span>

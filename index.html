@@ -528,12 +528,15 @@
                 <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
             </div>
 
-            <!-- User Icon (shown when logged in, initially hidden) -->
-            <div class="user-icon-container" id="userIconNav">
-                <i class="fas fa-user"></i>
+            <!-- User Info (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav" style="display: none;">
+                <img id="profileImg" 
+                    alt="Profile" 
+                    style="width:32px; height:32px; border-radius:50%; margin-right:8px; display:none;">
                 <span id="userNameDisplay">User</span>
-                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;" onclick="firebaseLogout()">Logout</button>
             </div>
+
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -637,7 +640,9 @@
         </div>
     </footer>
 <script src="./Script/firebase-auth.js"></script>
+<script src="./Script/shared-auth.js"></script>
 <script src="./Script/javascript.js"></script>  
+
 
 
 </body>
