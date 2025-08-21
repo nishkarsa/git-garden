@@ -352,9 +352,15 @@ document.querySelectorAll('.level-button').forEach(button => {
         // Create explosion effect
         createExplosion(e.target);
 
-        // Simulate level start with enhanced feedback
+        // Redirect based on level
         setTimeout(() => {
-            alert(`🚀 Launching ${levelName} Adventure!\n\n✨ Get ready for an epic learning journey!\n\nThis would redirect to your chosen adventure in the full application.`);
+            if (levelName === "Seedling Explorer") {
+                window.location.href = "HTML/level_beginner.html";
+            } else if (levelName === "Branch Guardian") {
+                window.location.href = "HTML/level_intermediate.html";
+            } else if (levelName === "Git Wizard") {
+                window.location.href = "HTML/level_advanced.html";
+            }
         }, 300);
     });
 });
