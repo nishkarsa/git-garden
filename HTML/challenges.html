@@ -1518,7 +1518,35 @@
             reviveWithHP();
         });
 
-        
+        // Help Suggestion Modal Event Listeners
+        elements.visitLevelsBtn.addEventListener('click', () => {
+            // Save preference if checkbox is checked
+            if (elements.dontRemindCheckbox.checked) {
+                gameState.dontRemindHelp = true;
+            }
+            
+            hideHelpSuggestion();
+            
+            // Redirect to levels page
+            window.location.href = '../index.html#levels';
+        });
+
+        elements.stayChallengeBtn.addEventListener('click', () => {
+            // Save preference if checkbox is checked
+            if (elements.dontRemindCheckbox.checked) {
+                gameState.dontRemindHelp = true;
+            }
+            
+            hideHelpSuggestion();
+            addToTerminal('💪 Warrior spirit! Keep fighting!', 'system');
+        });
+
+        // Close help suggestion modal when clicking outside
+        elements.helpSuggestionModal.addEventListener('click', (e) => {
+            if (e.target === elements.helpSuggestionModal) {
+                hideHelpSuggestion();
+            }
+        });
         // Initialize terminal listener
         attachTerminalListener();
 
