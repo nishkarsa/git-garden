@@ -1071,10 +1071,17 @@
                 completeMission(mission);
             } else {
                 // Failure
+                gameState.wrongCommandCount++;
                 takeDamage(10);
                 const errorMsg = getErrorMessage(trimmedCommand, expectedCommand);
                 addToTerminal(errorMsg, 'error');
                 showError("Command failed! Check the mission description for guidance.");
+                
+                // Show help suggestion after 3 wrong attempts (if not disabled)
+                if (gameState.wrongCommandCount >= 3 && !gameState.dontRemindHelp) {
+                    showHelpSuggestion();
+                }
+ 
             }
             
             elements.commandInput.value = '';
@@ -1227,6 +1234,7 @@
             gameState.completedMissions++;
             gameState.xp += mission.xp;
             gameState.streak++;
+            gameState.wrongCommandCount = 0;
             
             // Check for level up
             if (gameState.xp >= gameState.xpNeeded) {
@@ -1288,7 +1296,9 @@
                 streak: 0,
                 currentMission: 1,
                 completedMissions: 0,
-                totalMissions: 50
+                totalMissions: 50,
+                wrongCommandCount: 0,
+                dontRemindHelp: false
             };
             
             elements.deathModal.classList.add('hidden');
@@ -1361,6 +1371,16 @@
             setTimeout(() => {
                 elements.achievementPopup.classList.add('translate-x-full');
             }, 4000);
+        }
+
+        // Show Help Suggestion Modal
+        function showHelpSuggestion() {
+            elements.helpSuggestionModal.classList.remove('hidden');
+        }
+
+        // Hide Help Suggestion Modal
+        function hideHelpSuggestion() {
+            elements.helpSuggestionModal.classList.add('hidden');
         }
 
         // Add to Terminal
@@ -1498,6 +1518,7 @@
             reviveWithHP();
         });
 
+        
         // Initialize terminal listener
         attachTerminalListener();
 
