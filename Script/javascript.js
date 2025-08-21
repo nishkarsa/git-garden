@@ -18,7 +18,7 @@ const userNameDisplay = document.getElementById('userNameDisplay');
 const logoutBtn = document.getElementById('logoutBtn'); // Get the new logout button
 
 let isLoginMode = true;
-let isLoggedIn = false; // Track user login status
+let isLoggedIn = localStorage.getItem('gitgarden_auth') === 'true';
 
 // Function to update UI based on login status
 function updateAuthUI() {
@@ -154,6 +154,7 @@ authForm.addEventListener('submit', async (e) => {
         showNotification(`🎉 Successfully ${action}! Welcome to GitGarden!`, 'success');
         
         isLoggedIn = true; // Set login status to true on successful auth
+        localStorage.setItem('gitgarden_auth', 'true'); // Add this line
         updateAuthUI(); // Update UI after successful login/signup
 
         setTimeout(() => {
@@ -170,10 +171,10 @@ authForm.addEventListener('submit', async (e) => {
 
 // Logout functionality
 logoutBtn.addEventListener('click', () => {
-    isLoggedIn = false; // Set login status to false
-    updateAuthUI(); // Update UI to show login/signup buttons
-    showNotification('👋 You have been logged out!', 'info');
-    // In a real app, you would also clear session data (e.g., localStorage.removeItem('authToken'))
+    isLoggedIn = false;
+    localStorage.removeItem('gitgarden_auth'); // Add this line
+    updateAuthUI();
+    showNotification('You have been logged out!', 'info');
 });
 
 // Social auth buttons
@@ -273,10 +274,46 @@ hamburger.addEventListener('click', () => {
 });
 
 // Close menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', (e) => {
+    // Check if it's the challenges link
+    if (n.getAttribute('href') === './HTML/challenges.html') {
+        e.preventDefault(); // Prevent default navigation
+        
+        // Check if user is logged in
+        if (!isLoggedIn) {
+            isLoginMode = true;
+            updateModalContent();
+            openModal();
+            showNotification('🔒 Please log in to access challenges!', 'info');
+            return;
+        } else {
+            // If logged in, navigate to challenges
+            window.location.href = './HTML/challenges.html';
+        }
+    }
+    
     hamburger.classList.remove('active');
     navMenu.classList.remove('active');
 }));
+// Add this to your main JavaScript file
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.get('showLogin') === 'true') {
+        isLoginMode = true;
+        updateModalContent();
+        openModal();
+    } else if (urlParams.get('showSignup') === 'true') {
+        isLoginMode = false;
+        updateModalContent();
+        openModal();
+    }
+    
+    // Clear URL parameters after processing
+    if (urlParams.has('showLogin') || urlParams.has('showSignup')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
 
 // Enhanced smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
