@@ -6,6 +6,189 @@
     <title>About Us - GitGarden</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../CSS/styles.css">
+
+    <style>
+                .form-container {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.2);
+            margin-top: 80px;
+            margin-bottom: 80px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            animation: fadeIn 0.5s ease-in-out;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container:focus-within .form-header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+        
+        .form-header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 
+                0 0 20px rgba(0, 255, 136, 0.8),
+                0 0 40px rgba(0, 255, 136, 0.6),
+                0 0 60px rgba(0, 255, 136, 0.4);
+            color: #00ff88;
+        }
+        
+        .form-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-section {
+            padding: 40px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            background: transparent !important;
+        }
+        
+        .form-control, .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff !important;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        /* Fix placeholder color */
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        /* Fix focus states - keep same background, only change border */
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-color: #00ff88 !important;
+            box-shadow: 0 0 0 0.2rem rgba(0, 255, 136, 0.25) !important;
+            color: #ffffff !important;
+        }
+        
+        .form-control:focus::placeholder {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            color: white;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+
+        .btn-submit:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #0f0f23 0%, #00ff88 50%, #1a1a3a 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.4);
+            animation: bounceIn 0.6s ease;
+            border: 2px solid #00ff88;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3) translateY(-50px); opacity: 0; }
+            50% { transform: scale(1.05) translateY(-10px); }
+            70% { transform: scale(0.9) translateY(0); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        .required {
+            color: #ff4444;
+            text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+        }
+
+        .invalid-feedback {
+            color: #ff4444;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+        }
+
+        /* Additional fixes for better visibility */
+        .form-control::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+        
+        .form-control::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+        
+        .form-control:-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+        
+        .form-control::-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+    </style>
     </head>
 <body class = "relative font-sans">
 
@@ -94,6 +277,92 @@
             </div>
         </div>
     </nav>
+
+        <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="form-container">
+                    <!-- Header Section -->
+                    <div class="form-header">
+                        <h1>🌱 Git-Garden Contact Us Form</h1>
+                        <p>Do you need any help? Send us message and join the legendary developer community!</p>
+                    </div>
+                    
+                    <!-- Form Section -->
+                    <div class="form-section">
+                        <div class="success-message" id="successMessage">
+                            <i class="fas fa-check-circle me-2"></i>
+                            🎉 Awesome! Your message has been submitted successfully! 
+                        </div>
+                        
+                        <form id="simpleForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                                        <div class="invalid-feedback">
+                                            Please provide your first name.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                                        <div class="invalid-feedback">
+                                            Please provide your last name.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email address.
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="subject" class="form-label">Subject <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="subject" placeholder="Enter the subject" required>
+                                        <div class="invalid-feedback">
+                                            Please enter a subject.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="userInput" class="form-label">Your Message <span class="required">*</span></label>
+                                <textarea class="form-control" id="userInput" rows="6" placeholder="Type your message here..." required></textarea>
+                                <div class="invalid-feedback">
+                                    Please enter your message.
+                                </div>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-submit">
+                                    <i class="fas fa-rocket me-2"></i>Launch Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <!-- Footer -->
     <footer class="footer">
         <div class="container">
