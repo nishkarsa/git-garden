@@ -845,6 +845,236 @@
                 xp: 125,
                 unlockLevel: 2
             },
+                        // Level 3 - Advanced Intermediate (Missions 21-30)
+            {
+                title: "Staged Difference Analysis",
+                description: "View the differences between staged files and the last commit. Think about reviewing what you're about to commit.",
+                command: "git diff --staged",
+                hint: "Use 'git diff' with the '--staged' flag to see staged changes.",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 3
+            },
+            {
+                title: "Branch Cleanup",
+                description: "Delete a branch that's no longer needed. Think about maintaining a clean repository structure.",
+                command: "git branch -d feature",
+                hint: "Use 'git branch' with the '-d' flag followed by the branch name.",
+                difficulty: "Intermediate",
+                xp: 100,
+                unlockLevel: 3
+            },
+            {
+                title: "Force Branch Removal",
+                description: "Force delete an unmerged branch. Think about removing branches with unmerged changes (use with caution!).",
+                command: "git branch -D experimental",
+                hint: "Use 'git branch' with capital '-D' flag to force delete a branch.",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 3
+            },
+            {
+                title: "Unstage Files",
+                description: "Remove files from the staging area without losing changes. Think about undoing the git add operation.",
+                command: "git reset HEAD file.txt",
+                hint: "Use 'git reset HEAD' followed by the filename to unstage.",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 3
+            },
+            {
+                title: "Commit Amendment",
+                description: "Modify your last commit message or add forgotten changes. Think about fixing your most recent commit.",
+                command: "git commit --amend -m \"Fixed commit message\"",
+                hint: "Use 'git commit --amend -m' followed by your new message in quotes.",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 3
+            },
+            {
+                title: "File Recovery",
+                description: "Restore a file to its last committed state. Think about discarding unwanted changes to a specific file.",
+                command: "git checkout -- file.txt",
+                hint: "Use 'git checkout --' followed by the filename to restore it.",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 3
+            },
+            {
+                title: "Tag Creation",
+                description: "Create a tag to mark an important version or release. Think about creating milestone markers in your history.",
+                command: "git tag v1.0",
+                hint: "Use 'git tag' followed by your tag name (like v1.0).",
+                difficulty: "Intermediate",
+                xp: 100,
+                unlockLevel: 3
+            },
+            {
+                title: "Tag with Message",
+                description: "Create an annotated tag with a detailed message. Think about adding descriptive information to your version markers.",
+                command: "git tag -a v1.1 -m \"Release version 1.1\"",
+                hint: "Use 'git tag -a tagname -m' followed by your message in quotes.",
+                difficulty: "Intermediate",
+                xp: 125,
+                unlockLevel: 3
+            },
+            {
+                title: "Remote Branch Push",
+                description: "Push a local branch to create a new remote branch. Think about sharing a new feature branch with your team.",
+                command: "git push origin feature-branch",
+                hint: "Use 'git push origin' followed by your branch name.",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 3
+            },
+            {
+                title: "Remote Branch Tracking",
+                description: "Set up your local branch to track a remote branch. Think about establishing a connection for easier push/pull operations.",
+                command: "git branch --set-upstream-to=origin/main main",
+                hint: "Use 'git branch --set-upstream-to=origin/branchname' followed by your local branch.",
+                difficulty: "Intermediate",
+                xp: 150,
+                unlockLevel: 3
+            },
+
+            // Level 4 - Advanced (Missions 31-40)
+            {
+                title: "Stash Your Progress",
+                description: "Temporarily save your uncommitted changes. Think about switching contexts without losing work.",
+                command: "git stash",
+                hint: "Simply use 'git stash' to save your current work temporarily.",
+                difficulty: "Advanced",
+                xp: 150,
+                unlockLevel: 4
+            },
+            {
+                title: "Stash with Message",
+                description: "Save your changes with a descriptive message for easy identification. Think about organizing multiple stashed changes.",
+                command: "git stash save \"Work in progress on feature\"",
+                hint: "Use 'git stash save' followed by your message in quotes.",
+                difficulty: "Advanced",
+                xp: 175,
+                unlockLevel: 4
+            },
+            {
+                title: "Stash Recovery",
+                description: "Restore your most recent stashed changes. Think about retrieving your temporarily saved work.",
+                command: "git stash pop",
+                hint: "Use 'git stash pop' to restore and remove your latest stash.",
+                difficulty: "Advanced",
+                xp: 150,
+                unlockLevel: 4
+            },
+            {
+                title: "Cherry Pick Victory",
+                description: "Apply a specific commit from another branch to your current branch. Think about selective commit integration.",
+                command: "git cherry-pick abc1234",
+                hint: "Use 'git cherry-pick' followed by the commit hash you want to apply.",
+                difficulty: "Advanced",
+                xp: 200,
+                unlockLevel: 4
+            },
+            {
+                title: "Interactive Rebase",
+                description: "Start an interactive rebase to modify commit history. Think about rewriting and organizing your commits.",
+                command: "git rebase -i HEAD~3",
+                hint: "Use 'git rebase -i HEAD~' followed by the number of commits to modify.",
+                difficulty: "Advanced",
+                xp: 225,
+                unlockLevel: 4
+            },
+            {
+                title: "Conflict Resolution",
+                description: "Mark merge conflicts as resolved after manual editing. Think about completing the merge process.",
+                command: "git add resolved-file.txt",
+                hint: "After manually editing conflicts, use 'git add' on the resolved file.",
+                difficulty: "Advanced",
+                xp: 175,
+                unlockLevel: 4
+            },
+            {
+                title: "Show Commit Details",
+                description: "Display detailed information about a specific commit. Think about inspecting what changed in a particular commit.",
+                command: "git show abc1234",
+                hint: "Use 'git show' followed by the commit hash to see commit details.",
+                difficulty: "Advanced",
+                xp: 150,
+                unlockLevel: 4
+            },
+            {
+                title: "Blame Investigation",
+                description: "See who last modified each line of a file. Think about tracking down the author of specific changes.",
+                command: "git blame file.txt",
+                hint: "Use 'git blame' followed by the filename to see line-by-line authorship.",
+                difficulty: "Advanced",
+                xp: 175,
+                unlockLevel: 4
+            },
+            {
+                title: "Reflog Navigation",
+                description: "View the history of HEAD movements to recover lost commits. Think about Git's safety net for your actions.",
+                command: "git reflog",
+                hint: "Simply use 'git reflog' to see the reference log of your HEAD movements.",
+                difficulty: "Advanced",
+                xp: 200,
+                unlockLevel: 4
+            },
+            {
+                title: "Reset to Previous State",
+                description: "Reset your repository to a previous commit, keeping changes in working directory. Think about undoing commits while preserving work.",
+                command: "git reset --soft HEAD~1",
+                hint: "Use 'git reset --soft HEAD~1' to undo the last commit but keep changes staged.",
+                difficulty: "Advanced",
+                xp: 200,
+                unlockLevel: 4
+            },
+
+            // Level 5 - Expert (Missions 41-45)
+            {
+                title: "Submodule Addition",
+                description: "Add another Git repository as a submodule. Think about including external projects within your repository.",
+                command: "git submodule add https://github.com/user/library.git lib",
+                hint: "Use 'git submodule add [URL] [path]' - the URL is the repo and path is where to place it.",
+                difficulty: "Expert",
+                xp: 250,
+                unlockLevel: 5
+            },
+            {
+                title: "Worktree Creation",
+                description: "Create a new working tree to work on multiple branches simultaneously. Think about having multiple checkouts of the same repository.",
+                command: "git worktree add ../feature-work feature-branch",
+                hint: "Use 'git worktree add [path] [branch]' - path is where to create it, branch is which branch to check out.",
+                difficulty: "Expert",
+                xp: 275,
+                unlockLevel: 5
+            },
+            {
+                title: "Bisect Start",
+                description: "Start a binary search to find the commit that introduced a bug. Think about efficiently hunting down problematic commits.",
+                command: "git bisect start",
+                hint: "Simply use 'git bisect start' to begin the binary search process.",
+                difficulty: "Expert",
+                xp: 250,
+                unlockLevel: 5
+            },
+            {
+                title: "Archive Creation",
+                description: "Create a tar archive of your repository at a specific commit. Think about creating distribution packages.",
+                command: "git archive --format=tar HEAD > project.tar",
+                hint: "Use 'git archive --format=tar HEAD >' followed by your filename to create an archive.",
+                difficulty: "Expert",
+                xp: 225,
+                unlockLevel: 5
+            },
+            {
+                title: "Clean Workspace",
+                description: "Remove all untracked files and directories from your working directory. Think about cleaning up your workspace.",
+                command: "git clean -fd",
+                hint: "Use 'git clean -fd' where -f forces the action and -d includes directories.",
+                difficulty: "Expert",
+                xp: 200,
+                unlockLevel: 5
+            }
         ];
 
         // DOM Elements
