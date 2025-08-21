@@ -186,6 +186,13 @@
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100">
+    <script>
+    const user = localStorage.getItem("gitgarden_auth");
+    if (!user) {
+        window.location.href = "../index.html"; // Redirect to home if not logged in
+    }
+    </script>
+
     <!-- Animated Background -->
     <div class="animated-bg">
     </div>
@@ -1814,5 +1821,7 @@
     <script src="/Script/javascript.js">
     </script>
     <script src="../Script/shared-auth.js"></script>
+    <script src="../Script/firebase-auth.js"></script>
+
 </body>
 </html>

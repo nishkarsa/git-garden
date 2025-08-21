@@ -53,9 +53,7 @@ class MinimalAuth {
     }
 
     logout() {
-        this.isLoggedIn = false;
-        localStorage.removeItem('gitgarden_auth');
-        this.updateAuthUI();
+    firebaseLogout(); // Use Firebase logout instead
     }
 
     showNotification(message, type) {

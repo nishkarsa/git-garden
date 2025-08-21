@@ -178,12 +178,12 @@ logoutBtn.addEventListener('click', () => {
 });
 
 // Social auth buttons
-document.querySelectorAll('.social-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const provider = e.currentTarget.classList.contains('github') ? 'GitHub' : 'Google';
-        showNotification(`🚀 ${provider} authentication would be implemented here!`, 'info');
-    });
-});
+//document.querySelectorAll('.social-btn').forEach(btn => {
+    //btn.addEventListener('click', (e) => {
+        //const provider = e.currentTarget.classList.contains('github') ? 'GitHub' : 'Google';
+        //showNotification(`🚀 ${provider} authentication would be implemented here!`, 'info');
+    //});
+//});
 
 function createSuccessEffect() {
     const modal = document.querySelector('.auth-modal');

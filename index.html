@@ -6,6 +6,22 @@
     <title>Git Garden</title>
     <link rel="stylesheet" href="CSS/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+    <script>
+    // Firebase Configuration (from Firebase Console)
+    const firebaseConfig = {
+       apiKey: "AIzaSyCEVJF3jik90PsbkvMV9FJxpVGASUoZhsg",
+    authDomain: "git-garden-ee608.firebaseapp.com",
+    projectId: "git-garden-ee608",
+    storageBucket: "git-garden-ee608.firebasestorage.app",
+    messagingSenderId: "216393683661",
+    appId: "1:216393683661:web:0123bbfdc14b5aeeed8f84"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+   </script>    
+
     <style>
         /* Animated Background */
         .animated-bg {
@@ -477,11 +493,11 @@
                 <span>or continue with</span>
             </div>
             <div class="social-auth">
-                <button class="social-btn github">
+                <button class="social-btn github" id="googleLoginBtn">
                     <i class="fab fa-github"></i>
                     GitHub
                 </button>
-                <button class="social-btn google">
+                <button class="social-btn google" id="githubLoginBtn">
                     <i class="fab fa-google"></i>
                     Google
                 </button>
@@ -620,7 +636,11 @@
             </div>
         </div>
     </footer>
-<script src="Script/javascript.js"></script>    
-        
+<script src="/Script/javascript.js"></script>  
+<!-- Firebase SDK -->
+
+<script src="/Script/firebase-auth.js"></script>
+
+
 </body>
 </html>

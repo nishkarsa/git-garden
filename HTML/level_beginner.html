@@ -876,6 +876,12 @@
     </style>
 </head>
 <body>
+    <script>
+    const user = localStorage.getItem("gitgarden_auth");
+    if (!user) {
+        window.location.href = "../index.html"; // Redirect to home if not logged in
+    }
+    </script>
     <!-- Auth Modal -->
     <div class="modal-overlay" id="authModal">
         <div class="auth-modal">
@@ -1876,5 +1882,6 @@
 
 <script src="/Script/javascript.js"></script>    
 <script src="../Script/shared-auth.js"></script>
+<script src="../Script/firebase-auth.js"></script>
 </body>
 </html>
