@@ -863,6 +863,8 @@
                     const modal = document.getElementById(`${memberId}-modal`); // select the corresponding modal
                     if (modal) {
                         modal.classList.add('show'); // show the modal
+                        // Prevent body scroll when modal is open
+                        document.body.classList.add('modal-open');
                     }
                 });
             });
@@ -873,6 +875,8 @@
                     const modal = this.closest('.modal'); // find the closest modal to the button
                     if (modal) {
                         modal.classList.remove('show'); // hide the modal
+                        // Restore body scroll when modal is closed
+                        document.body.classList.remove('modal-open');
                     }
                 });
             });
@@ -883,8 +887,21 @@
                     // Close modal if clicked outside the modal-content
                     if (event.target === this) {
                         this.classList.remove('show'); // hide the modal
+                        // Restore body scroll when modal is closed
+                        document.body.classList.remove('modal-open');
                     }
                 });
+            });
+
+            // Escape key handler for closing modals
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const openModal = document.querySelector('.modal.show');
+                    if (openModal) {
+                        openModal.classList.remove('show');
+                        document.body.classList.remove('modal-open');
+                    }
+                }
             });
 
             // Call createParticles function to generate particles on page load
