@@ -309,8 +309,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 2rem; /* Space below the slider */
             gap: 1.5rem; /* Space between pagination and arrows */
+            flex-wrap: wrap;
         }
 
         .swiper-button-next,
@@ -361,6 +361,157 @@
         .swiper-pagination-bullet-active {
             background: #00ff88 !important; /* Active bullet color */
             transform: scale(1.2);
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .particle, .gradient-text {
+                animation: none;
+            }
+            
+            .mission-button, .team-card, .profile-img {
+                transition: none;
+            }
+        }
+
+        /* Custom responsive adjustments */
+        @media (max-width: 1024px) {
+            .swiper-slide {
+                width: 240px;
+                min-height: 300px;
+            }
+            .modal-content {
+                padding: 1.5rem;
+                max-width: 30rem;
+            }
+            .modal-profile-img {
+                width: 80px;
+                height: 80px;
+                max-width: 100px;
+                max-height: 100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal {
+                padding: 0.75rem;
+            }
+            
+            .modal-content {
+                margin: 1rem auto;
+                max-height: calc(100vh - 2rem);
+                padding: 1.5rem;
+                max-width: 28rem;
+            }
+            
+            .modal-profile-img {
+                width: 70px;
+                height: 70px;
+                max-width: 90px;
+                max-height: 90px;
+            }
+            
+            .close-button {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .swiper-slide {
+                width: 220px;
+                min-height: 280px;
+            }
+            .gradient-text {
+                font-size: 2rem !important;
+                line-height: 1.1;
+            }
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 50px !important;
+                height: 50px !important;
+            }
+            .modal-content {
+                max-width: 28rem;
+                padding: 1.25rem;
+            }
+            .modal-profile-img {
+                width: 60px;
+                height: 60px;
+                max-width: 85px;
+                max-height: 85px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .swiper-slide {
+                width: 200px;
+                min-height: 260px;
+            }
+            .gradient-text {
+                font-size: 1.75rem !important;
+                line-height: 1.1;
+            }
+            .modal {
+                padding: 0.5rem;
+            }
+            .modal-content {
+                margin: 0.5rem auto;
+                max-height: calc(100vh - 1rem);
+                padding: 1rem;
+                max-width: 24rem;
+                border-radius: 0.75rem;
+            }
+            .modal-profile-img {
+                width: 60px;
+                height: 60px;
+                max-width: 80px;
+                max-height: 80px;
+            }
+            .close-button {
+                top: 10px;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+                font-size: 1.2rem;
+            }
+            .modal-social-links a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .modal {
+                padding: 0.25rem;
+            }
+            .modal-content {
+                margin: 0.25rem auto;
+                max-height: calc(100vh - 0.5rem);
+                padding: 0.75rem;
+                max-width: calc(100vw - 1rem);
+                width: 95%; /* Ensure it doesn't exceed screen */
+            }
+            .modal-profile-img {
+                width: 50px;
+                height: 50px;
+                max-width: 70px;
+                max-height: 70px;
+            }
+            .modal-social-links {
+                gap: 0.5rem;
+            }
+            .modal-social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
     </style>
 </head>
