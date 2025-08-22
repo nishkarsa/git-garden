@@ -857,6 +857,53 @@
         </div>
     </section>
 
+    <!-- Achievement Section -->
+    <section class="achievement-section">
+        <div class="achievement-container">
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">Unlock badges as you master each command</p>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card" id="achievement-branch-master">
+                    <span class="achievement-icon">🌳</span>
+                    <h4 class="achievement-name">Branch Master</h4>
+                    <p class="achievement-desc">Successfully created and managed branches</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-collaborator">
+                    <span class="achievement-icon">🤝</span>
+                    <h4 class="achievement-name">Collaborator</h4>
+                    <p class="achievement-desc">Pushed and pulled changes from a remote repository</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-history-rewriter">
+                    <span class="achievement-icon">✍️</span>
+                    <h4 class="achievement-name">History Rewriter</h4>
+                    <p class="achievement-desc">Used amend or reset to modify commit history</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-guardian-complete">
+                    <span class="achievement-icon">👑</span>
+                    <h4 class="achievement-name">Guardian Complete</h4>
+                    <p class="achievement-desc">Mastered all intermediate Git commands</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <button class="achievement-close" onclick="closeAchievement()">&times;</button>
+        <div class="achievement-popup-header">🏆 Achievement Unlocked!</div>
+        <div class="achievement-popup-content">
+            <div class="achievement-popup-icon" id="achievementIcon">🌳</div>
+            <div class="achievement-popup-text">
+                <div class="achievement-popup-title" id="achievementTitle">Branch Master</div>
+                <div class="achievement-popup-desc" id="achievementDesc">You've successfully created your first Git branch!</div>
+            </div>
+        </div>
+    </div>
+
     <script src="/Script/javascript.js"></script>    
 </body>
 </html>
