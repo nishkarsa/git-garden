@@ -1467,6 +1467,30 @@
         let completedCommands = new Set();
         let achievementQueue = [];
         let isShowingAchievement = false;
+
+        // Achievement definitions
+        const achievements = {
+            'achievement-branch-master': {
+                icon: '🌳',
+                title: 'Branch Master',
+                description: 'You\'ve successfully created and managed your first Git branch!'
+            },
+            'achievement-collaborator': {
+                icon: '🤝',
+                title: 'Team Collaborator',
+                description: 'You\'ve successfully pushed and pulled changes, mastering remote collaboration!'
+            },
+            'achievement-history-rewriter': {
+                icon: '✍️',
+                title: 'History Rewriter',
+                description: 'You\'ve learned to amend or reset commits, skillfully managing your project\'s history!'
+            },
+            'achievement-guardian-complete': {
+                icon: '👑',
+                title: 'Guardian Complete',
+                description: 'Congratulations! You\'ve mastered all intermediate Git commands and completed the Guardian level!'
+            }
+        };
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
