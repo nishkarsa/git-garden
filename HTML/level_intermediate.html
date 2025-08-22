@@ -95,6 +95,24 @@
     <!-- Background Animation -->
     <div class="bg-animation" id="bgAnimation"></div>
 
+    <!-- Floating Progress Bar -->
+    <div class="floating-progress" id="floatingProgress">
+        <div class="progress-header" id="progressHeader">
+            <div>
+                <span class="progress-icon" id="progressIcon">🌳</span>
+                <span class="progress-title">Guardian Progress</span>
+            </div>
+            <span class="progress-percentage" id="progressPercentage">0%</span>
+        </div>
+        
+        <div class="floating-progress-bar" id="floatingProgressBar">
+            <div class="floating-progress-fill" id="floatingProgressFill"></div>
+        </div>
+        <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
+            ⚔️ Go to Next Level: Champion
+        </button>
+    </div>
+    
 
     <script src="/Script/javascript.js"></script>    
 </body>
