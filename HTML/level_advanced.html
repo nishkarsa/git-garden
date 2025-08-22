@@ -1388,7 +1388,194 @@
         </div>
     </section>
 
+    <section class="commands-section">
+        <h2 class="section-title">Advanced Git Wizardry</h2>
+        <p class="section-subtitle">Unlock the most powerful Git spells and techniques</p>
+        
+        <div class="commands-grid">
+            <!-- Git Stash -->
+            <div class="command-card" data-command="stash">
+                <div class="command-header">
+                    <div class="command-icon">📦</div>
+                    <h3 class="command-name">git stash</h3>
+                </div>
+                <div class="command-syntax">git stash<br>git stash pop</div>
+                <p class="command-description">
+                    Temporarily save your current work without committing. Perfect for quick context switches.
+                </p>
+            </div>
 
+            <!-- Git Stash Save -->
+            <div class="command-card" data-command="stash-save">
+                <div class="command-header">
+                    <div class="command-icon">💾</div>
+                    <h3 class="command-name">git stash save</h3>
+                </div>
+                <div class="command-syntax">git stash save "Work in progress on feature"</div>
+                <p class="command-description">
+                    Save your changes with a descriptive message, making it easier to identify later.
+                </p>
+            </div>
+
+            <!-- Git Stash Pop -->
+            <div class="command-card" data-command="stash-pop">
+                <div class="command-header">
+                    <div class="command-icon">🎯</div>
+                    <h3 class="command-name">git stash pop</h3>
+                </div>
+                <div class="command-syntax">git stash pop</div>
+                <p class="command-description">
+                    Apply the most recently stashed changes and remove them from the stash stack.
+                </p>
+            </div>
+
+            <!-- Git Cherry-pick -->
+            <div class="command-card" data-command="cherry-pick">
+                <div class="command-header">
+                    <div class="command-icon">🍒</div>
+                    <h3 class="command-name">git cherry-pick</h3>
+                </div>
+                <div class="command-syntax">git cherry-pick abc1234</div>
+                <p class="command-description">
+                    Apply a specific commit from another branch to your current branch. Selectively pick changes.
+                </p>
+            </div>
+
+            <!-- Git Rebase -->
+            <div class="command-card" data-command="rebase">
+                <div class="command-header">
+                    <div class="command-icon">🔄</div>
+                    <h3 class="command-name">git rebase</h3>
+                </div>
+                <div class="command-syntax">git rebase -i HEAD~3</div>
+                <p class="command-description">
+                    Interactive rebase allows you to edit, reorder, or combine commits for a cleaner history.
+                </p>
+            </div>
+
+            <!-- Git Add (Resolve) -->
+            <div class="command-card" data-command="add-resolved">
+                <div class="command-header">
+                    <div class="command-icon">✅</div>
+                    <h3 class="command-name">git add (resolve)</h3>
+                </div>
+                <div class="command-syntax">git add resolved-file.txt</div>
+                <p class="command-description">
+                    Mark merge conflicts as resolved by adding the file after manually editing conflict markers.
+                </p>
+            </div>
+
+            <!-- Git Show -->
+            <div class="command-card" data-command="show">
+                <div class="command-header">
+                    <div class="command-icon">🔍</div>
+                    <h3 class="command-name">git show</h3>
+                </div>
+                <div class="command-syntax">git show abc1234</div>
+                <p class="command-description">
+                    Display detailed information about a specific commit, including the diff of changes.
+                </p>
+            </div>
+
+            <!-- Git Blame -->
+            <div class="command-card" data-command="blame">
+                <div class="command-header">
+                    <div class="command-icon">🕵️</div>
+                    <h3 class="command-name">git blame</h3>
+                </div>
+                <div class="command-syntax">git blame file.txt</div>
+                <p class="command-description">
+                    See who last modified each line of a file and when. Perfect for tracking down bugs.
+                </p>
+            </div>
+
+            <!-- Git Reflog -->
+            <div class="command-card" data-command="reflog">
+                <div class="command-header">
+                    <div class="command-icon">📚</div>
+                    <h3 class="command-name">git reflog</h3>
+                </div>
+                <div class="command-syntax">git reflog</div>
+                <p class="command-description">
+                    View a log of all ref updates (branches, HEAD moves). A lifesaver for recovering lost commits.
+                </p>
+            </div>
+
+            <!-- Git Reset --soft -->
+            <div class="command-card" data-command="reset-soft">
+                <div class="command-header">
+                    <div class="command-icon">🕰️</div>
+                    <h3 class="command-name">git reset --soft</h3>
+                </div>
+                <div class="command-syntax">git reset --soft HEAD~1</div>
+                <p class="command-description">
+                    Undo the last commit but keep changes staged. Useful for fixing commit messages or combining commits.
+                </p>
+            </div>
+
+            <!-- Git Submodule -->
+            <div class="command-card" data-command="submodule">
+                <div class="command-header">
+                    <div class="command-icon">🧩</div>
+                    <h3 class="command-name">git submodule</h3>
+                </div>
+                <div class="command-syntax">git submodule add https://github.com/user/library.git lib</div>
+                <p class="command-description">
+                    Include another Git repository as a subdirectory. Perfect for managing dependencies.
+                </p>
+            </div>
+
+            <!-- Git Worktree -->
+            <div class="command-card" data-command="worktree">
+                <div class="command-header">
+                    <div class="command-icon">🌲</div>
+                    <h3 class="command-name">git worktree</h3>
+                </div>
+                <div class="command-syntax">git worktree add ../feature-work feature-branch</div>
+                <p class="command-description">
+                    Create multiple working directories for the same repository. Work on different branches simultaneously.
+                </p>
+            </div>
+
+            <!-- Git Bisect -->
+            <div class="command-card" data-command="bisect">
+                <div class="command-header">
+                    <div class="command-icon">🎯</div>
+                    <h3 class="command-name">git bisect</h3>
+                </div>
+                <div class="command-syntax">git bisect start</div>
+                <p class="command-description">
+                    Use binary search to find the commit that introduced a bug. Systematically narrow down problematic commits.
+                </p>
+            </div>
+
+            <!-- Git Archive -->
+            <div class="command-card" data-command="archive">
+                <div class="command-header">
+                    <div class="command-icon">📋</div>
+                    <h3 class="command-name">git archive</h3>
+                </div>
+                <div class="command-syntax">git archive --format=tar HEAD > project.tar</div>
+                <p class="command-description">
+                    Create an archive of files from a named tree. Export a clean copy without Git metadata.
+                </p>
+            </div>
+
+            <!-- Git Clean -->
+            <div class="command-card" data-command="clean">
+                <div class="command-header">
+                    <div class="command-icon">🧹</div>
+                    <h3 class="command-name">git clean</h3>
+                </div>
+                <div class="command-syntax">git clean -fd</div>
+                <p class="command-description">
+                    Remove untracked files and directories from your working tree. Clean up your workspace.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    
         <!-- Footer -->
     <footer class="footer">
         <div class="container">
