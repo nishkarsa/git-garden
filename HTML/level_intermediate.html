@@ -2140,6 +2140,68 @@
                 }
             }
         }
+
+        function showAchievement(achievementId) {
+            if (isShowingAchievement) {
+                achievementQueue.push(achievementId);
+                return;
+            }
+
+            const achievement = achievements[achievementId];
+            if (!achievement) return;
+
+            isShowingAchievement = true;
+            
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementIcon').textContent = achievement.icon;
+            document.getElementById('achievementTitle').textContent = achievement.title;
+            document.getElementById('achievementDesc').textContent = achievement.description;
+            
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                closeAchievement();
+            }, 4000);
+            
+            unlockAchievement(achievementId);
+        }
+
+        function closeAchievement() {
+            const popup = document.getElementById('achievementPopup');
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            
+            setTimeout(() => {
+                popup.classList.remove('hide');
+                isShowingAchievement = false;
+                
+                if (achievementQueue.length > 0) {
+                    const nextAchievement = achievementQueue.shift();
+                    setTimeout(() => showAchievement(nextAchievement), 500);
+                }
+            }, 500);
+        }
+
+        function checkStepAchievements(stepIndex) {
+            switch(stepIndex) {
+                case 0: // git branch feature
+                    showAchievement('achievement-branch-master');
+                    break;
+                case 6: // git remote add origin
+                case 7: // git push origin main
+                case 8: // git fetch origin
+                case 9: // git pull origin main
+                    showAchievement('achievement-collaborator');
+                    break;
+                case 14: // git commit --amend
+                case 15: // git checkout -- file.txt (discard changes)
+                    showAchievement('achievement-history-rewriter');
+                    break;
+                case steps.length - 1: // Last step completed
+                    showAchievement('achievement-guardian-complete');
+                    break;
+            }
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
