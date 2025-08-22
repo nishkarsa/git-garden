@@ -95,6 +95,214 @@
             margin-bottom: 2rem;
             line-height: 1.6;
         }
+
+        /* Interactive Learning Section */
+        .interactive-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        .instruction-panel {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .command-terminal {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+
+        .terminal-title {
+            margin-left: 1rem;
+            color: #b8b8d4;
+            font-size: 0.9rem;
+            font-family: 'Monaco', monospace;
+        }
+
+        .terminal-body {
+            padding: 2rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: #0a0a0a;
+            min-height: 400px;
+        }
+
+        .command-visual {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 234, 0, 0.1); 
+        }
+
+        .visual-garden {
+            font-size: 4rem;
+            margin: 1rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .command-input-section {
+            margin-top: 2rem;
+        }
+
+        .command-prompt {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 234, 0, 0.1); 
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-symbol {
+            color: #FFEA00; 
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Monaco', monospace;
+            font-size: 1rem;
+            flex: 1;
+            outline: none;
+        }
+
+        .command-input::placeholder {
+            color: #666;
+        }
+
+        .execute-button {
+            background: linear-gradient(45deg, #FFEA00, #00d4ff); 
+            color: #0f0f23;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .execute-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 234, 0, 0.3); 
+        }
+
+        .terminal-output {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #FFEA00; 
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .output-line {
+            color: #e0e0e0;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .success { color: #FFEA00; } 
+        .error { color: #ff6b6b; }
+        .info { color: #00d4ff; }
+
+        .current-step {
+            background: linear-gradient(45deg, rgba(255, 234, 0, 0.2), rgba(0, 212, 255, 0.1)); 
+            border: 2px solid #FFEA00; 
+            box-shadow: 0 0 20px rgba(255, 234, 0, 0.3); 
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #FFEA00, #00d4ff); 
+            color: #0f0f23;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .hint-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hint-title {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hint-text {
+            color: #b8b8d4;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
