@@ -23,7 +23,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: #FFEA00; /* Changed to yellow */
+            background: #FFEA00; 
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
             opacity: 0.6;
@@ -46,7 +46,7 @@
             justify-content: center;
             position: relative;
             background: 
-                radial-gradient(circle at 30% 20%, rgba(255, 234, 0, 0.15) 0%, transparent 50%), /* Changed to yellow */
+                radial-gradient(circle at 30% 20%, rgba(255, 234, 0, 0.15) 0%, transparent 50%), 
                 radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
                 linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
             margin-top: 0px;
@@ -59,14 +59,14 @@
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             border-radius: 30px;
-            border: 1px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            border: 1px solid rgba(255, 234, 0, 0.2); 
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .level-badge {
             display: inline-block;
             padding: 0.5rem 1.5rem;
-            background: linear-gradient(45deg, #FFEA00, #00d4ff); /* Changed to yellow */
+            background: linear-gradient(45deg, #FFEA00, #00d4ff); 
             color: #0f0f23;
             border-radius: 25px;
             font-weight: 700;
@@ -82,9 +82,9 @@
             margin-bottom: 1rem;
             color: #ffffff;
             text-shadow: 
-                0 0 10px rgba(255, 234, 0, 0.8), /* Changed to yellow */
-                0 0 20px rgba(255, 234, 0, 0.6), /* Changed to yellow */
-                0 0 30px rgba(255, 234, 0, 0.4), /* Changed to yellow */
+                0 0 10px rgba(255, 234, 0, 0.8), 
+                0 0 20px rgba(255, 234, 0, 0.6), 
+                0 0 30px rgba(255, 234, 0, 0.4), 
                 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
@@ -112,7 +112,7 @@
             backdrop-filter: blur(15px);
             border-radius: 20px;
             padding: 2rem;
-            border: 2px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            border: 2px solid rgba(255, 234, 0, 0.2); 
             position: sticky;
             top: 100px;
             height: fit-content;
@@ -124,7 +124,7 @@
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
             backdrop-filter: blur(15px);
             border-radius: 20px;
-            border: 2px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            border: 2px solid rgba(255, 234, 0, 0.2); 
             overflow: hidden;
         }
 
@@ -134,7 +134,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            border-bottom: 1px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            border-bottom: 1px solid rgba(255, 234, 0, 0.2); 
         }
 
         .terminal-dot {
@@ -333,6 +333,122 @@
             0% { transform: scale(0.5); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
+        }
+
+        /* Commands Section */
+        .commands-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFEA00, #00d4ff); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #b8b8d4;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .command-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(255, 234, 0, 0.2); 
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 234, 0, 0.5); 
+            box-shadow: 0 20px 40px rgba(255, 234, 0, 0.2); 
+        }
+
+        .command-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .command-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #FFEA00, #00d4ff); 
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .command-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .command-syntax {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #FFEA00;
+            margin: 1rem 0;
+            border-left: 4px solid #FFEA00; 
+        }
+
+        .command-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .try-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 234, 0, 0.2); 
+            color: #FFEA00; 
+            border: 2px solid #FFEA00; 
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .try-button:hover {
+            background: #FFEA00; 
+            color: #0f0f23;
+        }
+
+        .completed {
+            background: linear-gradient(45deg, rgba(255, 234, 0, 0.3), rgba(0, 212, 255, 0.2)); 
+            border-color: #FFEA00; 
+        }
+
+        .completed .try-button {
+            background: #FFEA00; 
+            color: #0f0f23;
         }
     </style>
 </head>
