@@ -1852,6 +1852,15 @@
                 }, 2000);
             }
         }
+
+        function handleIncorrectCommand(command, stepData) {
+            if (command.startsWith('git ')) {
+                addToOutput(`Command executed, but try: ${stepData.expectedCommand}`, 'error');
+            } else {
+                addToOutput(`'${command}' is not recognized as a git command`, 'error');
+            }
+            addToOutput('💡 Check the instruction panel for help!', 'info');
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
