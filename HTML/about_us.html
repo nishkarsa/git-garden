@@ -85,6 +85,36 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Custom gradient text animation */
+        .gradient-text {
+            animation: glow 2s ease-in-out infinite alternate;
+            background: linear-gradient(to right, #ff006e, #06ffa5, #3a86ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200%;
+            animation: textShimmer 3s ease-in-out infinite;
+            line-height: 1.2;
+            padding: 0.2em 0;
+        }
+
+        /* Mission button gradient */
+        .mission-button {
+            background: linear-gradient(to right, #ff006e, #06ffa5);
+            transition: all 0.3s ease;
+            animation: slideInFromBottom 1s ease 0.6s both;
+        }
+
+        .mission-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255, 0, 110, 0.6);
+        }
+
         /* Team Section Styles (Adjusted for Swiper) */
         .team-card {
             position: relative;
