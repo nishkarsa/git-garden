@@ -127,14 +127,17 @@
             display: flex; /* For internal content alignment */
             flex-direction: column;
             justify-content: flex-end; /* Push content to bottom */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Adjustments for Swiper's coverflow effect */
         .swiper-slide {
             background-position: center;
             background-size: cover;
-            width: 300px; /* Example width, adjust as needed for coverflow */
-            height: 400px; /* Example height, adjust as needed for coverflow */
+            width: 280px;
+            min-height: 320px;
             display: flex; /* To center content within slide */
             align-items: center;
             justify-content: center;
@@ -148,7 +151,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px; /* slide border-radius */
         }
 
         .team-card-content {
@@ -161,6 +163,7 @@
             transform: translateY(100%);
             transition: transform 0.5s ease;
             z-index: 20; /* Ensure it's above the image */
+            text-align: center;
         }
 
         .team-card:hover .team-card-content {
@@ -175,7 +178,6 @@
             width: 100%;
             height: 100%; /* Fill the slide */
             object-fit: cover;
-            border-radius: 15px; /* slide border-radius */
         }
 
         .team-card:hover .profile-img {
