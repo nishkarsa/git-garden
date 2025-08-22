@@ -450,6 +450,162 @@
             background: #FFEA00; 
             color: #0f0f23;
         }
+        
+        /* Achievement Section */
+        .achievement-section {
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .achievement-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card.unlocked {
+            border-color: #FFEA00; 
+            background: rgba(255, 234, 0, 0.1); 
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .achievement-card.unlocked .achievement-icon {
+            filter: none;
+        }
+
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .achievement-desc {
+            color: #b8b8d4;
+            font-size: 0.9rem;
+        }
+
+        /* Terminal section styles */
+        .terminal-section {
+            margin-top: 50px;
+            padding: 20px;
+            /* Added ID selector for JS targeting */
+            #gitgarden-terminal {
+                scroll-margin-top: 100px; /* Creates space when scrolling to section */
+            }
+        }
+
+        .floating-progress {
+            position: fixed;
+            top: 80px;
+            right: 2rem;
+            width: 280px;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(255, 234, 0, 0.3); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            transform: translateX(300px);
+        }
+
+        .floating-progress.visible {
+            transform: translateX(0);
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .progress-percentage {
+            color: #FFEA00; 
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .floating-progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 234, 0, 0.2); 
+        }
+
+        .floating-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FFEA00, #00d4ff); 
+            width: 0%;
+            transition: width 1s ease;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShimmer 2s infinite;
+        }
+
+        .floating-progress-fill.animated {
+            animation: progressPulse 0.6s ease;
+        }
+
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(1.2); box-shadow: 0 0 20px rgba(255, 234, 0, 0.8); } 
+            100% { transform: scaleY(1); }
+        }
+
+        .progress-icon {
+            font-size: 1.5rem;
+            transition: all 0.5s ease;
+        }
     </style>
 </head>
 <body>
