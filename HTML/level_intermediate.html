@@ -1861,6 +1861,15 @@
             }
             addToOutput('💡 Check the instruction panel for help!', 'info');
         }
+
+        function addToOutput(text, type = '') {
+            const output = document.getElementById('terminalOutput');
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
