@@ -24,6 +24,59 @@
    </script>    
     <style>
 
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .game-content {
+            flex: 1;
+            padding-top: 20px;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 20px rgba(6, 255, 165, 0.8);
+        }
+
+        .logo i {
+            color: #ebedec;
+            font-size: 1.7rem;
+        }
+
+        .navbar {
+            position: static; /* Ensure navbar is not fixed or absolute by default */
+        }
+
         /* Animated background container */
         .animated-bg {
             position: fixed;
