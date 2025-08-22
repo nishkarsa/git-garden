@@ -131,6 +131,32 @@
 
     <!-- Interactive Learning Section -->
     <section class="interactive-section">
+        <!-- Instruction Panel -->
+        <div class="instruction-panel">
+            <div class="command-card current-step" id="currentInstruction">
+                <div class="command-header">
+                    <span class="step-number" id="stepNumber">1</span>
+                    <div>
+                        <h3 class="step-title" id="stepTitle">Create a New Path</h3>
+                        <div class="command-icon" id="stepIcon" style="font-size: 2rem;">🌿</div>
+                    </div>
+                </div>
+                <p class="step-description" id="stepDescription">
+                    Branches allow you to work on new features or fixes without affecting the main codebase.
+                    Create a new branch named 'feature' to start your independent work.
+                </p>
+                <div class="command-syntax" id="expectedCommand">git branch feature</div>
+                
+                <div class="hint-box">
+                    <div class="hint-title">
+                        💡 Hint
+                    </div>
+                    <p class="hint-text" id="hintText">
+                        'git branch &lt;branch-name&gt;' creates a new branch, but doesn't switch to it.
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script src="/Script/javascript.js"></script>    
