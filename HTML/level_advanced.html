@@ -1627,7 +1627,7 @@
             </div>
         </div>
     </div>
-        
+
         <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1663,5 +1663,240 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        let currentStep = 0;
+        let completedCommands = new Set();
+        let achievementQueue = [];
+        let isShowingAchievement = false;
+
+        // Achievement definitions
+        const achievements = {
+            'achievement-stash-master': {
+                icon: '📦',
+                title: 'Stash Master',
+                description: 'You\'ve successfully learned to temporarily save and restore your work!'
+            },
+            'achievement-history-wizard': {
+                icon: '🔄',
+                title: 'History Wizard',
+                description: 'You\'ve mastered the art of rewriting Git history with rebase and cherry-pick!'
+            },
+            'achievement-detective': {
+                icon: '🕵️',
+                title: 'Git Detective',
+                description: 'You\'ve unlocked the secrets of Git investigation with show, blame, and reflog!'
+            },
+            'achievement-architect': {
+                icon: '🏗️',
+                title: 'Repository Architect',
+                description: 'You\'ve learned to manage complex project structures with submodules and worktrees!'
+            },
+            'achievement-wizard-complete': {
+                icon: '🏆',
+                title: 'Git Wizard',
+                description: 'Congratulations! You\'ve mastered all advanced Git commands and achieved wizardry!'
+            }
+        };
+
+        // Learning steps configuration
+        const steps = [
+            {
+                number: 1,
+                title: "Temporarily Store Your Work",
+                icon: "📦",
+                description: "Sometimes you need to quickly switch contexts without committing incomplete work. Stash your current changes to save them temporarily.",
+                expectedCommand: "git stash",
+                hint: "'git stash' saves your modified tracked files and staged changes to a stack of unfinished changes.",
+                visual: "🧙‍♂️",
+                visualDesc: "Wizard's garden awaits magical commands",
+                successVisual: "🧙‍♂️📦",
+                successDesc: "Work stashed away safely!",
+                successMessage: "Saved working directory and index state WIP on main: abc1234 Your commit message"
+            },
+            {
+                number: 2,
+                title: "Stash with Description",
+                icon: "💾",
+                description: "When you have multiple stashes, it's helpful to describe what each one contains. Stash your work with a descriptive message.",
+                expectedCommand: 'git stash save "Work in progress on feature"',
+                hint: "Use quotes to include spaces in your stash message. This makes it easier to identify later.",
+                visual: "🧙‍♂️📦",
+                visualDesc: "Creating a labeled stash",
+                successVisual: "🧙‍♂️💾",
+                successDesc: "Work stashed with description!",
+                successMessage: 'Saved working directory and index state On main: Work in progress on feature'
+            },
+            {
+                number: 3,
+                title: "Restore Your Stashed Work",
+                icon: "🎯",
+                description: "When you're ready to continue your work, pop the most recent stash to restore your changes and remove them from the stash stack.",
+                expectedCommand: "git stash pop",
+                hint: "'git stash pop' applies the top stash and removes it from the stash list. Use 'git stash apply' to keep the stash.",
+                visual: "🧙‍♂️💾",
+                visualDesc: "Restoring stashed work",
+                successVisual: "🧙‍♂️🎯",
+                successDesc: "Stashed work restored!",
+                successMessage: "On branch main\nChanges not staged for commit:\n  modified:   file.txt\nDropped refs/stash@{0}"
+            },
+            {
+                number: 4,
+                title: "Pick a Specific Commit",
+                icon: "🍒",
+                description: "Cherry-picking allows you to apply a specific commit from another branch to your current branch. Pick commit 'abc1234'.",
+                expectedCommand: "git cherry-pick abc1234",
+                hint: "Cherry-pick creates a new commit with the same changes as the specified commit, but with a new hash.",
+                visual: "🧙‍♂️🎯",
+                visualDesc: "Cherry-picking a commit",
+                successVisual: "🧙‍♂️🍒",
+                successDesc: "Commit cherry-picked successfully!",
+                successMessage: "[main def5678] Feature: Add new functionality\n Date: Mon Jan 1 12:00:00 2024 +0000\n 1 file changed, 5 insertions(+)"
+            },
+            {
+                number: 5,
+                title: "Interactive History Rewriting",
+                icon: "🔄",
+                description: "Interactive rebase is one of Git's most powerful features. Start an interactive rebase for the last 3 commits.",
+                expectedCommand: "git rebase -i HEAD~3",
+                hint: "This opens an editor where you can pick, edit, squash, or reorder commits. Each line represents a commit.",
+                visual: "🧙‍♂️🍒",
+                visualDesc: "Starting interactive rebase",
+                successVisual: "🧙‍♂️🔄",
+                successDesc: "Interactive rebase started!",
+                successMessage: "Successfully rebased and updated refs/heads/main."
+            },
+            {
+                number: 6,
+                title: "Mark Conflicts as Resolved",
+                icon: "✅",
+                description: "After manually editing merge conflict markers in a file, you need to stage the resolved file. Add 'resolved-file.txt' to mark it as resolved.",
+                expectedCommand: "git add resolved-file.txt",
+                hint: "After resolving conflicts, always add the file to stage your resolution before continuing the merge or rebase.",
+                visual: "🧙‍♂️🔄",
+                visualDesc: "Resolving merge conflicts",
+                successVisual: "🧙‍♂️✅",
+                successDesc: "Conflicts resolved and staged!",
+                successMessage: "" // git add typically has no output on success
+            },
+            {
+                number: 7,
+                title: "Inspect a Specific Commit",
+                icon: "🔍",
+                description: "When you need to see exactly what changes were made in a specific commit, use 'git show' with the commit hash.",
+                expectedCommand: "git show abc1234",
+                hint: "'git show' displays the commit message, author info, date, and the full diff of changes.",
+                visual: "🧙‍♂️✅",
+                visualDesc: "Examining commit details",
+                successVisual: "🧙‍♂️🔍",
+                successDesc: "Commit details revealed!",
+                successMessage: "commit abc1234567890abcdef1234567890abcdef12\nAuthor: Developer <dev@example.com>\nDate:   Mon Jan 1 12:00:00 2024 +0000\n\n    Add new feature\n\ndiff --git a/file.txt b/file.txt"
+            },
+            {
+                number: 8,
+                title: "Track Line-by-Line Changes",
+                icon: "🕵️",
+                description: "When debugging, you often need to know who changed what and when. Use 'git blame' to annotate each line of a file with commit info.",
+                expectedCommand: "git blame file.txt",
+                hint: "Each line shows the commit hash, author, timestamp, and line number alongside the actual content.",
+                visual: "🧙‍♂️🔍",
+                visualDesc: "Investigating line changes",
+                successVisual: "🧙‍♂️🕵️",
+                successDesc: "File history investigated!",
+                successMessage: "abc1234 (Developer    2024-01-01 12:00:00 +0000  1) First line of code\ndef5678 (Other Dev    2024-01-02 14:30:00 +0000  2) Second line added"
+            },
+            {
+                number: 9,
+                title: "View All Reference Updates",
+                icon: "📚",
+                description: "The reflog shows a history of all updates to Git references (branches, HEAD). This is crucial for recovering lost work.",
+                expectedCommand: "git reflog",
+                hint: "Reflog entries expire after 90 days by default. Each entry shows where HEAD pointed at each step.",
+                visual: "🧙‍♂️🕵️",
+                visualDesc: "Viewing reference history",
+                successVisual: "🧙‍♂️📚",
+                successDesc: "Reference log revealed!",
+                successMessage: "abc1234 HEAD@{0}: commit: Add new feature\ndef5678 HEAD@{1}: checkout: moving from main to feature\n123abcd HEAD@{2}: commit: Initial commit"
+            },
+            {
+                number: 10,
+                title: "Soft Reset to Previous Commit",
+                icon: "🕰️",
+                description: "Sometimes you want to undo a commit but keep the changes staged. Use a soft reset to move back one commit.",
+                expectedCommand: "git reset --soft HEAD~1",
+                hint: "'--soft' moves HEAD but leaves the staging area and working directory unchanged.",
+                visual: "🧙‍♂️📚",
+                visualDesc: "Performing soft reset",
+                successVisual: "🧙‍♂️🕰️",
+                successDesc: "Commit undone, changes staged!",
+                successMessage: "" // git reset --soft typically has no output
+            },
+            {
+                number: 11,
+                title: "Add External Repository",
+                icon: "🧩",
+                description: "Submodules allow you to include another Git repository as a subdirectory of your project. Add a library as a submodule.",
+                expectedCommand: "git submodule add https://github.com/user/library.git lib",
+                hint: "Submodules are useful for managing dependencies that are also Git repositories.",
+                visual: "🧙‍♂️🕰️",
+                visualDesc: "Adding a submodule",
+                successVisual: "🧙‍♂️🧩",
+                successDesc: "Submodule added successfully!",
+                successMessage: "Cloning into 'lib'...\nremote: Counting objects: 50, done.\nreceiving objects: 100% (50/50), done."
+            },
+            {
+                number: 12,
+                title: "Create Multiple Work Areas",
+                icon: "🌲",
+                description: "Worktrees let you have multiple working directories for the same repository. Create a new worktree for the 'feature-branch'.",
+                expectedCommand: "git worktree add ../feature-work feature-branch",
+                hint: "This creates a new directory '../feature-work' checked out to 'feature-branch'.",
+                visual: "🧙‍♂️🧩",
+                visualDesc: "Creating a new worktree",
+                successVisual: "🧙‍♂️🌲",
+                successDesc: "New worktree created!",
+                successMessage: "Preparing worktree (new branch 'feature-branch')\nHEAD is now at abc1234 Initial commit"
+            },
+            {
+                number: 13,
+                title: "Start Bug Hunt",
+                icon: "🎯",
+                description: "Git bisect helps you find the commit that introduced a bug using binary search. Start a bisect session.",
+                expectedCommand: "git bisect start",
+                hint: "After starting, you'll mark commits as 'good' or 'bad' to narrow down the problematic commit.",
+                visual: "🧙‍♂️🌲",
+                visualDesc: "Starting bug hunt",
+                successVisual: "🧙‍♂️🎯",
+                successDesc: "Bisect session started!",
+                successMessage: "status: waiting for both good and bad commits"
+            },
+            {
+                number: 14,
+                title: "Create Project Archive",
+                icon: "📋",
+                description: "Export a clean copy of your project without Git metadata. Create a tar archive of the current HEAD.",
+                expectedCommand: "git archive --format=tar HEAD > project.tar",
+                hint: "This creates a compressed archive containing only the files, not the .git directory.",
+                visual: "🧙‍♂️🎯",
+                visualDesc: "Creating project archive",
+                successVisual: "🧙‍♂️📋",
+                successDesc: "Project archived successfully!",
+                successMessage: "" // git archive typically has no output when redirecting to file
+            },
+            {
+                number: 15,
+                title: "Clean Untracked Files",
+                icon: "🧹",
+                description: "Remove untracked files and directories from your working tree. Use force (-f) and directories (-d) flags.",
+                expectedCommand: "git clean -fd",
+                hint: "Be careful with 'git clean -fd' as it permanently deletes untracked files and directories.",
+                visual: "🧙‍♂️📋",
+                visualDesc: "Cleaning workspace",
+                successVisual: "🧙‍♂️✨",
+                successDesc: "Workspace cleaned and pristine!",
+                successMessage: "Removing untracked.txt\nRemoving temp_directory/"
+            }
+        ];
+    </script>
 </body>
 </html>
