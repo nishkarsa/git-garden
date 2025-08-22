@@ -7,6 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCEVJF3jik90PsbkvMV9FJxpVGASUoZhsg",
+        authDomain: "git-garden-ee608.firebaseapp.com",
+        projectId: "git-garden-ee608",
+        storageBucket: "git-garden-ee608.firebasestorage.app",
+        messagingSenderId: "216393683661",
+        appId: "1:216393683661:web:0123bbfdc14b5aeeed8f84"
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    </script>
         <style>
         
         body {
@@ -269,7 +284,7 @@
                     alt="Profile" 
                     style="width:32px; height:32px; border-radius:50%; margin-right:8px; display:none;">
                 <span id="userNameDisplay">User</span>
-                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;" onclick="firebaseLogout()">Logout</button>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
             </div>
 
             <div class="hamburger">

@@ -3,6 +3,18 @@ class AuthManager {
     constructor() {
         this.isLoggedIn = localStorage.getItem('gitgarden_auth') === 'true';
         this.initializeAuth();
+         // put it here, inside the class
+    redirectToAuth(mode = 'login') 
+    {
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('index.html') || currentPath === '/') {
+        isLoginMode = (mode === 'login');
+        updateModalContent();
+        openModal();
+        } else {
+        window.location.href = `../index.html?show${mode.charAt(0).toUpperCase() + mode.slice(1)}=true`;
+        }
+    }
     }
 
     initializeAuth() {

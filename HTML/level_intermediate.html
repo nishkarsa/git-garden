@@ -385,6 +385,7 @@
         </div>
     </div>
 
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -404,17 +405,19 @@
                 <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
             </div>
 
-            <!-- User Icon (shown when logged in, initially hidden) -->
-            <div class="user-icon-container" id="userIconNav">
-                <i class="fas fa-user"></i>
+            <!-- User Info (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav" style="display: none;">
+                <img id="profileImg" 
+                    alt="Profile" 
+                    style="width:32px; height:32px; border-radius:50%; margin-right:8px; display:none;">
                 <span id="userNameDisplay">User</span>
                 <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
             </div>
-            <div class="hamburger" id="hamburger">
+
+            <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
             </div>
         </div>
     </nav>
@@ -523,6 +526,217 @@
                         <div class="output-line">Ready to master intermediate Git commands.</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="commands-section">
+        <h2 class="section-title">Intermediate Git Commands</h2>
+        <p class="section-subtitle">Expand your Git knowledge with these powerful commands</p>
+        
+        <div class="commands-grid">
+            <!-- Git Branch -->
+            <div class="command-card" data-command="branch">
+                <div class="command-header">
+                    <div class="command-icon">🌿</div>
+                    <h3 class="command-name">git branch</h3>
+                </div>
+                <div class="command-syntax">git branch &lt;branch-name&gt;<br>git branch</div>
+                <p class="command-description">
+                    Create a new branch or list existing branches. Branches are independent lines of development.
+                </p>
+            </div>
+
+            <!-- Git Checkout -->
+            <div class="command-card" data-command="checkout">
+                <div class="command-header">
+                    <div class="command-icon">🔄</div>
+                    <h3 class="command-name">git checkout</h3>
+                </div>
+                <div class="command-syntax">git checkout &lt;branch-name&gt;<br>git checkout -b &lt;new-branch&gt;</div>
+                <p class="command-description">
+                    Switch to a different branch or create and switch to a new one. Also used to discard changes in a file.
+                </p>
+            </div>
+
+            <!-- Git Merge -->
+            <div class="command-card" data-command="merge">
+                <div class="command-header">
+                    <div class="command-icon">🤝</div>
+                    <h3 class="command-name">git merge</h3>
+                </div>
+                <div class="command-syntax">git merge &lt;branch-name&gt;</div>
+                <p class="command-description">
+                    Integrate changes from one branch into the current branch. This combines development histories.
+                </p>
+            </div>
+
+            <!-- Git Remote -->
+            <div class="command-card" data-command="remote">
+                <div class="command-header">
+                    <div class="command-icon">📡</div>
+                    <h3 class="command-name">git remote</h3>
+                </div>
+                <div class="command-syntax">git remote add origin &lt;url&gt;<br>git remote -v</div>
+                <p class="command-description">
+                    Manage connections to remote repositories. 'add origin' links your local repo to a remote one.
+                </p>
+            </div>
+
+            <!-- Git Push -->
+            <div class="command-card" data-command="push">
+                <div class="command-header">
+                    <div class="command-icon">⬆️</div>
+                    <h3 class="command-name">git push</h3>
+                </div>
+                <div class="command-syntax">git push origin &lt;branch-name&gt;</div>
+                <p class="command-description">
+                    Upload local branch commits to a remote repository. Share your changes with the team.
+                </p>
+            </div>
+
+            <!-- Git Fetch -->
+            <div class="command-card" data-command="fetch">
+                <div class="command-header">
+                    <div class="command-icon">⬇️</div>
+                    <h3 class="command-name">git fetch</h3>
+                </div>
+                <div class="command-syntax">git fetch origin</div>
+                <p class="command-description">
+                    Download objects and refs from another repository. It fetches changes without merging them.
+                </p>
+            </div>
+
+            <!-- Git Pull -->
+            <div class="command-card" data-command="pull">
+                <div class="command-header">
+                    <div class="command-icon">📥</div>
+                    <h3 class="command-name">git pull</h3>
+                </div>
+                <div class="command-syntax">git pull origin &lt;branch-name&gt;</div>
+                <p class="command-description">
+                    Fetch from and integrate with another repository or a local branch. It's a 'fetch' followed by a 'merge'.
+                </p>
+            </div>
+
+            <!-- Git Clone -->
+            <div class="command-card" data-command="clone">
+                <div class="command-header">
+                    <div class="command-icon">📦</div>
+                    <h3 class="command-name">git clone</h3>
+                </div>
+                <div class="command-syntax">git clone &lt;repository-url&gt;</div>
+                <p class="command-description">
+                    Create a copy of an existing Git repository. This downloads the entire project history.
+                </p>
+            </div>
+
+            <!-- Git Diff -->
+            <div class="command-card" data-command="diff">
+                <div class="command-header">
+                    <div class="command-icon">🔍</div>
+                    <h3 class="command-name">git diff</h3>
+                </div>
+                <div class="command-syntax">git diff<br>git diff --staged</div>
+                <p class="command-description">
+                    Show changes between commits, commit and working tree, etc. '--staged' shows changes ready for commit.
+                </p>
+            </div>
+
+            <!-- Git Branch -d -->
+            <div class="command-card" data-command="branch-delete">
+                <div class="command-header">
+                    <div class="command-icon">🗑️</div>
+                    <h3 class="command-name">git branch -d</h3>
+                </div>
+                <div class="command-syntax">git branch -d &lt;branch-name&gt;</div>
+                <p class="command-description">
+                    Delete a local branch, but only if it has been fully merged into its upstream branch.
+                </p>
+            </div>
+
+            <!-- Git Branch -D -->
+            <div class="command-card" data-command="branch-force-delete">
+                <div class="command-header">
+                    <div class="command-icon">🔥</div>
+                    <h3 class="command-name">git branch -D</h3>
+                </div>
+                <div class="command-syntax">git branch -D &lt;branch-name&gt;</div>
+                <p class="command-description">
+                    Force delete a local branch, even if it has unmerged changes. Use with caution!
+                </p>
+            </div>
+
+            <!-- Git Reset -->
+            <div class="command-card" data-command="reset">
+                <div class="command-header">
+                    <div class="command-icon">⏪</div>
+                    <h3 class="command-name">git reset</h3>
+                </div>
+                <div class="command-syntax">git reset HEAD &lt;file&gt;<br>git reset --hard &lt;commit&gt;</div>
+                <p class="command-description">
+                    Unstage changes from the staging area, or revert to a previous commit. Powerful and potentially destructive.
+                </p>
+            </div>
+
+            <!-- Git Commit --amend -->
+            <div class="command-card" data-command="commit-amend">
+                <div class="command-header">
+                    <div class="command-icon">✏️</div>
+                    <h3 class="command-name">git commit --amend</h3>
+                </div>
+                <div class="command-syntax">git commit --amend -m "New message"</div>
+                <p class="command-description">
+                    Change the last commit. This is useful for fixing typos or adding forgotten files to the previous commit.
+                </p>
+            </div>
+
+            <!-- Git Checkout -- -->
+            <div class="command-card" data-command="checkout-file">
+                <div class="command-header">
+                    <div class="command-icon">↩️</div>
+                    <h3 class="command-name">git checkout --</h3>
+                </div>
+                <div class="command-syntax">git checkout -- &lt;file&gt;</div>
+                <p class="command-description">
+                    Discard changes in the working directory for a specific file. Reverts the file to its last committed state.
+                </p>
+            </div>
+
+            <!-- Git Tag -->
+            <div class="command-card" data-command="tag">
+                <div class="command-header">
+                    <div class="command-icon">🏷️</div>
+                    <h3 class="command-name">git tag</h3>
+                </div>
+                <div class="command-syntax">git tag &lt;tag-name&gt;<br>git tag -a &lt;tag-name&gt; -m "Message"</div>
+                <p class="command-description">
+                    Create a tag to mark specific points in history as important (e.g., release versions).
+                </p>
+            </div>
+
+            <!-- Git Push origin <branch> -->
+            <div class="command-card" data-command="push-branch">
+                <div class="command-header">
+                    <div class="command-icon">📤</div>
+                    <h3 class="command-name">git push origin &lt;branch&gt;</h3>
+                </div>
+                <div class="command-syntax">git push origin feature-branch</div>
+                <p class="command-description">
+                    Push a specific local branch to the remote repository.
+                </p>
+            </div>
+
+            <!-- Git Branch --set-upstream-to -->
+            <div class="command-card" data-command="set-upstream">
+                <div class="command-header">
+                    <div class="command-icon">🔗</div>
+                    <h3 class="command-name">git branch --set-upstream-to</h3>
+                </div>
+                <div class="command-syntax">git branch --set-upstream-to=origin/main main</div>
+                <p class="command-description">
+                    Set up the tracking relationship between a local branch and a remote branch.
+                </p>
             </div>
         </div>
     </section>
