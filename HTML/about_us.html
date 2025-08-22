@@ -198,14 +198,15 @@
             background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;   /* <-- center vertically */
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
             overflow-y: auto;
             padding: 1rem;
-        }
+            }
+
 
         .modal.show {
             opacity: 1;
@@ -272,6 +273,16 @@
             max-width: 120px;
             max-height: 120px;
         }
+
+        /* Centering the social icons in the modal */
+        .modal-social-links {
+            display: flex;
+            justify-content: center; /* Center the icons */
+            gap: 1rem; /* Space between icons */
+        }
+
+
+
 
         .modal-social-links a {
             display: flex;
@@ -341,11 +352,6 @@
             transform: scale(1.1);
         }
 
-        /* Hide default Swiper arrows if they are still present */
-        .swiper-container .swiper-button-next,
-        .swiper-container .swiper-button-prev {
-            display: none;
-        }
 
         .swiper-pagination {
             position: static !important; /* Override Swiper's default absolute positioning */
@@ -380,8 +386,9 @@
         /* Custom responsive adjustments */
         @media (max-width: 1024px) {
             .swiper-slide {
-                width: 240px;
-                min-height: 300px;
+                width: 100%;
+                max-width: 280px;   /* cap size */
+                min-height: 320px;
             }
             .modal-content {
                 padding: 1.5rem;
@@ -516,6 +523,65 @@
                 padding-right: 1rem;
             }
         }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00ff88;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        /* Ensure consistent text spacing inside footer */
+        .footer-section p {
+            font-size: 0.95rem;  /* Matches contact_us.html */
+            line-height: 1.6;    /* Adjust spacing between lines */
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1rem; /* Adds proper gap after paragraphs */
+        }
+
+        .footer-section a {
+            display: block;
+            font-size: 0.95rem;  /* Make links same size */
+            line-height: 1.8;    /* Matches Contact Us */
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #00ff88;  /* Matches Contact Us hover effect */
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
     </style>
 </head>
 <body class = "relative font-sans">
@@ -634,7 +700,7 @@
             </p>
 
             <!-- Team Members Swiper -->
-            <div class="swiper-container mt-8 sm:mt-12">
+            <div class="swiper mt-8 sm:mt-12">
                 <div class="swiper-wrapper">
                     <!-- Team Member 1 -->
                     <div class="swiper-slide">
@@ -708,6 +774,7 @@
     </section>
 
     <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -717,10 +784,10 @@
                 </div>
                 <div class="footer-section">
                     <h3>Quick Access</h3>
-                    <a href="../index.html#levels">Levels</a>
-                    <a href="challeneges.html">Arena</a>
-                    <a href="about_us.html">Our Story</a>
-                    <a href="contact_us.html">Connect</a>
+                    <a href="#levels">Levels</a>
+                    <a href="./HTML/challeneges.html">Arena</a>
+                    <a href="./HTML/about_us.html">Our Story</a>
+                    <a href="./HTML/contact_us.html">Connect</a>
                 </div>
                 <div class="footer-section">
                     <h3>Resources</h3>
@@ -742,6 +809,7 @@
             </div>
         </div>
     </footer>
+
 
 <!-- Modals for Team Members popup details -->
      <!-- Team member 1 -->
@@ -860,38 +928,31 @@
         // Event listener for when the DOM content is fully loaded 
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Swiper for the team member carousel
-            const swiper = new Swiper('.swiper-container', {
-                effect: 'coverflow', // Cool animation effect
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: 'auto', // Auto-adjust based on slide width
-                loop: true, // Loop the slides
-                coverflowEffect: {
-                    rotate: 50, // Slide rotate in degrees
-                    stretch: 0, // Stretch space between slides (in px)
-                    depth: 100, // Depth offset in px
-                    modifier: 1, // Effect multiplier
-                    slideShadows: true, // Enable slide shadows
-                },
-                pagination: {
-                    el: '.swiper-pagination', // selector for pagination element
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 1, // show 1 slide on small screens
-                    },
-                    768: {
-                        slidesPerView: 2, // show 2 slides on medium screens
-                    },
-                    1024: {
-                        slidesPerView: 3, // show 3 slides on large screens
-                    },
-                }
+            const swiper = new Swiper('.swiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            loop: true,
+            coverflowEffect: {
+                rotate: 20,    // smoother
+                stretch: 0,
+                depth: 50,
+                modifier: 1,
+                slideShadows: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+            }
             });
 
             // select all team cards and modal close buttons 

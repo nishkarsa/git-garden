@@ -448,6 +448,63 @@
             background: rgba(0, 255, 136, 0.8);
         }
 
+        .footer {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00ff88;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        /* Ensure consistent text spacing inside footer */
+        .footer-section p {
+            font-size: 0.95rem;  /* Matches contact_us.html */
+            line-height: 1.6;    /* Adjust spacing between lines */
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1rem; /* Adds proper gap after paragraphs */
+        }
+
+        .footer-section a {
+            display: block;
+            font-size: 0.95rem;  /* Make links same size */
+            line-height: 1.8;    /* Matches Contact Us */
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #00ff88;  /* Matches Contact Us hover effect */
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
 
     </style>
 </head>
