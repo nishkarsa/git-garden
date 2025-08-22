@@ -109,6 +109,43 @@
         </div>
     </nav>
 
+        <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Floating Progress Bar -->
+    <div class="floating-progress" id="floatingProgress">
+        <div class="progress-header" id="progressHeader">
+            <div>
+                <span class="progress-icon" id="progressIcon">🌳</span>
+                <span class="progress-title">Guardian Progress</span>
+            </div>
+            <span class="progress-percentage" id="progressPercentage">0%</span>
+        </div>
+        
+        <div class="floating-progress-bar" id="floatingProgressBar">
+            <div class="floating-progress-fill" id="floatingProgressFill"></div>
+        </div>
+        <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
+            ⚔️ Go to Next Level: Champion
+        </button>
+    </div>
+
+    <!-- Level Header -->
+    <section class="level-header">
+        <div class="level-header-content">
+            <div class="level-badge">Level 03</div>
+            <h1 class="level-title">🧙‍♂️ Wizard</h1>
+            <p class="level-description">
+                You've become a Git Guardian! Now unlock the true power of Git with advanced magic spells.
+                Master complex workflows, history manipulation, and professional-grade techniques!
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText">Progress: 0/15 commands completed</p>
+        </div>
+    </section>
+    
         <!-- Footer -->
     <footer class="footer">
         <div class="container">
