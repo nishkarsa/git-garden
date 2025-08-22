@@ -2202,6 +2202,28 @@
                     break;
             }
         }
+
+        function handleScroll() {
+            const floatingProgress = document.getElementById('floatingProgress');
+            const interactiveSection = document.querySelector('.interactive-section');
+            
+            if (interactiveSection) {
+                const rect = interactiveSection.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    floatingProgress.classList.add('visible');
+                } else {
+                    floatingProgress.classList.remove('visible');
+                }
+            }
+        }
+
+        document.getElementById('commandInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand();
+            }
+        });
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
