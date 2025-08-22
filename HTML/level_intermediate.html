@@ -1820,6 +1820,38 @@
             
             input.value = '';
         }
+
+        function handleCorrectCommand(stepData) {
+            addToOutput(stepData.successMessage, 'success');
+            updateGardenVisual(stepData.successVisual, stepData.successDesc, true);
+            
+            const commandVisual = document.querySelector('.command-visual');
+            commandVisual.classList.add('success');
+            
+            completedCommands.add(stepData.expectedCommand);
+            
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateFloatingProgress(true);
+                checkStepAchievements(currentStep - 1);
+                
+                setTimeout(() => {
+                    updateInstruction();
+                    commandVisual.classList.remove('success');
+                    addToOutput(`\n🎉 Excellent! Moving to step ${currentStep + 1}...`, 'success');
+                }, 2000);
+            } else {
+                // Level completed - increment currentStep to show 100%
+                currentStep++;
+                updateFloatingProgress(true); // This will now show 100%
+                checkStepAchievements(currentStep - 1);
+                
+                setTimeout(() => {
+                    showLevelCompletionPopup();
+                    commandVisual.classList.remove('success');
+                }, 2000);
+            }
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
