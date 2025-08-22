@@ -23,7 +23,10 @@
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-   </script>     
+   </script>    
+    
+   <!--Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             margin: 0;
@@ -85,6 +88,36 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Custom gradient text animation */
+        .gradient-text {
+            animation: glow 2s ease-in-out infinite alternate;
+            background: linear-gradient(to right, #ff006e, #06ffa5, #3a86ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200%;
+            animation: textShimmer 3s ease-in-out infinite;
+            line-height: 1.2;
+            padding: 0.2em 0;
+        }
+
+        /* Mission button gradient */
+        .mission-button {
+            background: linear-gradient(to right, #ff006e, #06ffa5);
+            transition: all 0.3s ease;
+            animation: slideInFromBottom 1s ease 0.6s both;
+        }
+
+        .mission-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255, 0, 110, 0.6);
+        }
+
         /* Team Section Styles (Adjusted for Swiper) */
         .team-card {
             position: relative;
@@ -97,14 +130,17 @@
             display: flex; /* For internal content alignment */
             flex-direction: column;
             justify-content: flex-end; /* Push content to bottom */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Adjustments for Swiper's coverflow effect */
         .swiper-slide {
             background-position: center;
             background-size: cover;
-            width: 300px; /* Example width, adjust as needed for coverflow */
-            height: 400px; /* Example height, adjust as needed for coverflow */
+            width: 280px;
+            min-height: 320px;
             display: flex; /* To center content within slide */
             align-items: center;
             justify-content: center;
@@ -118,7 +154,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px; /* slide border-radius */
         }
 
         .team-card-content {
@@ -131,6 +166,7 @@
             transform: translateY(100%);
             transition: transform 0.5s ease;
             z-index: 20; /* Ensure it's above the image */
+            text-align: center;
         }
 
         .team-card:hover .team-card-content {
@@ -145,7 +181,6 @@
             width: 100%;
             height: 100%; /* Fill the slide */
             object-fit: cover;
-            border-radius: 15px; /* slide border-radius */
         }
 
         .team-card:hover .profile-img {
@@ -163,11 +198,13 @@
             background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+            padding: 1rem;
         }
 
         .modal.show {
@@ -180,15 +217,19 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)); /* More transparent */
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border-radius: 1rem;
             padding: 2rem;
-            width: 90%;
-            max-width: 600px;
+            width: 100%;
+            max-width: 32rem;
             position: relative;
             transform: translateY(-50px);
             transition: transform 0.3s ease;
             color: white;
             text-align: center;
+            min-height: fit-content;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            margin: 2rem auto;
         }
 
         .modal.show .modal-content {
@@ -203,31 +244,67 @@
             cursor: pointer;
             color: #06ffa5;
             transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border: none;
+            z-index: 10;
         }
 
         .close-button:hover {
             color: #ff006e;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1); 
         }
 
         .modal-profile-img {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto;
             border: 4px solid #06ffa5;
             box-shadow: 0 0 20px rgba(6, 255, 165, 0.7);
+            max-width: 120px;
+            max-height: 120px;
+        }
+
+        .modal-social-links a {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap; /* Allow wrapping on very small screens */
         }
 
         .modal-social-links a {
             color: #06ffa5;
-            margin: 0 10px;
             font-size: 1.8rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            text-decoration: none;
         }
 
         .modal-social-links a:hover {
             color: #ff006e;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+         /* Prevent body scroll when modal is open */
+        .modal-open {
+            overflow: hidden !important;
         }
 
         /* Swiper Custom Styles (for navigation/pagination below slider) */
@@ -235,8 +312,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 2rem; /* Space below the slider */
             gap: 1.5rem; /* Space between pagination and arrows */
+            flex-wrap: wrap;
         }
 
         .swiper-button-next,
@@ -287,6 +364,157 @@
         .swiper-pagination-bullet-active {
             background: #00ff88 !important; /* Active bullet color */
             transform: scale(1.2);
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .particle, .gradient-text {
+                animation: none;
+            }
+            
+            .mission-button, .team-card, .profile-img {
+                transition: none;
+            }
+        }
+
+        /* Custom responsive adjustments */
+        @media (max-width: 1024px) {
+            .swiper-slide {
+                width: 240px;
+                min-height: 300px;
+            }
+            .modal-content {
+                padding: 1.5rem;
+                max-width: 30rem;
+            }
+            .modal-profile-img {
+                width: 80px;
+                height: 80px;
+                max-width: 100px;
+                max-height: 100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal {
+                padding: 0.75rem;
+            }
+            
+            .modal-content {
+                margin: 1rem auto;
+                max-height: calc(100vh - 2rem);
+                padding: 1.5rem;
+                max-width: 28rem;
+            }
+            
+            .modal-profile-img {
+                width: 70px;
+                height: 70px;
+                max-width: 90px;
+                max-height: 90px;
+            }
+            
+            .close-button {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .swiper-slide {
+                width: 220px;
+                min-height: 280px;
+            }
+            .gradient-text {
+                font-size: 2rem !important;
+                line-height: 1.1;
+            }
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 50px !important;
+                height: 50px !important;
+            }
+            .modal-content {
+                max-width: 28rem;
+                padding: 1.25rem;
+            }
+            .modal-profile-img {
+                width: 60px;
+                height: 60px;
+                max-width: 85px;
+                max-height: 85px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .swiper-slide {
+                width: 200px;
+                min-height: 260px;
+            }
+            .gradient-text {
+                font-size: 1.75rem !important;
+                line-height: 1.1;
+            }
+            .modal {
+                padding: 0.5rem;
+            }
+            .modal-content {
+                margin: 0.5rem auto;
+                max-height: calc(100vh - 1rem);
+                padding: 1rem;
+                max-width: 24rem;
+                border-radius: 0.75rem;
+            }
+            .modal-profile-img {
+                width: 60px;
+                height: 60px;
+                max-width: 80px;
+                max-height: 80px;
+            }
+            .close-button {
+                top: 10px;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+                font-size: 1.2rem;
+            }
+            .modal-social-links a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .modal {
+                padding: 0.25rem;
+            }
+            .modal-content {
+                margin: 0.25rem auto;
+                max-height: calc(100vh - 0.5rem);
+                padding: 0.75rem;
+                max-width: calc(100vw - 1rem);
+                width: 95%; /* Ensure it doesn't exceed screen */
+            }
+            .modal-profile-img {
+                width: 50px;
+                height: 50px;
+                max-width: 70px;
+                max-height: 70px;
+            }
+            .modal-social-links {
+                gap: 0.5rem;
+            }
+            .modal-social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
     </style>
 </head>
@@ -381,89 +609,89 @@
     </nav>
 
     <!-- Mission Statement Section -->
-    <section class="py-24 content-section-bg">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold text-white animate-[glow_2s_ease-in-out_infinite_alternate] bg-gradient-to-r from-[#ff006e] via-[#06ffa5] to-[#3a86ff] bg-clip-text text-transparent bg-200% animate-[textShimmer_3s_ease-in-out_infinite]">
+    <section class="py-16 sm:py-20 md:py-24 lg:py-32 content-section-bg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-6xl">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 gradient-text leading-tight">
                 Welcome to the Git adventures
             </h2>
-            <p class="text-lg md:text-xl text-white text-opacity-80 mt-6 max-w-3xl mx-auto animate-[slideInFromBottom_1s_ease_0.3s_both]">
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-white text-opacity-80 mt-6 max-w-4xl mx-auto mb-8 leading-relaxed animate-[slideInFromBottom_1s_ease_0.3s_both]">
                 Step into a world where vision control becomes second nature. Navigate through branching forests, resolve merge conflicts in epic battles, and emerge as a Git master ready to tackle any challenges.
             </p>
-            <a href="#team" class="inline-block mt-8 bg-gradient-to-r from-[#ff006e] to-[#06ffa5] text-white py-3 px-6 rounded-full font-bold text-lg hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(255,0,110,0.6)] transition-all duration-300 animate-[slideInFromBottom_1s_ease_0.6s_both]">
+            <a href="#team" class="mission-button inline-block text-white py-3 px-6 sm:py-4 sm:px-8 rounded-full font-bold text-base sm:text-lg md:text-xl">
                 Meet Our Team
             </a>
         </div>
     </section>
 
         <!-- Team Section -->
-    <section class="py-24 content-section-bg" id="team">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-white text-center animate-[glow_2s_ease-in-out_infinite_alternate] bg-gradient-to-r from-[#ff006e] via-[#06ffa5] to-[#3a86ff] bg-clip-text text-transparent bg-200% animate-[textShimmer_3s_ease-in-out_infinite]">
+    <section class="py-16 sm:py-20 md:py-24 lg:py-32 content-section-bg" id="team">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center mb-6 gradient-text leading-tight">
                 The Minds Behind the Magic
             </h2>
-            <p class="text-lg md:text-xl text-white text-opacity-80 mt-6 max-w-3xl mx-auto text-center animate-[slideInFromBottom_1s_ease_0.3s_both]">
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-white text-opacity-80 mt-6 max-w-4xl mx-auto text-center mb-12 leading-relaxed animate-[slideInFromBottom_1s_ease_0.3s_both]">
                 The brilliant minds who transformed Git from intimidating to inspiring. Each team member contributes their expertise to create an unparalleled learning experience.
             </p>
 
             <!-- Team Members Swiper -->
-            <div class="swiper-container mt-12">
+            <div class="swiper-container mt-8 sm:mt-12">
                 <div class="swiper-wrapper">
                     <!-- Team Member 1 -->
                     <div class="swiper-slide">
-                        <div class="team-card relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden" data-member="alex">
+                        <div class="team-card rounded-2xl sm:rounded-3xl overflow-hidden" data-member="Nishkarsa">
                             <img src="../Assests/Image/Nishkarsa_img.png" alt="Image of Nishkarsa Thapa Magar" class="profile-img">
                             <div class="team-card-content">
                                 <div class="team-card-overlay">
-                                    <h3 class="text-xl font-bold text-white mb-2">Nishkarsa Thapa Magar</h3>
-                                    <p class="text-white text-opacity-70 mt-2">Team leader who created and guided the team to develop GitGarden's gamified learning system, making Git accessible through level-based progression from basic to advanced workflows.</p>
+                                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Nishkarsa Thapa Magar</h3>
+                                    <p class="text-sm sm:text-base text-white text-opacity-70 mt-2 leading-relaxed">Team leader who created and guided the team to develop GitGarden's gamified learning system, making Git accessible through level-based progression from basic to advanced workflows.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Team Member 2 -->
                     <div class="swiper-slide">
-                        <div class="team-card relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden" data-member="maya">
+                        <div class="team-card rounded-2xl sm:rounded-3xl overflow-hidden" data-member="Tanisha">
                             <img src="../Assests/Image/tanisha_img.jpg" alt="Image of Tanisha Maharjan" class="profile-img">
                             <div class="team-card-content">
                                 <div class="team-card-overlay">
-                                    <h3 class="text-xl font-bold text-white mb-2">Tanisha Maharjan</h3>
-                                    <p class="text-white text-opacity-70 mt-2">Design contributor who created the About Us page and animated backgrounds. She enhances user experiences with engaging layouts and visual effects that make learning Git feel like an adventure.</p>
+                                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Tanisha Maharjan</h3>
+                                    <p class="text-sm sm:text-base text-white text-opacity-70 mt-2 leading-relaxed">Design contributor who created the About Us page and animated backgrounds. She enhances user experiences with engaging layouts and visual effects that make learning Git feel like an adventure.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Team Member 3 -->
                     <div class="swiper-slide">
-                        <div class="team-card relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden" data-member="sam">
+                        <div class="team-card rounded-2xl sm:rounded-3xl overflow-hidden" data-member="Prapti">
                             <img src="../Assests/Image/prapti_img.png" alt="Image of Prapti Bhattarai" class="profile-img">
                             <div class="team-card-content">
                                 <div class="team-card-overlay">
-                                    <h3 class="text-xl font-bold text-white mb-2">Prapti Bhattarai</h3>
-                                    <p class="text-white text-opacity-70 mt-2">With exceptional expertise, she developed the challenges webpage as a Git Garden team member. Her creative designs and thoughtful concepts add a warm, innovative touch to the interactive Git learning experiences.</p>
+                                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Prapti Bhattarai</h3>
+                                    <p class="text-sm sm:text-base text-white text-opacity-70 mt-2 leading-relaxed">With exceptional expertise, she developed the challenges webpage as a Git Garden team member. Her creative designs and thoughtful concepts add a warm, innovative touch to the interactive Git learning experiences.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Team Member 4 -->
                     <div class="swiper-slide">
-                        <div class="team-card relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden" data-member="luna">
+                        <div class="team-card rounded-2xl sm:rounded-3xl overflow-hidden" data-member="Udip">
                             <img src="../Assests/Image/Udip_img.png" alt="Image of Udip Maharjan" class="profile-img">
                             <div class="team-card-content">
                                 <div class="team-card-overlay">
-                                    <h3 class="text-xl font-bold text-white mb-2">Udip Maharjan</h3>
-                                    <p class="text-white text-opacity-70 mt-2">With excelling in homepage development, JavaScript, and level-based sections. He expertise in bug fixing, login/sign-in design, and attention to detail ensuring a seamless learning experiences.</p>
+                                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Udip Maharjan</h3>
+                                    <p class="text-sm sm:text-base text-white text-opacity-70 mt-2 leading-relaxed">With excelling in homepage development, JavaScript, and level-based sections. He expertise in bug fixing, login/sign-in design, and attention to detail ensuring a seamless learning experiences.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Team Member 5 -->
                     <div class="swiper-slide">
-                        <div class="team-card relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden" data-member="kai">
+                        <div class="team-card rounded-2xl sm:rounded-3xl overflow-hidden" data-member="Ratul">
                             <img src="../Assests/Image/Ratul_img.png" alt="Image of Ratul Dhakal" class="profile-img">
                             <div class="team-card-content">
                                 <div class="team-card-overlay">
-                                    <h3 class="text-xl font-bold text-white mb-2">Ratul Dhakal</h3>
-                                    <p class="text-white text-opacity-70 mt-2"> With his creativity and teamwork he contributed in designing the homepage and built the Contact Us page enhancing the platform’s structure and users experiences.</p>
+                                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Ratul Dhakal</h3>
+                                    <p class="text-sm sm:text-base text-white text-opacity-70 mt-2 leading-relaxed"> With his creativity and teamwork he contributed in designing the homepage and built the Contact Us page enhancing the platform’s structure and users experiences.</p>
                                 </div>
                             </div>
                         </div>
@@ -471,10 +699,10 @@
                 </div>
             </div>
             <!-- Swiper Controls below the slider -->
-            <div class="swiper-controls">
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
+            <div class="swiper-controls mt-6 sm:mt-8 px-4">
+                <div class="swiper-button-prev w-8 h-8 sm:w-10 sm:h-10"></div>
+                <div class="swiper-pagination flex-1"></div>
+                <div class="swiper-button-next w-8 h-8 sm:w-10 sm:h-10"></div>
             </div>
         </div>
     </section>
@@ -517,55 +745,95 @@
 
 <!-- Modals for Team Members popup details -->
      <!-- Team member 1 -->
-    <div id="alex-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img src="../Assests/Image/Nishkarsa_img.png" alt="Image of Nishkarsa Thapa Magar" class="modal-profile-img">
-            <h3 class="text-3xl font-bold mb-2">Nishkarsa Thapa Magar</h3>
-            <p class="text-white text-opacity-70 mb-4"> Nishkarsa is the team leader who leads our development team in creating GitGarden, an interactive platform that teaches Git through gamified learning experiences.
+    <div id="Nishkarsa-modal" class="modal p-4 sm:p-6 lg:p-8">
+        <div class="modal-content rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 w-full max-w-xs sm:max-w-md lg:max-w-2xl max-h-[90vh] overflow-y-auto text-center">
+            <span class="close-button w-8 h-8 sm:w-10 sm:h-10 text-lg sm:text-xl">&times;</span>
+            <img src="../Assests/Image/Nishkarsa_img.png" alt="Image of Nishkarsa Thapa Magar" class="modal-profile-img w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">Nishkarsa Thapa Magar</h3>
+            <p class="text-sm sm:text-base lg:text-lg text-white text-opacity-70 leading-relaxed"> Nishkarsa is the team leader who leads our development team in creating GitGarden, an interactive platform that teaches Git through gamified learning experiences.
                 With a focus on making a complex version control concepts accessible, he spearheaded the design of our level-based progression system where users advance from basic commands to advanced Git workflows.
                 Under his guidance, the platform has envolved into a comprehensive learning environment where developers can master Git at their own pace through structured, engaging challenges.
             </p>
+            <div class="modal-social-links">
+                <a href="https://github.com/nishkarsa" target="_blank" rel="noopener noreferrer" class="github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nishkarsa-thapa-magar-23115a362/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Team member 2 -->
-    <div id="maya-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img src="../Assests/Image/tanisha_img.jpg" alt=" Image of Tanisha Maharjan" class="modal-profile-img">
-            <h3 class="text-3xl font-bold mb-2">Tanisha Maharjan</h3>
-            <p class="text-white text-opacity-70 mb-4">As GitGarden's design contributor, Tanisha worked closely with the development team to enhance user experiences. She designed and developed the About Us page, bringing team stories to life with engaging layouts and interactive elements. She also implemented animated backgrounds and visual effects which helped create the immersive atmosphere that makes learning Git feel like an adventure, and regularly contributes design ideas to improve the platform's design direction, ensuring every user interaction feels polished.</p>
+    <div id="Tanisha-modal" class="modal p-4 sm:p-6 lg:p-8">
+        <div class="modal-content rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 w-full max-w-xs sm:max-w-md lg:max-w-2xl max-h-[90vh] overflow-y-auto text-center">
+            <span class="close-button w-8 h-8 sm:w-10 sm:h-10 text-lg sm:text-xl">&times;</span>
+            <img src="../Assests/Image/tanisha_img.jpg" alt=" Image of Tanisha Maharjan" class="modal-profile-img w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">Tanisha Maharjan</h3>
+            <p class="text-sm sm:text-base lg:text-lg text-white text-opacity-70 leading-relaxed">As GitGarden's design contributor, Tanisha worked closely with the development team to enhance user experiences. She designed and developed the About Us page, bringing team stories to life with engaging layouts and interactive elements. She also implemented animated backgrounds and visual effects which helped create the immersive atmosphere that makes learning Git feel like an adventure, and regularly contributes design ideas to improve the platform's design direction, ensuring every user interaction feels polished.</p>
+            <div class="modal-social-links">
+                <a href="https://github.com/Tanu66666" target="_blank" rel="noopener noreferrer" class="github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/tanisha-maharjan-72739b371/" target="_blank" rel="noopener noreferrer" class="linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Team member 3 -->
-    <div id="sam-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img src="../Assests/Image/prapti_img.png" alt="Image of prapti Bhattarai" class="modal-profile-img">
-            <h3 class="text-3xl font-bold mb-2">Prapti Bhattarai</h3>
-            <p class="text-white text-opacity-70 mb-4">Prapti is a member of the Git Garden team, where she has expertly developed the entire challenges webpage with exceptional skill. Her insightful contributions, including innovative website concepts and refined layout designs, along with her significant role in shaping the homepage, reflect her professionalism. Her expertise greatly enhances the interactive, level-based Git learning experience for all users.</p>
+    <div id="Prapti-modal" class="modal p-4 sm:p-6 lg:p-8">
+        <div class="modal-content rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 w-full max-w-xs sm:max-w-md lg:max-w-2xl max-h-[90vh] overflow-y-auto text-center">
+            <span class="close-button w-8 h-8 sm:w-10 sm:h-10 text-lg sm:text-xl">&times;</span>
+            <img src="../Assests/Image/prapti_img.png" alt="Image of prapti Bhattarai" class="modal-profile-img w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">Prapti Bhattarai</h3>
+            <p class="text-sm sm:text-base lg:text-lg text-white text-opacity-70 leading-relaxed">Prapti is a member of the Git Garden team, where she has expertly developed the entire challenges webpage with exceptional skill. Her insightful contributions, including innovative website concepts and refined layout designs, along with her significant role in shaping the homepage, reflect her professionalism. She has also made valuable contributions to the development of the level page in the website, further enhancing the structured learning experience. Her expertise greatly enhances the interactive, level-based Git learning experience for all users.</p>
+            <div class="modal-social-links">
+                <a href="https://github.com/Praptea-code" target="_blank" rel="noopener noreferrer" class="github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/prapti-bhattarai-a1744a320/" target="_blank" rel="noopener noreferrer" class="linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Team member 4 -->
-    <div id="luna-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img src="../Assests/Image/Udip_img.png" alt="Image of Udip Maharjan" class="modal-profile-img">
-            <h3 class="text-3xl font-bold mb-2">Udip Maharjan</h3>
-            <p class="text-white text-opacity-70 mb-4">Udip is an essential contributor to the Git Garden team, demonstrating expertise in developing the homepage, implementing JavaScript functionalities, and contributing to the level-based sections. His proficiency in bug resolution, design of the login and sign-in sections, and overall interface enhancement underscores his professional impact. Additionally, his meticulous attention to detail and collaborative approach ensure a seamless and robust learning platform for all users.</p>
+    <div id="Udip-modal" class="modal p-4 sm:p-6 lg:p-8">
+        <div class="modal-content rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 w-full max-w-xs sm:max-w-md lg:max-w-2xl max-h-[90vh] overflow-y-auto text-center">
+            <span class="close-button w-8 h-8 sm:w-10 sm:h-10 text-lg sm:text-xl">&times;</span>
+            <img src="../Assests/Image/Udip_img.png" alt="Image of Udip Maharjan" class="modal-profile-img w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">Udip Maharjan</h3>
+            <p class="text-sm sm:text-base lg:text-lg text-white text-opacity-70 leading-relaxed">Udip is an essential contributor to the Git Garden team, demonstrating expertise in developing the homepage, implementing JavaScript functionalities, and contributing to the level-based sections. His proficiency in bug resolution, design of the login and sign-in sections, and overall interface enhancement underscores his professional impact. With his strong expertise in backend development and validation, he has expertly crafted form validations and other validation systems throughout the website, ensuring data integrity and user experience excellence. Additionally, his meticulous attention to detail and collaborative approach ensure a seamless and robust learning platform for all users.</p>
+            <div class="modal-social-links">
+                <a href="https://github.com/UdipMaharjan" target="_blank" rel="noopener noreferrer" class="github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/udip-maharjan-92b97a317/" target="_blank" rel="noopener noreferrer" class="linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Team member 5 -->
-    <div id="kai-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img src="../Assests/Image/Ratul_img.png" alt="Image of Ratul Dhakal" class="modal-profile-img">
-            <h3 class="text-3xl font-bold mb-2">Ratul Dhakal</h3>
-            <p class="text-white text-opacity-70 mb-4">Ratul is a member of Git Garden team, contributing to the design of the homepage and the creation of the entire Contact Us page. His innovative ideas and collaborative efforts have significantly shaped the platform’s structure and user experiences.</p>
+    <div id="Ratul-modal" class="modal p-4 sm:p-6 lg:p-8">
+        <div class="modal-content rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 w-full max-w-xs sm:max-w-md lg:max-w-2xl max-h-[90vh] overflow-y-auto text-center">
+            <span class="close-button w-8 h-8 sm:w-10 sm:h-10 text-lg sm:text-xl">&times;</span>
+            <img src="../Assests/Image/Ratul_img.png" alt="Image of Ratul Dhakal" class="modal-profile-img w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto mb-4 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">Ratul Dhakal</h3>
+            <p class="text-sm sm:text-base lg:text-lg text-white text-opacity-70 leading-relaxed">Ratul is a member of Git Garden team, contributing to the design of the homepage and the creation of the entire Contact Us page. His innovative ideas and collaborative efforts have significantly shaped the platform’s structure and user experiences.</p>
+            <div class="modal-social-links">
+                <a href="https://github.com/Ratul5595" target="_blank" rel="noopener noreferrer" class="github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ratul-dhakal-a0a268369/" target="_blank" rel="noopener noreferrer" class="linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -638,6 +906,8 @@
                     const modal = document.getElementById(`${memberId}-modal`); // select the corresponding modal
                     if (modal) {
                         modal.classList.add('show'); // show the modal
+                        // Prevent body scroll when modal is open
+                        document.body.classList.add('modal-open');
                     }
                 });
             });
@@ -648,6 +918,8 @@
                     const modal = this.closest('.modal'); // find the closest modal to the button
                     if (modal) {
                         modal.classList.remove('show'); // hide the modal
+                        // Restore body scroll when modal is closed
+                        document.body.classList.remove('modal-open');
                     }
                 });
             });
@@ -658,8 +930,21 @@
                     // Close modal if clicked outside the modal-content
                     if (event.target === this) {
                         this.classList.remove('show'); // hide the modal
+                        // Restore body scroll when modal is closed
+                        document.body.classList.remove('modal-open');
                     }
                 });
+            });
+
+            // Escape key handler for closing modals
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const openModal = document.querySelector('.modal.show');
+                    if (openModal) {
+                        openModal.classList.remove('show');
+                        document.body.classList.remove('modal-open');
+                    }
+                }
             });
 
             // Call createParticles function to generate particles on page load
