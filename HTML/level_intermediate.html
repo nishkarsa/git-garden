@@ -157,6 +157,47 @@
                 </div>
             </div>
         </div>
+        <!-- Command Terminal -->
+        <div class="command-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+                <div class="terminal-title">GitGarden Terminal - Guardian Level</div>
+            </div>
+            
+            <div class="terminal-body">
+                <!-- Visual Garden Display -->
+                <div class="command-visual">
+                    <h4 style="color: #FFEA00; margin-bottom: 1rem;">🌳 Your Git Garden</h4>
+                    <div class="visual-garden" id="gardenVisual">
+                        <span id="gardenState">🌳</span>
+                    </div>
+                    <p style="color: #b8b8d4; font-size: 0.9rem;" id="gardenDescription">Main branch thriving</p>
+                </div>
+
+                <!-- Command Input -->
+                <div class="command-input-section">
+                    <div class="command-prompt">
+                        <span class="prompt-symbol">$</span>
+                        <input 
+                            type="text" 
+                            class="command-input" 
+                            id="commandInput" 
+                            placeholder="Type your Git command here..."
+                            autocomplete="off"
+                        >
+                        <button class="execute-button" onclick="executeCommand()">Run</button>
+                    </div>
+                    
+                    <!-- Terminal Output -->
+                    <div class="terminal-output" id="terminalOutput">
+                        <div class="output-line info">Welcome to GitGarden Terminal! 🌳</div>
+                        <div class="output-line">Ready to master intermediate Git commands.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script src="/Script/javascript.js"></script>    
