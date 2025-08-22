@@ -2224,6 +2224,38 @@
                 executeCommand();
             }
         });
+
+        function createStarParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const particleCount = 50;
+
+            bgAnimation.innerHTML = '';
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const size = Math.random() * 4 + 2;
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const duration = Math.random() * 4 + 6;
+                const delay = Math.random() * duration;
+                
+                particle.style.cssText = `
+                    left: ${startX}%;
+                    top: ${startY}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-duration: ${duration}s;
+                    animation-delay: ${delay}s;
+                    opacity: ${Math.random() * 0.4 + 0.2};
+                `;
+                
+                bgAnimation.appendChild(particle);
+            }
+            
+            setTimeout(createStarParticles, 30000);
+        }               
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
