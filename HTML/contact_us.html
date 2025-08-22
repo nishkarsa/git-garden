@@ -6,244 +6,376 @@
     <title>About Us - GitGarden</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../CSS/styles.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script>
+    // Firebase Configuration (from Firebase Console)
+    const firebaseConfig = {
+    apiKey: "AIzaSyCEVJF3jik90PsbkvMV9FJxpVGASUoZhsg",
+    authDomain: "git-garden-ee608.firebaseapp.com",
+    projectId: "git-garden-ee608",
+    storageBucket: "git-garden-ee608.firebasestorage.app",
+    messagingSenderId: "216393683661",
+    appId: "1:216393683661:web:0123bbfdc14b5aeeed8f84"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+   </script>    
     <style>
-                .form-container {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.2);
-            margin-top: 80px;
-            margin-bottom: 80px;
+        .form-container {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(15, 15, 35, 0.9));
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            box-shadow: 
+            0 30px 60px rgba(0, 255, 136, 0.25),
+            0 0 100px rgba(0, 255, 136, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin: 20px auto;
+            margin-top: 140px;
+            margin-bottom: 100px;
             overflow: hidden;
-            border: 1px solid rgba(0, 255, 136, 0.3);
+            border: 2px solid rgba(0, 255, 136, 0.4);
             position: relative;
-            animation: slideIn 0.5s ease-in-out;
+            animation: slideIn 0.8s ease-out;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         @keyframes slideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { 
+                transform: translateY(-50px) scale(0.9); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0) scale(1); 
+                opacity: 1; 
+            }
         }
 
         .form-header {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            background: linear-gradient(135deg, 
+                rgba(15, 15, 35, 0.9) 0%, 
+                rgba(0, 255, 136, 0.1) 20%,
+                rgba(26, 26, 58, 0.9) 50%, 
+                rgba(102, 126, 234, 0.1) 80%,
+                rgba(45, 45, 95, 0.9) 100%);
             color: white;
-            padding: 50px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
             z-index: 2;
-            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
-            animation: fadeIn 0.5s ease-in-out;
-            transition: background-color 0.3s ease;
+            border-bottom: 3px solid rgba(0, 255, 136, 0.4);
+            animation: fadeIn 0.8s ease-out 0.2s both;
         }
 
-        .form-container:focus-within .form-header {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 255, 136, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
         }
         
         .form-header h1 {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
             margin-bottom: 15px;
             text-shadow: 
-                0 0 20px rgba(0, 255, 136, 0.8),
-                0 0 40px rgba(0, 255, 136, 0.6),
-                0 0 60px rgba(0, 255, 136, 0.4);
+                0 0 30px rgba(0, 255, 136, 1),
+                0 0 60px rgba(0, 255, 136, 0.8),
+                0 0 100px rgba(0, 255, 136, 0.6),
+                0 5px 20px rgba(0, 0, 0, 0.5);
             color: #00ff88;
+            background: linear-gradient(45deg, #00ff88, #00cc6a, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            from { 
+                text-shadow: 
+                    0 0 20px rgba(0, 255, 136, 0.8),
+                    0 0 40px rgba(0, 255, 136, 0.6),
+                    0 0 60px rgba(0, 255, 136, 0.4);
+            }
+            to { 
+                text-shadow: 
+                    0 0 30px rgba(0, 255, 136, 1),
+                    0 0 60px rgba(0, 255, 136, 0.8),
+                    0 0 100px rgba(0, 255, 136, 0.6);
+            }
         }
         
         .form-header p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            opacity: 0.95;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         .form-section {
-            padding: 40px;
+            padding: 35px 40px 40px 40px;
+            position: relative;
+            z-index: 1;
         }
         
         .form-label {
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             margin-bottom: 8px;
-            background: transparent !important;
+            font-size: 1.1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .field-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            margin-top: 0;
+            font-style: italic;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
         
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(0, 255, 136, 0.7);
+            font-size: 1.1rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         .form-control, .form-select {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.12));
             color: #ffffff !important;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 15px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 20px 16px 55px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.05rem;
+            font-weight: 400;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Fix placeholder color */
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
+            color: rgba(255, 255, 255, 0.6) !important;
+            font-style: italic;
         }
 
-        /* Fix focus states - keep same background, only change border */
         .form-control:focus, .form-select:focus {
-            background-color: rgba(255, 255, 255, 0.1) !important;
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(255, 255, 255, 0.15)) !important;
             border-color: #00ff88 !important;
-            box-shadow: 0 0 0 0.2rem rgba(0, 255, 136, 0.25) !important;
+            box-shadow: 
+                0 0 0 0.3rem rgba(0, 255, 136, 0.3),
+                0 8px 25px rgba(0, 255, 136, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
             color: #ffffff !important;
+            transform: translateY(-2px);
+            outline: none;
         }
         
         .form-control:focus::placeholder {
-            color: rgba(255, 255, 255, 0.7) !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        /* Special styling for textarea */
+        textarea.form-control {
+            resize: none;
+            min-height: 120px;
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 16px 20px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
         }
         
         .btn-submit {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 25%, #667eea 75%, #764ba2 100%);
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 20px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
             border-radius: 50px;
             color: white;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(0, 255, 136, 0.3),
+                0 5px 15px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-submit:hover::before {
+            left: 100%;
         }
 
         .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 255, 136, 0.4),
+                0 10px 20px rgba(0, 0, 0, 0.3);
             color: white;
         }
 
-        .btn-submit::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.5s ease;
-            z-index: 0;
-        }
-
-        .btn-submit:hover::after {
-            transform: translate(-50%, -50%) scale(1);
+        .btn-submit:active {
+            transform: translateY(-2px) scale(1.02);
         }
         
         .success-message {
             display: none;
-            background: linear-gradient(135deg, #0f0f23 0%, #00ff88 50%, #1a1a3a 100%);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 255, 136, 0.1) 50%, rgba(26, 26, 58, 0.9) 100%);
             color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 35px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.4);
-            animation: bounceIn 0.6s ease;
-            border: 2px solid #00ff88;
+            box-shadow: 
+                0 20px 40px rgba(0, 255, 136, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid rgba(0, 255, 136, 0.5);
+            backdrop-filter: blur(15px);
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.3) translateY(-50px); opacity: 0; }
-            50% { transform: scale(1.05) translateY(-10px); }
-            70% { transform: scale(0.9) translateY(0); }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
+            0% { 
+                transform: scale(0.3) translateY(-100px) rotate(-5deg); 
+                opacity: 0; 
+            }
+            50% { 
+                transform: scale(1.1) translateY(-20px) rotate(2deg); 
+                opacity: 0.8;
+            }
+            70% { 
+                transform: scale(0.95) translateY(5px) rotate(-1deg); 
+                opacity: 0.9;
+            }
+            100% { 
+                transform: scale(1) translateY(0) rotate(0deg); 
+                opacity: 1; 
+            }
         }
         
         .required {
-            color: #ff4444;
-            text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            font-weight: 900;
         }
 
         .invalid-feedback {
-            color: #ff4444;
+            color: #ff6b6b;
             font-weight: 600;
-            text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+            text-shadow: 0 0 8px rgba(255, 107, 107, 0.5);
+            font-size: 0.95rem;
+            margin-top: 8px;
         }
 
-        /* Additional fixes for better visibility */
-        .form-control::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
+
+
+        /* Enhanced input focus effects */
+        .form-control:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
-        
-        .form-control::-moz-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
+
+        /* Custom scrollbar for textarea */
+        .form-control::-webkit-scrollbar {
+            width: 8px;
         }
-        
-        .form-control:-ms-input-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
+
+        .form-control::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
-        
-        .form-control::-ms-input-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
+
+        .form-control::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 136, 0.6);
+            border-radius: 10px;
         }
+
+        .form-control::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 136, 0.8);
+        }
+
 
     </style>
-    </head>
-<body class = "relative font-sans">
+</head>
+<body class="relative font-sans">
 
 <!-- Animated Background -->
     <div class="animated-bg">
         <!-- Particles will be dynamically added here by JavaScript -->
     </div>
 
-<!-- Auth Modal -->
-    <div class="modal-overlay" id="authModal">
-        <div class="auth-modal">
-            <button class="modal-close" id="closeModal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Welcome Back</h2>
-                <p class="modal-subtitle" id="modalSubtitle">Sign in to continue your Git journey</p>
-            </div>
-            <form class="auth-form" id="authForm">
-                <div class="form-group">
-                    <input type="email" class="form-input" placeholder="Email address" required>
-                    <i class="form-input-icon fas fa-envelope"></i>
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-input" id="passwordInput" placeholder="Password" required>
-                    <i class="form-input-icon fas fa-eye password-toggle" id="passwordToggle"></i>
-                </div>
-                <div class="form-group" id="confirmPasswordGroup" style="display: none;">
-                    <input type="password" class="form-input" id="confirmPasswordInput" placeholder="Confirm Password">
-                    <i class="form-input-icon fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
-                </div>
-                <button type="submit" class="form-submit" id="submitBtn">
-                    <span class="loading-spinner"></span>
-                    <span id="submitText">Sign In</span>
-                </button>
-            </form>
-            <div class="auth-divider">
-                <span>or continue with</span>
-            </div>
-            <div class="social-auth">
-                <button class="social-btn github">
-                    <i class="fab fa-github"></i>
-                    GitHub
-                </button>
-                <button class="social-btn google">
-                    <i class="fab fa-google"></i>
-                    Google
-                </button>
-            </div>
-            <div class="auth-switch">
-                <span id="switchText">Don't have an account?</span>
-                <a href="#" id="switchMode">Sign up</a>
-            </div>
-        </div>
-    </div>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -252,11 +384,11 @@
                 GitGarden
             </div>
             <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#levels">Levels</a></li>
-                <li><a href="./HTML/challenges.html">Challenges</a></li>
-                <li><a href="./HTML/about_us.html">About Us</a></li>
-                <li><a href="./HTML/contact_us.html">Contact</a></li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#levels">Levels</a></li>
+                <li><a href="./challenges.html">Challenges</a></li>
+                <li><a href="./about_us.html">About Us</a></li>
+                <li><a href="./contact_us.html">Contact</a></li>
             </ul>
             <!-- Auth Buttons (shown when not logged in) -->
             <div class="auth-buttons" id="authNavButtons">
@@ -264,9 +396,11 @@
                 <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
             </div>
 
-            <!-- User Icon (shown when logged in, initially hidden) -->
-            <div class="user-icon-container" id="userIconNav">
-                <i class="fas fa-user"></i>
+            <!-- User Info (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav" style="display: none;">
+                <img id="profileImg" 
+                    alt="Profile" 
+                    style="width:32px; height:32px; border-radius:50%; margin-right:8px; display:none;">
                 <span id="userNameDisplay">User</span>
                 <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
             </div>
@@ -278,86 +412,68 @@
         </div>
     </nav>
 
-    <div class="f-container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-xl-6">
-                <div class="form-container">
-                    <!-- Header Section -->
-                    <div class="form-header">
-                        <h1>🌱 Git-Garden Contact Us Form</h1>
-                        <p>Do you need any help? Send us message and join the legendary developer community!</p>
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-2xl">
+            <div class="form-container">
+                <!-- Header Section -->
+                <div class="form-header">
+                    <h1>🌱 Git-Garden Contact Portal</h1>
+                    <p>Connect with our legendary developer community! We're here to help you level up your Git journey.</p>
+                </div>
+                
+                <!-- Form Section -->
+                <div class="form-section">
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-rocket me-3" style="font-size: 1.5rem;"></i>
+                        🎉 Mission Accomplished! Your message has been launched successfully into our system!
                     </div>
                     
-                    <!-- Form Section -->
-                    <div class="form-section">
-                        <div class="success-message" id="successMessage">
-                            <i class="fas fa-check-circle me-2"></i>
-                            🎉 Awesome! Your message has been submitted successfully! 
+                    <form id="simpleForm" action="https://formspree.io/f/mzzvnrok" method="POST">
+                        <div class="form-group">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" class="form-control" id="fullName" name="fullname" required autocomplete="off">
+                            </div>
                         </div>
                         
-                        <form id="simpleForm" novalidate>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
-                                        <div class="invalid-feedback">
-                                            Please provide your first name.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
-                                        <div class="invalid-feedback">
-                                            Please provide your last name.
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                             </div>
-                            
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
-                                <div class="invalid-feedback">
-                                    Please provide a valid email address.
-                                </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-phone input-icon"></i>
+                                <input type="tel" class="form-control" id="phone" name="phone" autocomplete="off">
                             </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="subject" class="form-label">Subject <span class="required">*</span></label>
-                                        <input type="text" class="form-control" id="subject" placeholder="Enter the subject" required>
-                                        <div class="invalid-feedback">
-                                            Please enter a subject.
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-tag input-icon"></i>
+                                <input type="text" class="form-control" id="subject" name="subject" required autocomplete="off">
                             </div>
-                            
-                            <div class="mb-4">
-                                <label for="userInput" class="form-label">Your Message <span class="required">*</span></label>
-                                <textarea class="form-control" id="userInput" rows="6" placeholder="Type your message here..." required></textarea>
-                                <div class="invalid-feedback">
-                                    Please enter your message.
-                                </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userInput" class="form-label">Your Message</label>
+                            <div class="input-wrapper">
+                                <textarea class="form-control" id="userInput" name="message" required autocomplete="off"></textarea>
                             </div>
-                            
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-submit">
-                                    <i class="fas fa-rocket me-2"></i>Launch Message
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-submit">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -398,7 +514,9 @@
             </div>
         </div>
     </footer>
-
-        <script src="Script/javascript.js"></script>    
+    <script src="../Script/firebase-auth.js"></script>   
+    <script src="../Script/minimal-auth.js"></script>
+    <script src="../Script/javascript.js"></script>
+    <script src="../Script/contact.js"></script>
 </body>
 </html>
