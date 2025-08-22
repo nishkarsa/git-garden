@@ -1911,6 +1911,114 @@
                 }, 2000);
             }
         }
+
+        function showLevelCompletionPopup() {
+            const popupHTML = `
+                <div class="completion-popup" id="completionPopup" style="
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) scale(0.8);
+                    width: 450px;
+                    background: linear-gradient(145deg, rgba(255, 234, 0, 0.95), rgba(0, 212, 255, 0.9)); 
+                    backdrop-filter: blur(20px);
+                    border-radius: 25px;
+                    padding: 3rem 2rem;
+                    border: 3px solid #FFEA00; 
+                    box-shadow: 0 30px 60px rgba(255, 234, 0, 0.4); 
+                    z-index: 1001;
+                    text-align: center;
+                    opacity: 0;
+                    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                ">
+                    <div class="completion-icon" style="
+                        font-size: 5rem;
+                        margin-bottom: 1rem;
+                        animation: celebrationBounce 1s ease infinite alternate;
+                    ">👑</div>
+                    
+                    <h2 style="
+                        font-size: 2.5rem;
+                        font-weight: 900;
+                        color: #0f0f23;
+                        margin-bottom: 1rem;
+                        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    ">Congratulations!</h2>
+                    
+                    <p style="
+                        font-size: 1.2rem;
+                        color: rgba(15, 15, 35, 0.9);
+                        margin-bottom: 2rem;
+                        line-height: 1.6;
+                    ">
+                        You've mastered the <strong>Guardian Level</strong>!<br>
+                        Your Git garden is robust and well-managed. Ready for advanced challenges?
+                    </p>
+                    
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button onclick="goToNextLevelFromPopup()" style=" /* Changed function name */
+                            background: linear-gradient(45deg, #0f0f23, #2d2d5f);
+                            color: #FFEA00; 
+                            border: 2px solid #0f0f23;
+                            padding: 1rem 2rem;
+                            border-radius: 12px;
+                            font-weight: 700;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                        ">
+                            ⚔️ Next Level: Champion
+                        </button>
+                        
+                        <button onclick="closeCompletionPopup(true)" style=" /* Pass true to indicate 'Stay Here' */
+                            background: transparent;
+                            color: #0f0f23;
+                            border: 2px solid #0f0f23;
+                            padding: 1rem 2rem;
+                            border-radius: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">
+                            Stay Here
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="completion-overlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    backdrop-filter: blur(5px);
+                    z-index: 1000;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                "></div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
+            
+            setTimeout(() => {
+                document.querySelector('.completion-overlay').style.opacity = '1';
+                const popup = document.getElementById('completionPopup');
+                popup.style.opacity = '1';
+                popup.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 100);
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes celebrationBounce {
+                    0% { transform: scale(1) rotate(0deg); }
+                    100% { transform: scale(1.1) rotate(10deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
