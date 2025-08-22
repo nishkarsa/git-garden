@@ -1870,6 +1870,47 @@
             output.appendChild(line);
             output.scrollTop = output.scrollHeight;
         }
+
+        function updateGardenVisual(visual, description) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            gardenState.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                gardenState.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        function updateInstruction() {
+            const step = steps[currentStep];
+            
+            document.getElementById('stepNumber').textContent = step.number;
+            document.getElementById('stepTitle').textContent = step.title;
+            document.getElementById('stepIcon').textContent = step.icon;
+            document.getElementById('stepDescription').textContent = step.description;
+            document.getElementById('expectedCommand').textContent = step.expectedCommand;
+            document.getElementById('hintText').textContent = step.hint;
+            
+            updateGardenVisual(step.visual, step.visualDesc);
+        }
+
+        function updateGardenVisual(visual, description, animated = false) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            if (animated) {
+                gardenState.classList.add('garden-animated');
+                setTimeout(() => {
+                    gardenState.classList.remove('garden-animated');
+                }, 2000);
+            }
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
