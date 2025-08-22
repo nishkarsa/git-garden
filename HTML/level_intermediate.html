@@ -2255,7 +2255,47 @@
             }
             
             setTimeout(createStarParticles, 30000);
-        }               
+        }
+        
+        function unlockAchievement(achievementId) {
+            const achievement = document.getElementById(achievementId);
+            if (achievement) {
+                achievement.classList.add('unlocked');
+                
+                achievement.style.transform = 'scale(1.1)';
+                achievement.style.boxShadow = '0 0 30px rgba(255, 234, 0, 0.6)'; // Changed to yellow
+                
+                setTimeout(() => {
+                    achievement.style.transform = '';
+                    achievement.style.boxShadow = '';
+                }, 500);
+            }
+        }
+
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            console.log('Mobile menu toggled');
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createStarParticles();
+            updateInstruction();
+            updateFloatingProgress();
+            
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+            
+            handleScroll();
+        });
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
