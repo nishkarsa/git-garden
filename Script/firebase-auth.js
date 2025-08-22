@@ -37,7 +37,7 @@ function firebaseLogout() {
     auth.signOut().then(() => {
         localStorage.removeItem("gitgarden_auth");
         localStorage.removeItem("gitgarden_user");
-        window.location.href = "../index.html";
+        window.location.replace(window.location.origin + "/git-garden/index.html");
     }).catch((error) => {
         console.error("Logout error:", error.message);
     });
