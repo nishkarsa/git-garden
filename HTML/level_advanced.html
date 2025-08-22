@@ -625,110 +625,153 @@
         }
 
         /* Command-specific animations */
-        .progress-icon.rebase-animation {
-            animation: rebaseChanges 2s ease;
+        .progress-icon.branch-animation {
+            animation: branchCreate 1s ease;
         }
 
-        .progress-icon.squash-animation {
-            animation: squashCommits 1.5s ease;
+        .progress-icon.checkout-animation {
+            animation: checkoutSwitch 1s ease;
         }
 
-        .progress-icon.cherry-pick-animation {
-            animation: cherryPick 1.5s ease;
+        .progress-icon.merge-animation {
+            animation: mergeBranches 1.5s ease;
         }
 
-        .progress-icon.stash-animation {
-            animation: stashChanges 1s ease;
+        .progress-icon.remote-animation {
+            animation: remoteConnect 1.5s ease;
+        }
+
+        .progress-icon.push-animation {
+            animation: pushChanges 1.5s ease;
+        }
+
+        .progress-icon.fetch-animation {
+            animation: fetchRemote 1.5s ease;
+        }
+
+        .progress-icon.pull-animation {
+            animation: pullRemote 1.5s ease;
+        }
+
+        .progress-icon.clone-animation {
+            animation: cloneRepo 2s ease;
+        }
+
+        .progress-icon.diff-animation {
+            animation: diffCheck 1s ease;
+        }
+
+        .progress-icon.delete-branch-animation {
+            animation: branchDelete 1s ease;
+        }
+
+        .progress-icon.reset-animation {
+            animation: resetFile 1s ease;
+        }
+
+        .progress-icon.amend-animation {
+            animation: amendCommit 1.5s ease;
         }
 
         .progress-icon.revert-animation {
-            animation: revertCommit 1.5s ease;
+            animation: revertFile 1s ease;
         }
 
-        .progress-icon.bisect-animation {
-            animation: bisectSearch 2s ease;
+        .progress-icon.tag-animation {
+            animation: tagVersion 1s ease;
         }
 
-        .progress-icon.reflog-animation {
-            animation: reflogCheck 1s ease;
+        .progress-icon.upstream-animation {
+            animation: setUpstream 1.5s ease;
         }
 
-        .progress-icon.hard-reset-animation {
-            animation: hardReset 1.5s ease;
-        }
-
-        .progress-icon.force-push-animation {
-            animation: forcePush 1.5s ease;
-        }
-
-        .progress-icon.submodule-animation {
-            animation: submoduleAdd 2s ease;
-        }
-
-        @keyframes rebaseChanges {
+        @keyframes branchCreate {
             0% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(90deg); }
-            50% { transform: scale(1.2) rotate(180deg); }
-            75% { transform: scale(1.1) rotate(270deg); }
-            100% { transform: scale(1) rotate(360deg); }
-        }
-
-        @keyframes squashCommits {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.8) rotate(180deg); }
-            100% { transform: scale(1) rotate(360deg); }
-        }
-
-        @keyframes cherryPick {
-            0% { transform: translateX(0) scale(1); }
-            50% { transform: translateX(10px) scale(1.2); }
-            100% { transform: translateX(0) scale(1); }
-        }
-
-        @keyframes stashChanges {
-            0% { transform: scale(1) opacity(1); }
-            50% { transform: scale(0.5) opacity(0.3); }
-            100% { transform: scale(1) opacity(1); }
-        }
-
-        @keyframes revertCommit {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(-180deg) scale(1.1); }
-            100% { transform: rotate(-360deg); }
-        }
-
-        @keyframes bisectSearch {
-            0% { transform: scale(1); filter: brightness(1); }
-            25% { transform: scale(1.1); filter: brightness(1.5); }
-            50% { transform: scale(0.9); filter: brightness(0.8); }
-            75% { transform: scale(1.1); filter: brightness(1.3); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
-
-        @keyframes reflogCheck {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(15deg); filter: brightness(1.5); }
+            50% { transform: scale(1.2) rotate(15deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
 
-        @keyframes hardReset {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.3) rotate(45deg); }
-            50% { transform: scale(0.7) rotate(90deg); }
-            75% { transform: scale(1.1) rotate(135deg); }
-            100% { transform: scale(1) rotate(180deg); }
+        @keyframes checkoutSwitch {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(10px) scale(1.1); }
+            100% { transform: translateX(0); }
         }
 
-        @keyframes forcePush {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.3); filter: brightness(1.5); }
+        @keyframes mergeBranches {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes remoteConnect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(30deg); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pushChanges {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px) scale(1.1); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes fetchRemote {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(10px) scale(1.1); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes pullRemote {
+            0% { transform: translateY(-10px) scale(0.9); }
+            50% { transform: translateY(5px) scale(1.1); }
             100% { transform: translateY(0) scale(1); }
         }
 
-        @keyframes submoduleAdd {
-            0% { transform: scale(0.5) opacity(0); }
-            50% { transform: scale(1.2) opacity(0.8); }
-            100% { transform: scale(1) opacity(1); }
+        @keyframes cloneRepo {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes diffCheck {
+            0% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.2); filter: brightness(1.5); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        @keyframes branchDelete {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        @keyframes resetFile {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-10px) rotate(-5deg); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes amendCommit {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes revertFile {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.9) rotate(-5deg); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes tagVersion {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes setUpstream {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1) translateY(-5px); }
+            100% { transform: scale(1); }
         }
 
         /* Achievement Popup System */
@@ -904,125 +947,6 @@
             box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
         }
 
-        /* Wizard-specific danger elements */
-        .danger-warning {
-            background: linear-gradient(45deg, rgba(255, 51, 102, 0.2), rgba(139, 0, 0, 0.15));
-            border: 2px solid #ff3366;
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .danger-warning-icon {
-            color: #ff3366;
-            font-size: 1.2rem;
-        }
-
-        .danger-warning-text {
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .wizard-spell-cast {
-            animation: spellCast 2s ease;
-        }
-
-        @keyframes spellCast {
-            0% { transform: scale(1); filter: brightness(1); }
-            25% { transform: scale(1.1); filter: brightness(1.3) hue-rotate(15deg); }
-            50% { transform: scale(1.2); filter: brightness(1.5) hue-rotate(30deg); }
-            75% { transform: scale(1.1); filter: brightness(1.3) hue-rotate(15deg); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
-
-        .wizard-command-highlight {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wizard-command-highlight::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 51, 102, 0.3), transparent);
-            animation: dangerSweep 3s infinite;
-        }
-
-        @keyframes dangerSweep {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* Wizard level specific styles */
-        .wizard-fire-effect {
-            position: relative;
-        }
-
-        .wizard-fire-effect::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: linear-gradient(45deg, #ff3366, #8b0000, #ff3366);
-            border-radius: inherit;
-            z-index: -1;
-            animation: fireFlicker 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes fireFlicker {
-            0% { opacity: 0.7; filter: blur(3px); }
-            100% { opacity: 0.9; filter: blur(1px); }
-        }
-
-        .wizard-status-critical {
-            background: rgba(255, 51, 102, 0.2);
-            border: 2px solid #ff3366;
-            color: #ffffff;
-            animation: criticalPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes criticalPulse {
-            0%, 100% { 
-                box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 25px rgba(255, 51, 102, 0.6);
-                transform: scale(1.02);
-            }
-        }
-
-        .wizard-forbidden-command {
-            background: linear-gradient(45deg, rgba(139, 0, 0, 0.3), rgba(255, 51, 102, 0.2));
-            border: 2px dashed #8b0000;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            position: relative;
-        }
-
-        .wizard-forbidden-command::before {
-            content: '⚠️ DANGER ZONE';
-            position: absolute;
-            top: -12px;
-            left: 1rem;
-            background: linear-gradient(45deg, #ff3366, #8b0000);
-            color: #ffffff;
-            padding: 0.2rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .floating-progress {
@@ -1073,106 +997,6 @@
                 height: 50vh;
             }
         }
-
-        /* Dark magic effects for dangerous commands */
-        .dark-magic-glow {
-            animation: darkMagicGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes darkMagicGlow {
-            0%, 100% { 
-                filter: drop-shadow(0 0 5px rgba(255, 51, 102, 0.5));
-            }
-            50% { 
-                filter: drop-shadow(0 0 15px rgba(255, 51, 102, 0.8)) drop-shadow(0 0 25px rgba(139, 0, 0, 0.6));
-            }
-        }
-
-        .wizard-energy-surge {
-            animation: energySurge 1s ease-out;
-        }
-
-        @keyframes energySurge {
-            0% { 
-                transform: scale(1);
-                filter: brightness(1);
-            }
-            25% { 
-                transform: scale(1.05);
-                filter: brightness(1.3) saturate(1.5);
-            }
-            50% { 
-                transform: scale(1.1);
-                filter: brightness(1.6) saturate(2);
-            }
-            75% { 
-                transform: scale(1.05);
-                filter: brightness(1.3) saturate(1.5);
-            }
-            100% { 
-                transform: scale(1);
-                filter: brightness(1);
-            }
-        }
-
-        /* Advanced command styling */
-        .advanced-command-syntax {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.7), rgba(139, 0, 0, 0.2));
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9rem;
-            color: #ff3366;
-            margin: 1rem 0;
-            border-left: 4px solid #ff3366;
-            border-right: 4px solid #8b0000;
-            position: relative;
-        }
-
-        .advanced-command-syntax::before {
-            content: '🔥 ADVANCED';
-            position: absolute;
-            top: -8px;
-            right: 1rem;
-            background: linear-gradient(45deg, #8b0000, #ff3366);
-            color: #ffffff;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        /* Wizard completion effects */
-        .wizard-mastery-complete {
-            background: linear-gradient(45deg, rgba(255, 51, 102, 0.4), rgba(139, 0, 0, 0.3));
-            border: 3px solid #ff3366;
-            box-shadow: 
-                0 0 20px rgba(255, 51, 102, 0.6),
-                inset 0 0 20px rgba(255, 51, 102, 0.2);
-            animation: masteryAchieved 2s ease-in-out infinite;
-        }
-
-        @keyframes masteryAchieved {
-            0%, 100% { 
-                transform: scale(1);
-                filter: brightness(1);
-            }
-            50% { 
-                transform: scale(1.02);
-                filter: brightness(1.2);
-            }
-        }
-
-        /* Footer adjustments for red theme */
-        /* .footer {
-            background: linear-gradient(135deg, #2a0e0e 0%, #4a1515 100%);
-            border-top: 2px solid rgba(255, 51, 102, 0.3);
-        }
-
-        .footer a:hover {
-            color: #ff3366;
-        } */
 
         /* Scrollbar styling for red theme */
         ::-webkit-scrollbar {
@@ -1289,7 +1113,7 @@
         <div class="progress-header" id="progressHeader">
             <div>
                 <span class="progress-icon" id="progressIcon">🌳</span>
-                <span class="progress-title">Guardian Progress</span>
+                <span class="progress-title">Wizard Progress</span>
             </div>
             <span class="progress-percentage" id="progressPercentage">0%</span>
         </div>
@@ -1298,7 +1122,7 @@
             <div class="floating-progress-fill" id="floatingProgressFill"></div>
         </div>
         <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
-            ⚔️ Go to Next Level: Champion
+            ⚔️ Go to Next Level: Challenges
         </button>
     </div>
 
@@ -1313,9 +1137,6 @@
             </p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <p class="progress-text" id="progressText">Progress: 0/15 commands completed</p>
-        </div>
     </section>
 
     <!-- Interactive Learning Section -->
@@ -2171,7 +1992,7 @@
         }
 
         function goToNextLevelFromPopup() {
-            alert("You're ready for the Master Level! (Page not yet created)");
+            alert("You're ready for our Challenges! (Page not yet created)");
             closeCompletionPopup(false);
         }
 
