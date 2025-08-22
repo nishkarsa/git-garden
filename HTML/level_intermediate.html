@@ -2026,6 +2026,120 @@
             alert("You're ready for the Champion Level! (Page not yet created)");
             closeCompletionPopup(false); // Close popup, but don't show "Go to Next Level" button in floating progress
         }
+
+        // closeCompletionPopup to handle the "Stay Here" action
+        function closeCompletionPopup(showNextLevelButtonInFloatingProgress) {
+            const popup = document.getElementById('completionPopup');
+            const overlay = document.querySelector('.completion-overlay');
+            
+            popup.style.opacity = '0';
+            popup.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            overlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                popup.remove();
+                overlay.remove();
+                if (showNextLevelButtonInFloatingProgress) {
+                    showFloatingProgressNextLevelButton();
+                }
+            }, 500);
+        }
+
+        //  function to show the "Go to Next Level" button in the floating progress bar
+        function showFloatingProgressNextLevelButton() {
+            const progressHeader = document.getElementById('progressHeader');
+            const progressBar = document.getElementById('floatingProgressBar');
+            const nextLevelButton = document.getElementById('goToNextLevelButton');
+
+            // Hide the progress header and bar
+            progressHeader.style.display = 'none';
+            progressBar.style.display = 'none';
+
+            // Show the "Go to Next Level" button
+            nextLevelButton.style.display = 'block';
+        }
+
+        function updateFloatingProgress(animated = false) {
+            const total = steps.length;
+            const completed = currentStep; // currentStep is already incremented for the next step
+            const percentage = Math.round((completed / total) * 100);
+            
+            const progressFill = document.getElementById('floatingProgressFill');
+            const progressIcon = document.getElementById('progressIcon');
+            const progressPercentage = document.getElementById('progressPercentage');
+            const progressHeader = document.getElementById('progressHeader');
+            const progressBar = document.getElementById('floatingProgressBar');
+            const nextLevelButton = document.getElementById('goToNextLevelButton');
+
+            // Reset visibility in case it was set to show the next level button
+            progressHeader.style.display = 'flex';
+            progressBar.style.display = 'block';
+            nextLevelButton.style.display = 'none';
+
+            progressFill.style.width = percentage + '%';
+            progressPercentage.textContent = percentage + '%';
+            
+            if (animated) {
+                progressFill.classList.add('animated');
+                setTimeout(() => {
+                    progressFill.classList.remove('animated');
+                }, 600);
+            }
+            
+            const commandAnimations = [
+                '🌳', // Initial state
+                '🌿', // git branch
+                '🔄', // git checkout
+                '🚀', // git checkout -b
+                '📜', // git branch (list)
+                '🤝', // git merge
+                '📡', // git remote add
+                '⬆️', // git push
+                '⬇️', // git fetch
+                '📥', // git pull
+                '📦', // git clone
+                '🔍', // git diff
+                '🗑️', // git branch -d
+                '🔥', // git branch -D
+                '⏪', // git reset
+                '✏️', // git commit --amend
+                '🔙', // git checkout --
+                '🏷️', // git tag
+                '🔗'  // git branch --set-upstream-to
+            ];
+            const animationClasses = [
+                '', 
+                'branch-animation', 
+                'checkout-animation', 
+                'checkout-animation', // for checkout -b
+                'log-animation', // Reusing log animation for listing branches
+                'merge-animation', 
+                'remote-animation', 
+                'push-animation', 
+                'fetch-animation', 
+                'pull-animation', 
+                'clone-animation', 
+                'diff-animation', 
+                'delete-branch-animation', 
+                'delete-branch-animation', // for -D
+                'reset-animation', 
+                'amend-animation', 
+                'revert-animation', 
+                'tag-animation', 
+                'upstream-animation'
+            ];
+            
+            if (completed <= total) {
+                progressIcon.textContent = commandAnimations[completed] || '🌳';
+                
+                if (animated && animationClasses[completed]) {
+                    progressIcon.classList.add(animationClasses[completed]);
+                    setTimeout(() => {
+                        progressIcon.classList.remove(animationClasses[completed]);
+                    }, 2000);
+                }
+            }
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
