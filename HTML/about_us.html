@@ -195,11 +195,13 @@
             background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+            padding: 1rem;
         }
 
         .modal.show {
@@ -212,15 +214,19 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)); /* More transparent */
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border-radius: 1rem;
             padding: 2rem;
-            width: 90%;
-            max-width: 600px;
+            width: 100%;
+            max-width: 32rem;
             position: relative;
             transform: translateY(-50px);
             transition: transform 0.3s ease;
             color: white;
             text-align: center;
+            min-height: fit-content;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            margin: 2rem auto;
         }
 
         .modal.show .modal-content {
@@ -235,31 +241,67 @@
             cursor: pointer;
             color: #06ffa5;
             transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border: none;
+            z-index: 10;
         }
 
         .close-button:hover {
             color: #ff006e;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1); 
         }
 
         .modal-profile-img {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto;
             border: 4px solid #06ffa5;
             box-shadow: 0 0 20px rgba(6, 255, 165, 0.7);
+            max-width: 120px;
+            max-height: 120px;
+        }
+
+        .modal-social-links a {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap; /* Allow wrapping on very small screens */
         }
 
         .modal-social-links a {
             color: #06ffa5;
-            margin: 0 10px;
             font-size: 1.8rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            text-decoration: none;
         }
 
         .modal-social-links a:hover {
             color: #ff006e;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+         /* Prevent body scroll when modal is open */
+        .modal-open {
+            overflow: hidden !important;
         }
 
         /* Swiper Custom Styles (for navigation/pagination below slider) */
