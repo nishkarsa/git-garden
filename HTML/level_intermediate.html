@@ -1729,6 +1729,97 @@
                 successMessage: "Branch 'main' set up to track remote branch 'main' from 'origin'."
             }
         ];
+
+        // Execute command function
+        function executeCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+            
+            addToOutput(`$ ${command}`, 'info');
+            
+            const currentStepData = steps[currentStep];
+            const expectedCommands = Array.isArray(currentStepData.expectedCommand) 
+                ? currentStepData.expectedCommand 
+                : [currentStepData.expectedCommand];
+            
+            // Check if command matches expected (flexible matching)
+            const isCorrect = expectedCommands.some(expected => {
+                if (expected.includes('<repository-url>')) {
+                    return command.startsWith('git clone ') && command.length > 'git clone '.length;
+                }
+                if (expected.includes('"') && command.includes('git commit -m')) {
+                    return command.startsWith('git commit -m ') && command.includes('"');
+                }
+                // For git remote add origin <url>, check for the start and a valid URL format
+                if (expected.includes('git remote add origin <url>')) {
+                    return command.startsWith('git remote add origin ') && command.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/);
+                }
+                // For git push origin <branch-name>, check for the start and a branch name
+                if (expected.includes('git push origin <branch-name>')) {
+                    return command.startsWith('git push origin ') && command.split(' ').length === 3;
+                }
+                // For git pull origin <branch-name>, check for the start and a branch name
+                if (expected.includes('git pull origin <branch-name>')) {
+                    return command.startsWith('git pull origin ') && command.split(' ').length === 3;
+                }
+                // For git branch --set-upstream-to=origin/main main, check for the full command
+                if (expected.includes('git branch --set-upstream-to=origin/main main')) {
+                    return command === expected;
+                }
+                // For git branch <branch-name>, check for the start and a branch name
+                if (expected.startsWith('git branch ') && expected.split(' ').length === 3) {
+                    return command.startsWith('git branch ') && command.split(' ').length === 3;
+                }
+                // For git checkout <branch-name>, check for the start and a branch name
+                if (expected.startsWith('git checkout ') && expected.split(' ').length === 3 && !expected.includes('-b')) {
+                    return command.startsWith('git checkout ') && command.split(' ').length === 3;
+                }
+                // For git checkout -b <new-branch>, check for the start and a branch name
+                if (expected.startsWith('git checkout -b ') && expected.split(' ').length === 4) {
+                    return command.startsWith('git checkout -b ') && command.split(' ').length === 4;
+                }
+                // For git merge <branch-name>, check for the start and a branch name
+                if (expected.startsWith('git merge ') && expected.split(' ').length === 3) {
+                    return command.startsWith('git merge ') && command.split(' ').length === 3;
+                }
+                // For git branch -d <branch-name>, check for the start and a branch name
+                if (expected.startsWith('git branch -d ') && expected.split(' ').length === 4) {
+                    return command.startsWith('git branch -d ') && command.split(' ').length === 4;
+                }
+                // For git branch -D <branch-name>, check for the start and a branch name
+                if (expected.startsWith('git branch -D ') && expected.split(' ').length === 4) {
+                    return command.startsWith('git branch -D ') && command.split(' ').length === 4;
+                }
+                // For git reset HEAD <file.txt>, check for the start and a file name
+                if (expected.startsWith('git reset HEAD ') && expected.split(' ').length === 4) {
+                    return command.startsWith('git reset HEAD ') && command.split(' ').length === 4;
+                }
+                // For git checkout -- <file.txt>, check for the start and a file name
+                if (expected.startsWith('git checkout -- ') && expected.split(' ').length === 4) {
+                    return command.startsWith('git checkout -- ') && command.split(' ').length === 4;
+                }
+                // For git tag <tag-name>, check for the start and a tag name
+                if (expected.startsWith('git tag ') && expected.split(' ').length === 3 && !expected.includes('-a')) {
+                    return command.startsWith('git tag ') && command.split(' ').length === 3;
+                }
+                // For git tag -a <tag-name> -m "Message", check for the start and a tag name and message
+                if (expected.startsWith('git tag -a ') && expected.includes('-m "')) {
+                    return command.startsWith('git tag -a ') && command.includes('-m "') && command.endsWith('"');
+                }
+
+                return command === expected;
+            });
+            
+            if (isCorrect) {
+                handleCorrectCommand(currentStepData);
+            } else {
+                handleIncorrectCommand(command, currentStepData);
+            }
+            
+            input.value = '';
+        }
     </script>
     <script src="/Script/javascript.js"></script>    
 </body>
