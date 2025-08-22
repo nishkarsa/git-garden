@@ -1897,6 +1897,547 @@
                 successMessage: "Removing untracked.txt\nRemoving temp_directory/"
             }
         ];
+
+        // Execute command function
+        function executeCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+            
+            addToOutput(`$ ${command}`, 'info');
+            
+            const currentStepData = steps[currentStep];
+            const expectedCommands = Array.isArray(currentStepData.expectedCommand) 
+                ? currentStepData.expectedCommand 
+                : [currentStepData.expectedCommand];
+            
+            // Check if command matches expected (flexible matching)
+            const isCorrect = expectedCommands.some(expected => {
+                // For git stash save with message
+                if (expected.includes('git stash save "')) {
+                    return command.startsWith('git stash save "') && command.endsWith('"');
+                }
+                // For git cherry-pick with commit hash
+                if (expected.startsWith('git cherry-pick ')) {
+                    return command.startsWith('git cherry-pick ') && command.split(' ').length === 3;
+                }
+                // For git rebase -i HEAD~3
+                if (expected === 'git rebase -i HEAD~3') {
+                    return command === expected;
+                }
+                // For git add resolved file
+                if (expected.startsWith('git add ') && expected.includes('resolved-file.txt')) {
+                    return command.startsWith('git add ') && command.includes('resolved-file.txt');
+                }
+                // For git show with commit hash
+                if (expected.startsWith('git show ')) {
+                    return command.startsWith('git show ') && command.split(' ').length === 3;
+                }
+                // For git blame with file
+                if (expected.startsWith('git blame ') && expected.includes('file.txt')) {
+                    return command.startsWith('git blame ') && command.includes('file.txt');
+                }
+                // For git reset --soft HEAD~1
+                if (expected === 'git reset --soft HEAD~1') {
+                    return command === expected;
+                }
+                // For git submodule add with URL
+                if (expected.includes('git submodule add https://')) {
+                    return command.startsWith('git submodule add https://') && command.includes('.git') && command.split(' ').length >= 4;
+                }
+                // For git worktree add
+                if (expected.includes('git worktree add ../')) {
+                    return command.startsWith('git worktree add ../') && command.split(' ').length === 4;
+                }
+                // For git archive
+                if (expected.includes('git archive --format=tar HEAD >')) {
+                    return command.includes('git archive --format=tar HEAD >') || command.includes('git archive --format=tar HEAD>');
+                }
+                // For git clean -fd
+                if (expected === 'git clean -fd') {
+                    return command === expected;
+                }
+                
+                return command === expected;
+            });
+            
+            if (isCorrect) {
+                handleCorrectCommand(currentStepData);
+            } else {
+                handleIncorrectCommand(command, currentStepData);
+            }
+            
+            input.value = '';
+        }
+
+        function handleCorrectCommand(stepData) {
+            addToOutput(stepData.successMessage, 'success');
+            updateGardenVisual(stepData.successVisual, stepData.successDesc, true);
+            
+            const commandVisual = document.querySelector('.command-visual');
+            commandVisual.classList.add('success');
+            
+            completedCommands.add(stepData.expectedCommand);
+            
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateFloatingProgress(true);
+                checkStepAchievements(currentStep - 1);
+                
+                setTimeout(() => {
+                    updateInstruction();
+                    commandVisual.classList.remove('success');
+                    addToOutput(`\n🎉 Excellent! Moving to step ${currentStep + 1}...`, 'success');
+                }, 2000);
+            } else {
+                // Level completed - increment currentStep to show 100%
+                currentStep++;
+                updateFloatingProgress(true); // This will now show 100%
+                checkStepAchievements(currentStep - 1);
+                
+                setTimeout(() => {
+                    showLevelCompletionPopup();
+                    commandVisual.classList.remove('success');
+                }, 2000);
+            }
+        }
+
+        function handleIncorrectCommand(command, stepData) {
+            if (command.startsWith('git ')) {
+                addToOutput(`Command executed, but try: ${stepData.expectedCommand}`, 'error');
+            } else {
+                addToOutput(`'${command}' is not recognized as a git command`, 'error');
+            }
+            addToOutput('💡 Check the instruction panel for help!', 'info');
+        }
+
+        function addToOutput(text, type = '') {
+            const output = document.getElementById('terminalOutput');
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function updateGardenVisual(visual, description) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            gardenState.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                gardenState.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        function updateInstruction() {
+            const step = steps[currentStep];
+            
+            document.getElementById('stepNumber').textContent = step.number;
+            document.getElementById('stepTitle').textContent = step.title;
+            document.getElementById('stepIcon').textContent = step.icon;
+            document.getElementById('stepDescription').textContent = step.description;
+            document.getElementById('expectedCommand').textContent = step.expectedCommand;
+            document.getElementById('hintText').textContent = step.hint;
+            
+            updateGardenVisual(step.visual, step.visualDesc);
+        }
+
+        function updateGardenVisual(visual, description, animated = false) {
+            const gardenState = document.getElementById('gardenState');
+            const gardenDesc = document.getElementById('gardenDescription');
+            
+            gardenState.textContent = visual;
+            gardenDesc.textContent = description;
+            
+            if (animated) {
+                gardenState.classList.add('garden-animated');
+                setTimeout(() => {
+                    gardenState.classList.remove('garden-animated');
+                }, 2000);
+            }
+        }
+
+        function showLevelCompletionPopup() {
+            const popupHTML = `
+                <div class="completion-popup" id="completionPopup" style="
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) scale(0.8);
+                    width: 450px;
+                    background: linear-gradient(145deg, rgba(255, 234, 0, 0.95), rgba(0, 212, 255, 0.9)); 
+                    backdrop-filter: blur(20px);
+                    border-radius: 25px;
+                    padding: 3rem 2rem;
+                    border: 3px solid #FFEA00; 
+                    box-shadow: 0 30px 60px rgba(255, 234, 0, 0.4); 
+                    z-index: 1001;
+                    text-align: center;
+                    opacity: 0;
+                    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                ">
+                    <div class="completion-icon" style="
+                        font-size: 5rem;
+                        margin-bottom: 1rem;
+                        animation: celebrationBounce 1s ease infinite alternate;
+                    ">🏆</div>
+                    
+                    <h2 style="
+                        font-size: 2.5rem;
+                        font-weight: 900;
+                        color: #0f0f23;
+                        margin-bottom: 1rem;
+                        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    ">Congratulations!</h2>
+                    
+                    <p style="
+                        font-size: 1.2rem;
+                        color: rgba(15, 15, 35, 0.9);
+                        margin-bottom: 2rem;
+                        line-height: 1.6;
+                    ">
+                        You've mastered the <strong>Wizard Level</strong>!<br>
+                        Your Git powers have reached legendary status. Ready for the ultimate challenge?
+                    </p>
+                    
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button onclick="goToNextLevelFromPopup()" style="
+                            background: linear-gradient(45deg, #0f0f23, #2d2d5f);
+                            color: #FFEA00; 
+                            border: 2px solid #0f0f23;
+                            padding: 1rem 2rem;
+                            border-radius: 12px;
+                            font-weight: 700;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                        ">
+                            ⚔️ Next Level: Master
+                        </button>
+                        
+                        <button onclick="closeCompletionPopup(true)" style="
+                            background: transparent;
+                            color: #0f0f23;
+                            border: 2px solid #0f0f23;
+                            padding: 1rem 2rem;
+                            border-radius: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">
+                            Stay Here
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="completion-overlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    backdrop-filter: blur(5px);
+                    z-index: 1000;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                "></div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
+            
+            setTimeout(() => {
+                document.querySelector('.completion-overlay').style.opacity = '1';
+                const popup = document.getElementById('completionPopup');
+                popup.style.opacity = '1';
+                popup.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 100);
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes celebrationBounce {
+                    0% { transform: scale(1) rotate(0deg); }
+                    100% { transform: scale(1.1) rotate(10deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function goToNextLevelFromPopup() {
+            alert("You're ready for the Master Level! (Page not yet created)");
+            closeCompletionPopup(false);
+        }
+
+        function closeCompletionPopup(showNextLevelButtonInFloatingProgress) {
+            const popup = document.getElementById('completionPopup');
+            const overlay = document.querySelector('.completion-overlay');
+            
+            popup.style.opacity = '0';
+            popup.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            overlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                popup.remove();
+                overlay.remove();
+                if (showNextLevelButtonInFloatingProgress) {
+                    showFloatingProgressNextLevelButton();
+                }
+            }, 500);
+        }
+
+        function showFloatingProgressNextLevelButton() {
+            const progressHeader = document.getElementById('progressHeader');
+            const progressBar = document.getElementById('floatingProgressBar');
+            const nextLevelButton = document.getElementById('goToNextLevelButton');
+
+            progressHeader.style.display = 'none';
+            progressBar.style.display = 'none';
+            nextLevelButton.style.display = 'block';
+        }
+
+        function updateFloatingProgress(animated = false) {
+            const total = steps.length;
+            const completed = currentStep;
+            const percentage = Math.round((completed / total) * 100);
+            
+            const progressFill = document.getElementById('floatingProgressFill');
+            const progressIcon = document.getElementById('progressIcon');
+            const progressPercentage = document.getElementById('progressPercentage');
+            const progressHeader = document.getElementById('progressHeader');
+            const progressBar = document.getElementById('floatingProgressBar');
+            const nextLevelButton = document.getElementById('goToNextLevelButton');
+
+            progressHeader.style.display = 'flex';
+            progressBar.style.display = 'block';
+            nextLevelButton.style.display = 'none';
+
+            progressFill.style.width = percentage + '%';
+            progressPercentage.textContent = percentage + '%';
+            
+            if (animated) {
+                progressFill.classList.add('animated');
+                setTimeout(() => {
+                    progressFill.classList.remove('animated');
+                }, 600);
+            }
+            
+            const commandAnimations = [
+                '🧙‍♂️', // Initial state
+                '📦', // git stash
+                '💾', // git stash save
+                '🎯', // git stash pop
+                '🍒', // git cherry-pick
+                '🔄', // git rebase -i
+                '✅', // git add resolved
+                '🔍', // git show
+                '🕵️', // git blame
+                '📚', // git reflog
+                '🕰️', // git reset --soft
+                '🧩', // git submodule add
+                '🌲', // git worktree add
+                '🎯', // git bisect start
+                '📋', // git archive
+                '🧹'  // git clean -fd
+            ];
+            
+            const animationClasses = [
+                '', 
+                'stash-animation', 
+                'stash-save-animation', 
+                'stash-pop-animation',
+                'cherry-pick-animation', 
+                'rebase-animation', 
+                'resolve-animation',
+                'show-animation', 
+                'blame-animation', 
+                'reflog-animation', 
+                'reset-soft-animation', 
+                'submodule-animation', 
+                'worktree-animation',
+                'bisect-animation', 
+                'archive-animation', 
+                'clean-animation'
+            ];
+            
+            if (completed <= total) {
+                progressIcon.textContent = commandAnimations[completed] || '🧙‍♂️';
+                
+                if (animated && animationClasses[completed]) {
+                    progressIcon.classList.add(animationClasses[completed]);
+                    setTimeout(() => {
+                        progressIcon.classList.remove(animationClasses[completed]);
+                    }, 2000);
+                }
+            }
+        }
+
+        function showAchievement(achievementId) {
+            if (isShowingAchievement) {
+                achievementQueue.push(achievementId);
+                return;
+            }
+
+            const achievement = achievements[achievementId];
+            if (!achievement) return;
+
+            isShowingAchievement = true;
+            
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementIcon').textContent = achievement.icon;
+            document.getElementById('achievementTitle').textContent = achievement.title;
+            document.getElementById('achievementDesc').textContent = achievement.description;
+            
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                closeAchievement();
+            }, 4000);
+            
+            unlockAchievement(achievementId);
+        }
+
+        function closeAchievement() {
+            const popup = document.getElementById('achievementPopup');
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            
+            setTimeout(() => {
+                popup.classList.remove('hide');
+                isShowingAchievement = false;
+                
+                if (achievementQueue.length > 0) {
+                    const nextAchievement = achievementQueue.shift();
+                    setTimeout(() => showAchievement(nextAchievement), 500);
+                }
+            }, 500);
+        }
+
+        function checkStepAchievements(stepIndex) {
+            switch(stepIndex) {
+                case 0: // git stash
+                case 1: // git stash save
+                case 2: // git stash pop
+                    showAchievement('achievement-stash-master');
+                    break;
+                case 3: // git cherry-pick
+                case 4: // git rebase -i
+                    showAchievement('achievement-history-wizard');
+                    break;
+                case 6: // git show
+                case 7: // git blame
+                case 8: // git reflog
+                    showAchievement('achievement-detective');
+                    break;
+                case 10: // git submodule add
+                case 11: // git worktree add
+                    showAchievement('achievement-architect');
+                    break;
+                case steps.length - 1: // Last step completed
+                    showAchievement('achievement-wizard-complete');
+                    break;
+            }
+        }
+
+        function handleScroll() {
+            const floatingProgress = document.getElementById('floatingProgress');
+            const interactiveSection = document.querySelector('.interactive-section');
+            
+            if (interactiveSection) {
+                const rect = interactiveSection.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    floatingProgress.classList.add('visible');
+                } else {
+                    floatingProgress.classList.remove('visible');
+                }
+            }
+        }
+
+        document.getElementById('commandInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand();
+            }
+        });
+
+        function createStarParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const particleCount = 50;
+
+            bgAnimation.innerHTML = '';
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const size = Math.random() * 4 + 2;
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const duration = Math.random() * 4 + 6;
+                const delay = Math.random() * duration;
+                
+                particle.style.cssText = `
+                    left: ${startX}%;
+                    top: ${startY}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-duration: ${duration}s;
+                    animation-delay: ${delay}s;
+                    opacity: ${Math.random() * 0.4 + 0.2};
+                `;
+                
+                bgAnimation.appendChild(particle);
+            }
+            
+            setTimeout(createStarParticles, 30000);
+        }
+        
+        function unlockAchievement(achievementId) {
+            const achievement = document.getElementById(achievementId);
+            if (achievement) {
+                achievement.classList.add('unlocked');
+                
+                achievement.style.transform = 'scale(1.1)';
+                achievement.style.boxShadow = '0 0 30px rgba(255, 234, 0, 0.6)';
+                
+                setTimeout(() => {
+                    achievement.style.transform = '';
+                    achievement.style.boxShadow = '';
+                }, 500);
+            }
+        }
+
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            console.log('Mobile menu toggled');
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createStarParticles();
+            updateInstruction();
+            updateFloatingProgress();
+            
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+            
+            handleScroll();
+        });
     </script>
 </body>
 </html>
