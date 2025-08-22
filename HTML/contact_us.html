@@ -596,6 +596,54 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Function to create animated particles in the background
+        function createParticles() {
+            const bgAnimation = document.querySelector('.animated-bg');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Navbar scroll behavior (copied from challenges.html)
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar'); // Use querySelector for class
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Mobile menu toggle (copied from challenges.html)
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
     <script src="../Script/firebase-auth.js"></script>   
     <script src="../Script/minimal-auth.js"></script>
     <script src="../Script/javascript.js"></script>
