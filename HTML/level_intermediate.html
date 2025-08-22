@@ -972,6 +972,32 @@
                 max-height: none;
             }
         }
+
+/* Scrollbar styling for yellow theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(42, 42, 14, 0.3); /* dark yellowish background */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ffd633, #b38f00); /* yellow gradient */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ffeb66, #cc9900); /* brighter on hover */
+}
+
+/* Firefox support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ffd633 rgba(42, 42, 14, 0.3);
+}
+
+
     </style>
 </head>
 <body>
