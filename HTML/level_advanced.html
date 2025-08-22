@@ -1575,7 +1575,59 @@
         </div>
     </section>
 
+    <!-- Achievement Section -->
+    <section class="achievement-section">
+        <div class="achievement-container">
+            <h2 class="section-title">Wizard Achievements</h2>
+            <p class="section-subtitle">Unlock the most prestigious badges as you master Git wizardry</p>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card" id="achievement-stash-master">
+                    <span class="achievement-icon">📦</span>
+                    <h4 class="achievement-name">Stash Master</h4>
+                    <p class="achievement-desc">Successfully saved and restored work with git stash</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-history-wizard">
+                    <span class="achievement-icon">🔄</span>
+                    <h4 class="achievement-name">History Wizard</h4>
+                    <p class="achievement-desc">Mastered rebasing and cherry-picking commits</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-detective">
+                    <span class="achievement-icon">🕵️</span>
+                    <h4 class="achievement-name">Git Detective</h4>
+                    <p class="achievement-desc">Used show, blame, and reflog to investigate repository history</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-architect">
+                    <span class="achievement-icon">🏗️</span>
+                    <h4 class="achievement-name">Repository Architect</h4>
+                    <p class="achievement-desc">Managed submodules and worktrees for complex project structures</p>
+                </div>
+                
+                <div class="achievement-card" id="achievement-wizard-complete">
+                    <span class="achievement-icon">🏆</span>
+                    <h4 class="achievement-name">Wizard Complete</h4>
+                    <p class="achievement-desc">Mastered all advanced Git commands - you are a true Git Wizard!</p>
+                </div>
+            </div>
+        </div>
+    </section>
     
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <button class="achievement-close" onclick="closeAchievement()">&times;</button>
+        <div class="achievement-popup-header">🏆 Achievement Unlocked!</div>
+        <div class="achievement-popup-content">
+            <div class="achievement-popup-icon" id="achievementIcon">📦</div>
+            <div class="achievement-popup-text">
+                <div class="achievement-popup-title" id="achievementTitle">Stash Master</div>
+                <div class="achievement-popup-desc" id="achievementDesc">You've successfully learned to stash your work!</div>
+            </div>
+        </div>
+    </div>
+        
         <!-- Footer -->
     <footer class="footer">
         <div class="container">
