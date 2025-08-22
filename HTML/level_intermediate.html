@@ -37,6 +37,64 @@
         .navbar {
             position: static;
         }
+
+        /* Level Header */
+        .level-header {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 234, 0, 0.15) 0%, transparent 50%), /* Changed to yellow */
+                radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            margin-top: 0px;
+        }
+
+        .level-header-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 234, 0, 0.2); /* Changed to yellow */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(45deg, #FFEA00, #00d4ff); /* Changed to yellow */
+            color: #0f0f23;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px rgba(255, 234, 0, 0.8), /* Changed to yellow */
+                0 0 20px rgba(255, 234, 0, 0.6), /* Changed to yellow */
+                0 0 30px rgba(255, 234, 0, 0.4), /* Changed to yellow */
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .level-description {
+            font-size: 1.3rem;
+            color: #e0e0f0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
