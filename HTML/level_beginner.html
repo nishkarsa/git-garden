@@ -699,7 +699,7 @@
         /* Achievement Popup System */
         .achievement-popup {
             position: fixed;
-            top: 80px;
+            top: 0px;
             left: 2rem;
             width: 350px;
             background: linear-gradient(145deg, rgba(0, 255, 136, 0.95), rgba(0, 212, 255, 0.9));
@@ -891,12 +891,6 @@
     </style>
 </head>
 <body>
-    <script>
-    const user = localStorage.getItem("gitgarden_auth");
-    if (!user) {
-        window.location.href = "../index.html"; // Redirect to home if not logged in
-    }
-    </script>
     <!-- Auth Modal -->
     <div class="modal-overlay" id="authModal">
         <div class="auth-modal">
@@ -953,7 +947,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="../index.html">Home</a></li>
-                <li><a href="../index.html#levels">Levels</a></li>
+                <li><a href="/index.html#levels">Levels</a></li>
                 <li><a href="challenges.html">Challenges</a></li>
                 <li><a href="about_us.html">About Us</a></li>
                 <li><a href="contact_us.html">Contact</a></li>
@@ -964,13 +958,11 @@
                 <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
             </div>
 
-            <!-- User Info (shown when logged in, initially hidden) -->
-            <div class="user-icon-container" id="userIconNav" style="display: none;">
-                <img id="profileImg" 
-                    alt="Profile" 
-                    style="width:32px; height:32px; border-radius:50%; margin-right:8px; display:none;">
+            <!-- User Icon (shown when logged in, initially hidden) -->
+            <div class="user-icon-container" id="userIconNav">
+                <i class="fas fa-user"></i>
                 <span id="userNameDisplay">User</span>
-                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;" onclick="firebaseLogout()">Logout</button>
+                <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;">Logout</button>
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -1897,10 +1889,6 @@
         
     </script>
 
-
-<script src="../Script/firebase-auth.js"></script>   
-<script src="../Script/shared-auth.js"></script>
-<script src="../Script/javascript.js"></script> 
-
+<script src="/Script/javascript.js"></script>    
 </body>
 </html>
