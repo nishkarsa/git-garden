@@ -1693,7 +1693,7 @@
         // Floating Progress Bar Functions
         function updateFloatingProgress(animated = false) {
             const total = steps.length;
-            const completed = currentStep;
+            const completed = currentStep + (currentStep >= steps.length ? 1 : 0);
             const percentage = Math.round((completed / total) * 100);
             
             const progressFill = document.getElementById('floatingProgressFill');

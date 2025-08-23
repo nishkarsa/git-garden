@@ -1070,7 +1070,7 @@
         <div class="progress-header" id="progressHeader">
             <div>
                 <span class="progress-icon" id="progressIcon">🌳</span>
-                <span class="progress-title">Guardian Progress</span>
+                <span class="progress-title">Wizard Progress</span>
             </div>
             <span class="progress-percentage" id="progressPercentage">0%</span>
         </div>
@@ -1079,7 +1079,7 @@
             <div class="floating-progress-fill" id="floatingProgressFill"></div>
         </div>
         <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
-            ⚔️ Go to Next Level: Champion
+            🏆 Solve Challenges
         </button>
     </div>
 
@@ -1092,11 +1092,6 @@
                 You've become a Git Guardian! Now unlock the true power of Git with advanced magic spells.
                 Master complex workflows, history manipulation, and professional-grade techniques!
             </p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <p class="progress-text" id="progressText">Progress: 0/15 commands completed</p>
-        </div>
     </section>
 
     <!-- Interactive Learning Section -->
@@ -1851,12 +1846,12 @@
                     left: 50%;
                     transform: translate(-50%, -50%) scale(0.8);
                     width: 450px;
-                    background: linear-gradient(145deg, rgba(255, 234, 0, 0.95), rgba(0, 212, 255, 0.9)); 
+                    background: linear-gradient(145deg, rgba(255, 80, 80, 0.95), rgba(200, 0, 0, 0.9)); 
                     backdrop-filter: blur(20px);
                     border-radius: 25px;
                     padding: 3rem 2rem;
-                    border: 3px solid #FFEA00; 
-                    box-shadow: 0 30px 60px rgba(255, 234, 0, 0.4); 
+                    border: 3px solid #FF3B3B; 
+                    box-shadow: 0 30px 60px rgba(255, 80, 80, 0.4); 
                     z-index: 1001;
                     text-align: center;
                     opacity: 0;
@@ -1900,7 +1895,7 @@
                             text-transform: uppercase;
                             letter-spacing: 1px;
                         ">
-                            ⚔️ Next Level: Master
+                            🎯 Next Level: Challenges
                         </button>
                         
                         <button onclick="closeCompletionPopup(true)" style="
@@ -1951,9 +1946,15 @@
             document.head.appendChild(style);
         }
 
+        function goToNextLevel() {
+            window.location.href = "challenges.html";
+        }
+
         function goToNextLevelFromPopup() {
-            alert("You're ready for the Master Level! (Page not yet created)");
+            
             closeCompletionPopup(false);
+
+            window.location.href = "challenges.html";
         }
 
         function closeCompletionPopup(showNextLevelButtonInFloatingProgress) {
