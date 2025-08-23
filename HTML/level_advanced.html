@@ -534,23 +534,23 @@
             scroll-margin-top: 100px;
         }
 
-        .floating-progress {
+        .wizardFloating-progress {
             position: fixed;
             top: 80px;
             right: 2rem;
             width: 280px;
-            background: rgba(42, 14, 14, 0.95);
+            background: rgba(15, 15, 35, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 15px;
             padding: 1.5rem;
-            border: 2px solid rgba(255, 51, 102, 0.4); 
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+            border: 2px solid rgba(255, 234, 0, 0.3); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             z-index: 999;
             transition: all 0.3s ease;
             transform: translateX(300px);
         }
 
-        .floating-progress.visible {
+        .wizardFloating-progress.visible {
             transform: translateX(0);
         }
 
@@ -573,7 +573,7 @@
             font-size: 1.1rem;
         }
 
-        .floating-progress-bar {
+        .wizardFloating-progress-bar {
             width: 100%;
             height: 20px;
             background: rgba(255, 255, 255, 0.1);
@@ -583,7 +583,7 @@
             border: 1px solid rgba(255, 51, 102, 0.3); 
         }
 
-        .floating-progress-fill {
+        .wizardFloating-progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #ff3366, #8b0000); 
             width: 0%;
@@ -593,7 +593,7 @@
             overflow: hidden;
         }
 
-        .floating-progress-fill::after {
+        .wizardFloating-progress-fill::after {
             content: '';
             position: absolute;
             top: 0;
@@ -604,7 +604,7 @@
             animation: progressShimmer 2s infinite;
         }
 
-        .floating-progress-fill.animated {
+        .wizardFloating-progress-fill.animated {
             animation: progressPulse 0.6s ease;
         }
 
@@ -925,7 +925,7 @@
         }
 
         /* New style for "Go to Next Level" button in floating progress */
-        .floating-progress .next-level-button {
+        .wizardFloating-progress .next-level-button {
             width: 100%;
             padding: 0.8rem;
             background: linear-gradient(45deg, #ff3366, #8b0000);
@@ -942,14 +942,14 @@
             display: none;
         }
 
-        .floating-progress .next-level-button:hover {
+        .wizardFloating-progress .next-level-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
         }
 
         /* Mobile Responsive */
         @media (max-width: 1024px) {
-            .floating-progress {
+            .wizardFloating-progress {
                 width: 250px;
                 right: 1rem;
             }
@@ -961,7 +961,7 @@
         }
 
         @media (max-width: 768px) {
-            .floating-progress {
+            .wizardFloating-progress {
                 position: relative;
                 top: 0;
                 right: 0;
@@ -1105,11 +1105,11 @@
         </div>
     </nav>
 
-        <!-- Background Animation -->
+    <!-- Background Animation -->
     <div class="bg-animation" id="bgAnimation"></div>
 
     <!-- Floating Progress Bar -->
-    <div class="floating-progress" id="floatingProgress">
+    <div class="wizardFloating-progress" id="floatingProgress">
         <div class="progress-header" id="progressHeader">
             <div>
                 <span class="progress-icon" id="progressIcon">🌳</span>
@@ -1118,8 +1118,8 @@
             <span class="progress-percentage" id="progressPercentage">0%</span>
         </div>
         
-        <div class="floating-progress-bar" id="floatingProgressBar">
-            <div class="floating-progress-fill" id="floatingProgressFill"></div>
+        <div class="wizardFloating-progress-bar" id="floatingProgressBar">
+            <div class="wizardFloating-progress-fill" id="floatingProgressFill"></div>
         </div>
         <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
             ⚔️ Go to Next Level: Challenges
@@ -1135,8 +1135,6 @@
                 You've become a Git Guardian! Now unlock the true power of Git with advanced magic spells.
                 Master complex workflows, history manipulation, and professional-grade techniques!
             </p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
     </section>
 
     <!-- Interactive Learning Section -->
@@ -2188,20 +2186,22 @@
             }
         });
 
+        // Create floating particles
         function createStarParticles() {
             const bgAnimation = document.getElementById('bgAnimation');
             const particleCount = 50;
 
-            bgAnimation.innerHTML = '';
+            bgAnimation.innerHTML = '';     // Clear existing particles
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
 
-                const size = Math.random() * 4 + 2;
+                // Randomize particle properties
+                const size = Math.random() * 4 + 2; // 2-6px
                 const startX = Math.random() * 100;
                 const startY = Math.random() * 100;
-                const duration = Math.random() * 4 + 6;
+                const duration = Math.random() * 4 + 6; // 6-10s
                 const delay = Math.random() * duration;
                 
                 particle.style.cssText = `
@@ -2217,8 +2217,9 @@
                 bgAnimation.appendChild(particle);
             }
             
-            setTimeout(createStarParticles, 30000);
-        }
+            // Regenerate particles periodically to keep animation fresh
+            setTimeout(createStarParticles, 30000); // Every 30 seconds
+        } 
         
         function unlockAchievement(achievementId) {
             const achievement = document.getElementById(achievementId);
