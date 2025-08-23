@@ -446,6 +446,38 @@
                 opacity: 0;
                 transform: translateY(-100px) scale(0);
             }
+        }
+        /* ===============================
+        Responsive "Choose Your Path"
+        =============================== */
+        @media (max-width: 1024px) {
+        .level-cards {
+            grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablet */
+            gap: 2rem;
+        }
+        }
+
+        @media (max-width: 768px) {
+        .level-cards {
+            grid-template-columns: 1fr; /* 1 card per row on mobile */
+        }
+
+        .level-card {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .levels h2 {
+            font-size: 2rem; /* smaller heading for mobile */
+        }
+
+        .level-card h3 {
+            font-size: 1.4rem;
+        }
+
+        .level-card p {
+            font-size: 0.9rem;
+        }
         }        
     </style>
 </head>
@@ -536,8 +568,7 @@
                 <span id="userNameDisplay">User</span>
                 <button class="auth-btn login-btn" id="logoutBtn" style="margin-left: 10px;" onclick="firebaseLogout()">Logout</button>
             </div>
-
-            <div class="hamburger">
+              <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -640,10 +671,7 @@
         </div>
     </footer>
 <script src="./Script/firebase-auth.js"></script>
-<script src="./Script/shared-auth.js"></script>
 <script src="./Script/javascript.js"></script>  
-
-
 
 </body>
 </html>

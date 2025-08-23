@@ -33,8 +33,9 @@ function updateAuthUI() {
         if (user) {
             // Show name if available
             if (user.displayName && userNameDisplay) {
-                userNameDisplay.textContent = user.displayName;
-            }
+            const firstName = user.displayName.split(" ")[0];
+            userNameDisplay.textContent = firstName;
+        }
 
             // Show profile picture if available
             if (user.photoURL) {

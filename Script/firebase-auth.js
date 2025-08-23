@@ -11,7 +11,11 @@ document.getElementById("googleLoginBtn")?.addEventListener("click", async () =>
         localStorage.setItem("gitgarden_auth", "true"); 
         localStorage.setItem("gitgarden_user", JSON.stringify(result.user));
 
-        alert(`Welcome ${result.user.displayName}`);
+        // ✅ Only first name
+        const fullName = result.user.displayName || "User";
+        const firstName = fullName.split(" ")[0];
+
+        alert(`Welcome ${firstName}`);
         window.location.reload();
     } catch (error) {
         console.error("Google login failed:", error.message);
@@ -27,12 +31,17 @@ document.getElementById("githubLoginBtn")?.addEventListener("click", async () =>
         localStorage.setItem("gitgarden_auth", "true"); 
         localStorage.setItem("gitgarden_user", JSON.stringify(result.user));
 
-        alert(`Welcome ${result.user.displayName}`);
+        // ✅ Only first name
+        const fullName = result.user.displayName || "User";
+        const firstName = fullName.split(" ")[0];
+
+        alert(`Welcome ${firstName}`);
         window.location.reload();
     } catch (error) {
         console.error("GitHub login failed:", error.message);
     }
 });
+
 function firebaseLogout() {
     auth.signOut().then(() => {
         localStorage.removeItem("gitgarden_auth");
