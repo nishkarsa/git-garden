@@ -36,14 +36,17 @@ class AuthManager {
             // Get user data from localStorage (set this after login)
             const user = JSON.parse(localStorage.getItem('gitgarden_user'));
 
-            if (userNameDisplay && user) {
-                userNameDisplay.textContent = user.displayName || user.email || "User";
-            }
+if (user) {
+    if (userNameDisplay) {
+        const firstName = user.displayName ? user.displayName.split(" ")[0] : "User";
+        userNameDisplay.textContent = firstName;
+    }
+    if (profileImg && user.photoURL) {
+        profileImg.src = user.photoURL;
+        profileImg.style.display = "block";
+    }
+}
 
-            if (profileImg && user && user.photoURL) {
-                profileImg.src = user.photoURL;
-                profileImg.style.display = "inline-block";
-            }
         } else {
             authNavButtons.style.display = 'flex';
             userIconNav.style.display = 'none';

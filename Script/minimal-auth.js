@@ -22,13 +22,17 @@ updateAuthUI() {
             userIconNav.style.display = 'flex';
 
             const user = JSON.parse(localStorage.getItem("gitgarden_user"));
-            if (user) {
-                if (userNameDisplay) userNameDisplay.textContent = user.displayName || "User";
-                if (profileImg && user.photoURL) {
-                    profileImg.src = user.photoURL;
-                    profileImg.style.display = "block";
-                }
-            }
+           if (user) {
+    if (userNameDisplay) {
+        const firstName = user.displayName ? user.displayName.split(" ")[0] : "User";
+        userNameDisplay.textContent = firstName;
+    }
+    if (profileImg && user.photoURL) {
+        profileImg.src = user.photoURL;
+        profileImg.style.display = "block";
+    }
+}
+
         } else {
             authNavButtons.style.display = 'flex';
             userIconNav.style.display = 'none';
