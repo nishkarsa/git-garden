@@ -86,42 +86,7 @@ gitgarden/
 │   ├── Ratul_img.png
 │   ├── tanisha_img.jpg
 │   └── Udip_img.png
-├── MultipleFiles/
-│   ├── applypatch-msg.sample
-│   ├── commit-msg.sample
-│   ├── pre-push.sample
-│   ├── HEAD
-│   ├── index
-│   ├── config
-│   ├── description
-│   ├── FETCH_HEAD
-│   ├── ORIG_HEAD
-│   ├── packed-refs
-│   ├── MERGE_MSG.swo
-│   ├── MERGE_MSG.swp
-│   ├── COMMIT_EDITMSG
-│   ├── exclude
-│   ├── bug-fix
-│   ├── feature-introduction
-│   ├── challenges-page
-│   ├── int
-│   ├── main
-│   ├── test
-│   ├── level-advanced-page
-│   ├── dev
-│   ├── page
-│   ├── login
-│   ├── bugfix-css
-│   ├── feature-animation
-│   ├── feature-banner
-│   ├── feature-footer
-│   ├── feature-javascript
-│   ├── feature-level
-│   ├── feature-nav
-│   ├── contactus-page
-│   ├── level-beginner-page
-│   └── level-intermediate-page
-└── LICENSE
+└── README.md
 ```
 ## Usage
 
