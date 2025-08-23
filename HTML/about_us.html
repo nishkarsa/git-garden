@@ -45,26 +45,28 @@
         /* Animated background container */
         .animated-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Allows clicks to pass through */
-            z-index: -1; /* Puts it behind content */
-            /* Background gradient */
+            inset: 0;
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
-        }
+            z-index: -1;
+            }
 
-        /* Particles for background animation */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #00ff88;
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-            opacity: 0.6;
-        }
+            .particles-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1; /* sits just above gradient, below content */
+            }
+            .particle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: #00ff88;  /* Bright neon green */
+                border-radius: 50%;
+                animation: float 6s ease-in-out infinite;
+                opacity: 0.6; /* If you want more visible particles, make this 0.8 */
+            }
+
+
 
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -587,9 +589,9 @@
 <body class = "relative font-sans">
 
 <!-- Animated Background -->
-    <div class="animated-bg">
-        <!-- Particles will be dynamically added here by JavaScript -->
-    </div>
+    <div class="animated-bg"></div>
+    <div class="particles-layer"></div>
+
 
 <!-- Auth Modal -->
     <div class="modal-overlay" id="authModal">
@@ -910,20 +912,24 @@
     <script>
         // Function to create animated particles in the background
         function createParticles() {
-            const bgAnimation = document.querySelector('.animated-bg'); // Use .animated-bg as the container for the animated background
-            const particleCount = 30; // number of particles to create
+            const bgAnimation = document.querySelector('.animated-bg');
+            if (!bgAnimation) return; // Safety check
 
-            // loop to create and position particles
+            const particleCount = 35; // You can increase for denser effect
             for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div'); // create a new div for each particles
-                particle.className = 'particle'; // assign the 'particle' class for styling
-                particle.style.left = Math.random() * 100 + '%'; // random horizontal position
-                particle.style.top = Math.random() * 100 + '%'; // random vertical position
-                particle.style.animationDelay = Math.random() * 6 + 's'; // random delay before animation starts
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's'; // random duration for the animation
-                bgAnimation.appendChild(particle); // add the particle to the background
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                bgAnimation.appendChild(particle);
             }
         }
+
+        // Call after DOM loads
+        document.addEventListener('DOMContentLoaded', createParticles);
+
 
         // Event listener for when the DOM content is fully loaded 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1010,6 +1016,7 @@
 
             // Call createParticles function to generate particles on page load
             createParticles();
+            
         });
     </script>
 
