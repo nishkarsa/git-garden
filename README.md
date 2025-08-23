@@ -19,6 +19,8 @@ GitGarden is an interactive and gamified web platform designed to help developer
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
+- [Contributors](#contributors)
+- [Screenshots](#screenshots)
 
 ---
 
@@ -169,6 +171,16 @@ This project is open-source and available to all.
 - **Swiper.js**: For the carousel.
 - **Tailwind CSS**: For styling.
 - **The Git Community**: For resources and inspiration.
+
+---
+
+## Contributors
+
+- **Nishkarsa Thapa Magar**: https://github.com/nishkarsa
+- **Prapti Bhattarai**: https://github.com/Praptea-code
+- **Udip Maharjan**: https://github.com/UdipMaharjan
+- **Tanisha Maharjan**: https://github.com/Tanu66666
+- **Ratul Dhakal**: https://github.com/Ratul5595
 
 ---
 
