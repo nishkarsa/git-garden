@@ -158,7 +158,7 @@ After pushing your branch, open a **Pull Request** to the **main** branch.
 ---
 
 ## License
-This project is open-source and available under the **MIT License**.
+This project is open-source and available to all.
 
 ---
 
@@ -170,11 +170,22 @@ This project is open-source and available under the **MIT License**.
 - **Tailwind CSS**: For styling.
 - **The Git Community**: For resources and inspiration.
 
+---
+
 ## Screenshots
+
 ![index.html](Assests/Image/homepage_img.png)
+---
 ![level_beginner.html](Assests/Image/seedlingpage_img.png)
+---
 ![level_intermediate.html](Assests/Image/guardianpage_img.png)
+---
 ![level_advanced.html](Assests/Image/wizardpage_img.png)
+---
 ![about_us.html](Assests/Image/aboutuspage_img.png)
+---
+![about_us.html](Assests/Image/aboutuspage2_img.png)
+---
 ![contacy_us.html](Assests/Image/contactuspage_img.png)
+---
 ![login/signup_portal](Assests/Image/loginportal_img.png)
