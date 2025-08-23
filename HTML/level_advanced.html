@@ -2149,37 +2149,18 @@
             }
         });
 
-        function createStarParticles() {
-            const bgAnimation = document.getElementById('bgAnimation');
-            const particleCount = 50;
-
-            bgAnimation.innerHTML = '';
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-
-                const size = Math.random() * 4 + 2;
-                const startX = Math.random() * 100;
-                const startY = Math.random() * 100;
-                const duration = Math.random() * 4 + 6;
-                const delay = Math.random() * duration;
-                
-                particle.style.cssText = `
-                    left: ${startX}%;
-                    top: ${startY}%;
-                    width: ${size}px;
-                    height: ${size}px;
-                    animation-duration: ${duration}s;
-                    animation-delay: ${delay}s;
-                    opacity: ${Math.random() * 0.4 + 0.2};
-                `;
-                
-                bgAnimation.appendChild(particle);
+        document.addEventListener("DOMContentLoaded", () => {
+            const bg = document.getElementById("bgAnimation");
+            for (let i = 0; i < 50; i++) {   // number of particles
+                const particle = document.createElement("div");
+                particle.classList.add("particle");
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${4 + Math.random() * 6}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                bg.appendChild(particle);
             }
-            
-            setTimeout(createStarParticles, 30000);
-        }
+        });
         
         function unlockAchievement(achievementId) {
             const achievement = document.getElementById(achievementId);
