@@ -525,6 +525,8 @@ body {
 
   .hamburger {
     display: flex; /* show hamburger in mobile */
+    flex-direction: column;
+    gap: 5px;
   }
 }
 /* ===============================
