@@ -74,12 +74,15 @@
         }
 
         .navbar {
-            position: static; /* Ensure navbar is not fixed or absolute by default */
+            position: fixed; /* Ensure navbar is not fixed or absolute by default */
         }
 
         /* Animated background container */
         .animated-bg {
             position: fixed;
+            position: absolute; /* less repaint than fixed */
+            background-attachment: fixed; /* still looks nice */
+            animation: none; /* disable background animation */
             top: 0;
             left: 0;
             width: 100%;
@@ -87,6 +90,8 @@
             pointer-events: none;
             z-index: -1;
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d5f 100%);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
         }
 
         /* Particles for background animation */
@@ -107,11 +112,10 @@
 
         .form-container {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(15, 15, 35, 0.9));
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(50px);
             border-radius: 30px;
             box-shadow: 
             0 30px 60px rgba(0, 255, 136, 0.25),
-            0 0 100px rgba(0, 255, 136, 0.1),
             inset 0 1px 0 rgba(255, 255, 255, 0.1);
             margin: 20px auto;
             margin-top: 140px;
@@ -122,6 +126,8 @@
             animation: slideIn 0.8s ease-out;
             max-width: 800px;
             width: 100%;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
         }
 
         .form-container::before {
