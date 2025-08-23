@@ -847,6 +847,29 @@
             50% { transform: scale(1.2); }
         }
 
+        /* New style for "Go to Next Level" button in floating progress */
+        .floating-progress .next-level-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, #00ff88, #00d4ff); /* Yellow gradient */
+            color: #0f0f23;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem; /* Space from icon/title */
+            display: none; /* Hidden by default */
+        }
+
+        .floating-progress .next-level-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.6); /* Yellow shadow */
+        }
+
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .floating-progress {
@@ -987,17 +1010,20 @@
 
     <!-- Floating Progress Bar -->
     <div class="floating-progress" id="floatingProgress">
-        <div class="progress-header">
+        <div class="progress-header" id="progressHeader">
             <div>
-                <span class="progress-icon" id="progressIcon">🌱</span>
-                <span class="progress-title">Seedling Progress</span>
+                <span class="progress-icon" id="progressIcon">🌳</span>
+                <span class="progress-title">Guardian Progress</span>
             </div>
             <span class="progress-percentage" id="progressPercentage">0%</span>
         </div>
         
-        <div class="floating-progress-bar">
+        <div class="floating-progress-bar" id="floatingProgressBar">
             <div class="floating-progress-fill" id="floatingProgressFill"></div>
         </div>
+        <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
+            ⚔️ Go to Next Level: Guardian
+        </button>
     </div>
 
     <!-- Level Header -->
@@ -1568,7 +1594,7 @@
                             🌿 Next Level: Guardian
                         </button>
                         
-                        <button onclick="closeCompletionPopup()" style="
+                        <button onclick="closeCompletionPopup(true)" style="
                             background: transparent;
                             color: #0f0f23;
                             border: 2px solid #0f0f23;
@@ -1619,13 +1645,21 @@
             document.head.appendChild(style);
         }
 
-        // Add functions for completion popup buttons
         function goToNextLevel() {
-            // Navigate to guardian level (you'll need to create this page)
-            window.location.href = './HTML/level_guardian.html';
+            window.location.href = "level_intermediate.html";
+        }
+        
+        //  function for "Next Level" button inside the popup
+        function goToNextLevelFromPopup() {
+
+            closeCompletionPopup(false); // Close popup, but don't show "Go to Next Level" button in floating progress
+
+            window.location.href = "./HTML/level_intermediate.html";
+             
         }
 
-        function closeCompletionPopup() {
+        // closeCompletionPopup to handle the "Stay Here" action
+        function closeCompletionPopup(showNextLevelButtonInFloatingProgress) {
             const popup = document.getElementById('completionPopup');
             const overlay = document.querySelector('.completion-overlay');
             
@@ -1636,7 +1670,24 @@
             setTimeout(() => {
                 popup.remove();
                 overlay.remove();
+                if (showNextLevelButtonInFloatingProgress) {
+                    showFloatingProgressNextLevelButton();
+                }
             }, 500);
+        }
+
+        //  function to show the "Go to Next Level" button in the floating progress bar
+        function showFloatingProgressNextLevelButton() {
+            const progressHeader = document.getElementById('progressHeader');
+            const progressBar = document.getElementById('floatingProgressBar');
+            const nextLevelButton = document.getElementById('goToNextLevelButton');
+
+            // Hide the progress header and bar
+            progressHeader.style.display = 'none';
+            progressBar.style.display = 'none';
+
+            // Show the "Go to Next Level" button
+            nextLevelButton.style.display = 'block';
         }
 
         // Floating Progress Bar Functions
@@ -1647,10 +1698,18 @@
             
             const progressFill = document.getElementById('floatingProgressFill');
             const progressIcon = document.getElementById('progressIcon');
+            const progressPercentage = document.getElementById('progressPercentage');
+            const progressHeader = document.getElementById('progressHeader');
+            const progressBar = document.getElementById('floatingProgressBar');
+            const nextLevelButton = document.getElementById('goToNextLevelButton');
             
-            // Update progress bar
+            // Reset visibility in case it was set to show the next level button
+            progressHeader.style.display = 'flex';
+            progressBar.style.display = 'block';
+            nextLevelButton.style.display = 'none';
+
             progressFill.style.width = percentage + '%';
-            document.getElementById('progressPercentage').textContent = percentage + '%';
+            progressPercentage.textContent = percentage + '%';
             
             // Add progress animation
             if (animated) {

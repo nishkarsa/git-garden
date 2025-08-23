@@ -1103,7 +1103,7 @@
             <div class="floating-progress-fill" id="floatingProgressFill"></div>
         </div>
         <button class="next-level-button" id="goToNextLevelButton" onclick="goToNextLevel()">
-            ⚔️ Go to Next Level: Champion
+            🧙‍♂️ Go to Next Level: Wizard
         </button>
     </div>
     
@@ -1118,9 +1118,6 @@
             </p>
             <div class="progress-bar" style="display: none;">
                 <div class="progress-fill" id="progressFill" style="display: none;"></div>
-            </div>
-            <p class="progress-text" id="progressText">Progress: 0/18 commands completed</p>
-        </div>
     </section>
 
     <!-- Interactive Learning Section -->
@@ -1995,7 +1992,7 @@
                             text-transform: uppercase;
                             letter-spacing: 1px;
                         ">
-                            ⚔️ Next Level: Champion
+                            🧙‍♂️ Next Level: Wizard
                         </button>
                         
                         <button onclick="closeCompletionPopup(true)" style=" /* Pass true to indicate 'Stay Here' */
@@ -2046,11 +2043,16 @@
             document.head.appendChild(style);
         }
 
+        function goToNextLevel() {
+        window.location.href = "level_advanced.html";
+        }
+
         //  function for "Next Level" button inside the popup
         function goToNextLevelFromPopup() {
-            // Placeholder for next level
-            alert("You're ready for the Champion Level! (Page not yet created)");
+            
             closeCompletionPopup(false); // Close popup, but don't show "Go to Next Level" button in floating progress
+
+            window.location.href = "level_advanced.html";
         }
 
         // closeCompletionPopup to handle the "Stay Here" action
