@@ -10,20 +10,32 @@ class MinimalAuth {
         this.setupAuthHandlers();
     }
 
-    updateAuthUI() {
-        const authNavButtons = document.getElementById('authNavButtons');
-        const userIconNav = document.getElementById('userIconNav');
-        
-        if (authNavButtons && userIconNav) {
-            if (this.isLoggedIn) {
-                authNavButtons.style.display = 'none';
-                userIconNav.style.display = 'flex';
-            } else {
-                authNavButtons.style.display = 'flex';
-                userIconNav.style.display = 'none';
+updateAuthUI() {
+    const authNavButtons = document.getElementById('authNavButtons');
+    const userIconNav = document.getElementById('userIconNav');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const profileImg = document.getElementById('profileImg');
+
+    if (authNavButtons && userIconNav) {
+        if (this.isLoggedIn) {
+            authNavButtons.style.display = 'none';
+            userIconNav.style.display = 'flex';
+
+            const user = JSON.parse(localStorage.getItem("gitgarden_user"));
+            if (user) {
+                if (userNameDisplay) userNameDisplay.textContent = user.displayName || "User";
+                if (profileImg && user.photoURL) {
+                    profileImg.src = user.photoURL;
+                    profileImg.style.display = "block";
+                }
             }
+        } else {
+            authNavButtons.style.display = 'flex';
+            userIconNav.style.display = 'none';
         }
     }
+}
+
 
     setupAuthHandlers() {
         // Login button - redirect to main page

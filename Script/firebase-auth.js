@@ -37,11 +37,24 @@ function firebaseLogout() {
     auth.signOut().then(() => {
         localStorage.removeItem("gitgarden_auth");
         localStorage.removeItem("gitgarden_user");
-        window.location.replace(window.location.origin + "/git-garden/index.html");
+
+        const currentPage = window.location.pathname;
+
+        // Pages that should reload instead of redirect
+        const stayPages = ["/about_us.html", "/contact_us.html"];
+
+        if (stayPages.some(page => currentPage.endsWith(page))) {
+            // Reload same page
+            window.location.reload();
+        } else {
+            // Default: go back to index
+            window.location.replace(window.location.origin + "/git-garden/index.html");
+        }
     }).catch((error) => {
         console.error("Logout error:", error.message);
     });
 }
+
 
 
 
